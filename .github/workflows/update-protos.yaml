@@ -1,0 +1,57 @@
+name: Update Protos Submodules and Generate Code
+
+on:
+  repository_dispatch:
+    types: [update-protos]
+
+permissions:
+  contents: write
+
+jobs:
+  update-submodules:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.PROTOS_PAT }}
+          submodules: true
+
+      - name: Set Git User Identity
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+      - name: Update protos submodule in ${{ github.event.repository.name }}
+        run: |
+          git submodule update --init --recursive
+          git submodule update --remote protos
+          git add protos
+
+      - name: Setup buf
+        uses: bufbuild/buf-action@v1
+
+      - name: Run buf generate
+        run: |
+          buf generate
+
+      - name: Add buf generate changes
+        run: |
+          git add .
+
+      - name: Setup Go environment
+        uses: actions/setup-go@v7
+        with:
+          go-version-file: 'go.mod'
+          cache-dependency-path: 'go.sum'
+
+      - name: Run linter
+        uses: golangci/golangci-lint-action@v7
+        with:
+          version: v2.6
+
+      - name: Commit and push changes to main branch
+        run: |
+          git commit -m "chore: Update protos submodule to ${{ github.event.client_payload.sha }} and Run buf generate" || true
+          git pull --rebase
+          git push
