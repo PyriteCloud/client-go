@@ -7,6 +7,7 @@
 package projectsv1
 
 import (
+	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/common/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -204,6 +205,8 @@ func (x *ProjectById) GetWithSecrets() bool {
 type ProjectsByTeamId struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TeamId        *string                `protobuf:"bytes,1,opt,name=team_id,json=teamId,proto3,oneof" json:"team_id,omitempty"`
+	WithMeta      *bool                  `protobuf:"varint,2,opt,name=with_meta,json=withMeta,proto3,oneof" json:"with_meta,omitempty"`
+	Pagination    *v1.CursorPagination   `protobuf:"bytes,3,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -243,6 +246,20 @@ func (x *ProjectsByTeamId) GetTeamId() string {
 		return *x.TeamId
 	}
 	return ""
+}
+
+func (x *ProjectsByTeamId) GetWithMeta() bool {
+	if x != nil && x.WithMeta != nil {
+		return *x.WithMeta
+	}
+	return false
+}
+
+func (x *ProjectsByTeamId) GetPagination() *v1.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
 }
 
 type ProjectMeta struct {
@@ -416,6 +433,10 @@ func (x *Project) GetMeta() *ProjectMeta {
 type Projects struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Projects      []*Project             `protobuf:"bytes,1,rep,name=projects,proto3" json:"projects,omitempty"`
+	PageSize      int32                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SortBy        string                 `protobuf:"bytes,3,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	HasNextPage   bool                   `protobuf:"varint,4,opt,name=has_next_page,json=hasNextPage,proto3" json:"has_next_page,omitempty"`
+	NextCursor    *string                `protobuf:"bytes,5,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -457,11 +478,39 @@ func (x *Projects) GetProjects() []*Project {
 	return nil
 }
 
+func (x *Projects) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *Projects) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *Projects) GetHasNextPage() bool {
+	if x != nil {
+		return x.HasNextPage
+	}
+	return false
+}
+
+func (x *Projects) GetNextCursor() string {
+	if x != nil && x.NextCursor != nil {
+		return *x.NextCursor
+	}
+	return ""
+}
+
 var File_pyrite_v1_projects_v1_projects_proto protoreflect.FileDescriptor
 
 const file_pyrite_v1_projects_v1_projects_proto_rawDesc = "" +
 	"\n" +
-	"$pyrite/v1/projects/v1/projects.proto\x12\x15pyrite.v1.projects.v1\"^\n" +
+	"$pyrite/v1/projects/v1/projects.proto\x12\x15pyrite.v1.projects.v1\x1a pyrite/v1/common/v1/common.proto\"^\n" +
 	"\x10CreateProjectDto\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x17\n" +
 	"\ateam_id\x18\x02 \x01(\tR\x06teamId\x12\x15\n" +
@@ -479,11 +528,18 @@ const file_pyrite_v1_projects_v1_projects_proto_rawDesc = "" +
 	"\fwith_secrets\x18\x03 \x01(\bH\x01R\vwithSecrets\x88\x01\x01B\f\n" +
 	"\n" +
 	"_with_metaB\x0f\n" +
-	"\r_with_secrets\"<\n" +
+	"\r_with_secrets\"\xc7\x01\n" +
 	"\x10ProjectsByTeamId\x12\x1c\n" +
-	"\ateam_id\x18\x01 \x01(\tH\x00R\x06teamId\x88\x01\x01B\n" +
+	"\ateam_id\x18\x01 \x01(\tH\x00R\x06teamId\x88\x01\x01\x12 \n" +
+	"\twith_meta\x18\x02 \x01(\bH\x01R\bwithMeta\x88\x01\x01\x12J\n" +
 	"\n" +
-	"\b_team_id\"\xcd\x01\n" +
+	"pagination\x18\x03 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x02R\n" +
+	"pagination\x88\x01\x01B\n" +
+	"\n" +
+	"\b_team_idB\f\n" +
+	"\n" +
+	"_with_metaB\r\n" +
+	"\v_pagination\"\xcd\x01\n" +
 	"\vProjectMeta\x12%\n" +
 	"\x0eservices_count\x18\x01 \x01(\x05R\rservicesCount\x12,\n" +
 	"\x12web_services_count\x18\x02 \x01(\x05R\x10webServicesCount\x12\x1d\n" +
@@ -502,9 +558,15 @@ const file_pyrite_v1_projects_v1_projects_proto_rawDesc = "" +
 	"updated_at\x18\x06 \x01(\tR\tupdatedAt\x12;\n" +
 	"\x04meta\x18\a \x01(\v2\".pyrite.v1.projects.v1.ProjectMetaH\x01R\x04meta\x88\x01\x01B\x06\n" +
 	"\x04_envB\a\n" +
-	"\x05_meta\"F\n" +
+	"\x05_meta\"\xd6\x01\n" +
 	"\bProjects\x12:\n" +
-	"\bprojects\x18\x01 \x03(\v2\x1e.pyrite.v1.projects.v1.ProjectR\bprojects2\xd6\x03\n" +
+	"\bprojects\x18\x01 \x03(\v2\x1e.pyrite.v1.projects.v1.ProjectR\bprojects\x12\x1b\n" +
+	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\x12\x17\n" +
+	"\asort_by\x18\x03 \x01(\tR\x06sortBy\x12\"\n" +
+	"\rhas_next_page\x18\x04 \x01(\bR\vhasNextPage\x12$\n" +
+	"\vnext_cursor\x18\x05 \x01(\tH\x00R\n" +
+	"nextCursor\x88\x01\x01B\x0e\n" +
+	"\f_next_cursor2\xd6\x03\n" +
 	"\x0eProjectService\x12]\n" +
 	"\x0fFindAllProjects\x12'.pyrite.v1.projects.v1.ProjectsByTeamId\x1a\x1f.pyrite.v1.projects.v1.Projects\"\x00\x12V\n" +
 	"\x0eFindOneProject\x12\".pyrite.v1.projects.v1.ProjectById\x1a\x1e.pyrite.v1.projects.v1.Project\"\x00\x12Z\n" +
@@ -527,32 +589,34 @@ func file_pyrite_v1_projects_v1_projects_proto_rawDescGZIP() []byte {
 
 var file_pyrite_v1_projects_v1_projects_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_pyrite_v1_projects_v1_projects_proto_goTypes = []any{
-	(*CreateProjectDto)(nil), // 0: pyrite.v1.projects.v1.CreateProjectDto
-	(*UpdateProjectDto)(nil), // 1: pyrite.v1.projects.v1.UpdateProjectDto
-	(*ProjectById)(nil),      // 2: pyrite.v1.projects.v1.ProjectById
-	(*ProjectsByTeamId)(nil), // 3: pyrite.v1.projects.v1.ProjectsByTeamId
-	(*ProjectMeta)(nil),      // 4: pyrite.v1.projects.v1.ProjectMeta
-	(*Project)(nil),          // 5: pyrite.v1.projects.v1.Project
-	(*Projects)(nil),         // 6: pyrite.v1.projects.v1.Projects
+	(*CreateProjectDto)(nil),    // 0: pyrite.v1.projects.v1.CreateProjectDto
+	(*UpdateProjectDto)(nil),    // 1: pyrite.v1.projects.v1.UpdateProjectDto
+	(*ProjectById)(nil),         // 2: pyrite.v1.projects.v1.ProjectById
+	(*ProjectsByTeamId)(nil),    // 3: pyrite.v1.projects.v1.ProjectsByTeamId
+	(*ProjectMeta)(nil),         // 4: pyrite.v1.projects.v1.ProjectMeta
+	(*Project)(nil),             // 5: pyrite.v1.projects.v1.Project
+	(*Projects)(nil),            // 6: pyrite.v1.projects.v1.Projects
+	(*v1.CursorPagination)(nil), // 7: pyrite.v1.common.v1.CursorPagination
 }
 var file_pyrite_v1_projects_v1_projects_proto_depIdxs = []int32{
-	4, // 0: pyrite.v1.projects.v1.Project.meta:type_name -> pyrite.v1.projects.v1.ProjectMeta
-	5, // 1: pyrite.v1.projects.v1.Projects.projects:type_name -> pyrite.v1.projects.v1.Project
-	3, // 2: pyrite.v1.projects.v1.ProjectService.FindAllProjects:input_type -> pyrite.v1.projects.v1.ProjectsByTeamId
-	2, // 3: pyrite.v1.projects.v1.ProjectService.FindOneProject:input_type -> pyrite.v1.projects.v1.ProjectById
-	0, // 4: pyrite.v1.projects.v1.ProjectService.CreateProject:input_type -> pyrite.v1.projects.v1.CreateProjectDto
-	1, // 5: pyrite.v1.projects.v1.ProjectService.UpdateProject:input_type -> pyrite.v1.projects.v1.UpdateProjectDto
-	2, // 6: pyrite.v1.projects.v1.ProjectService.DeleteProject:input_type -> pyrite.v1.projects.v1.ProjectById
-	6, // 7: pyrite.v1.projects.v1.ProjectService.FindAllProjects:output_type -> pyrite.v1.projects.v1.Projects
-	5, // 8: pyrite.v1.projects.v1.ProjectService.FindOneProject:output_type -> pyrite.v1.projects.v1.Project
-	5, // 9: pyrite.v1.projects.v1.ProjectService.CreateProject:output_type -> pyrite.v1.projects.v1.Project
-	5, // 10: pyrite.v1.projects.v1.ProjectService.UpdateProject:output_type -> pyrite.v1.projects.v1.Project
-	5, // 11: pyrite.v1.projects.v1.ProjectService.DeleteProject:output_type -> pyrite.v1.projects.v1.Project
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	7, // 0: pyrite.v1.projects.v1.ProjectsByTeamId.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	4, // 1: pyrite.v1.projects.v1.Project.meta:type_name -> pyrite.v1.projects.v1.ProjectMeta
+	5, // 2: pyrite.v1.projects.v1.Projects.projects:type_name -> pyrite.v1.projects.v1.Project
+	3, // 3: pyrite.v1.projects.v1.ProjectService.FindAllProjects:input_type -> pyrite.v1.projects.v1.ProjectsByTeamId
+	2, // 4: pyrite.v1.projects.v1.ProjectService.FindOneProject:input_type -> pyrite.v1.projects.v1.ProjectById
+	0, // 5: pyrite.v1.projects.v1.ProjectService.CreateProject:input_type -> pyrite.v1.projects.v1.CreateProjectDto
+	1, // 6: pyrite.v1.projects.v1.ProjectService.UpdateProject:input_type -> pyrite.v1.projects.v1.UpdateProjectDto
+	2, // 7: pyrite.v1.projects.v1.ProjectService.DeleteProject:input_type -> pyrite.v1.projects.v1.ProjectById
+	6, // 8: pyrite.v1.projects.v1.ProjectService.FindAllProjects:output_type -> pyrite.v1.projects.v1.Projects
+	5, // 9: pyrite.v1.projects.v1.ProjectService.FindOneProject:output_type -> pyrite.v1.projects.v1.Project
+	5, // 10: pyrite.v1.projects.v1.ProjectService.CreateProject:output_type -> pyrite.v1.projects.v1.Project
+	5, // 11: pyrite.v1.projects.v1.ProjectService.UpdateProject:output_type -> pyrite.v1.projects.v1.Project
+	5, // 12: pyrite.v1.projects.v1.ProjectService.DeleteProject:output_type -> pyrite.v1.projects.v1.Project
+	8, // [8:13] is the sub-list for method output_type
+	3, // [3:8] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_projects_v1_projects_proto_init() }
@@ -565,6 +629,7 @@ func file_pyrite_v1_projects_v1_projects_proto_init() {
 	file_pyrite_v1_projects_v1_projects_proto_msgTypes[2].OneofWrappers = []any{}
 	file_pyrite_v1_projects_v1_projects_proto_msgTypes[3].OneofWrappers = []any{}
 	file_pyrite_v1_projects_v1_projects_proto_msgTypes[5].OneofWrappers = []any{}
+	file_pyrite_v1_projects_v1_projects_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

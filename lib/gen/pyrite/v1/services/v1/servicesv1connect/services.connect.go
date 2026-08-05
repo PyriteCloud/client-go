@@ -10,6 +10,7 @@ import (
 	errors "errors"
 	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1"
 	v11 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/common/v1"
+	v12 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/deployments/v1"
 	http "net/http"
 	strings "strings"
 )
@@ -37,9 +38,15 @@ const (
 	// ServicesServiceFindAllServicesProcedure is the fully-qualified name of the ServicesService's
 	// FindAllServices RPC.
 	ServicesServiceFindAllServicesProcedure = "/pyrite.v1.services.v1.ServicesService/FindAllServices"
+	// ServicesServiceFindAllDeploymentsProcedure is the fully-qualified name of the ServicesService's
+	// FindAllDeployments RPC.
+	ServicesServiceFindAllDeploymentsProcedure = "/pyrite.v1.services.v1.ServicesService/FindAllDeployments"
 	// ServicesServiceFindOneServiceProcedure is the fully-qualified name of the ServicesService's
 	// FindOneService RPC.
 	ServicesServiceFindOneServiceProcedure = "/pyrite.v1.services.v1.ServicesService/FindOneService"
+	// ServicesServiceCreateServiceProcedure is the fully-qualified name of the ServicesService's
+	// CreateService RPC.
+	ServicesServiceCreateServiceProcedure = "/pyrite.v1.services.v1.ServicesService/CreateService"
 	// ServicesServiceUpsertServiceProcedure is the fully-qualified name of the ServicesService's
 	// UpsertService RPC.
 	ServicesServiceUpsertServiceProcedure = "/pyrite.v1.services.v1.ServicesService/UpsertService"
@@ -69,7 +76,9 @@ const (
 // ServicesServiceClient is a client for the pyrite.v1.services.v1.ServicesService service.
 type ServicesServiceClient interface {
 	FindAllServices(context.Context, *connect.Request[v1.ServicesByTeamIdOrProjectId]) (*connect.Response[v11.Services], error)
+	FindAllDeployments(context.Context, *connect.Request[v1.ServiceByIdWithEnvironment]) (*connect.Response[v12.Deployments], error)
 	FindOneService(context.Context, *connect.Request[v1.ServiceById]) (*connect.Response[v11.Service], error)
+	CreateService(context.Context, *connect.Request[v1.CreateServiceDto]) (*connect.Response[v11.Service], error)
 	UpsertService(context.Context, *connect.Request[v1.UpsertServiceDto]) (*connect.Response[v1.UpsertServiceResponseDto], error)
 	DeleteService(context.Context, *connect.Request[v1.ServiceById]) (*connect.Response[v11.Service], error)
 	RedeployServiceEnvironment(context.Context, *connect.Request[v1.ServiceByIdWithEnvironment]) (*connect.Response[v11.ServiceEnvironment], error)
@@ -97,10 +106,22 @@ func NewServicesServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 			connect.WithSchema(servicesServiceMethods.ByName("FindAllServices")),
 			connect.WithClientOptions(opts...),
 		),
+		findAllDeployments: connect.NewClient[v1.ServiceByIdWithEnvironment, v12.Deployments](
+			httpClient,
+			baseURL+ServicesServiceFindAllDeploymentsProcedure,
+			connect.WithSchema(servicesServiceMethods.ByName("FindAllDeployments")),
+			connect.WithClientOptions(opts...),
+		),
 		findOneService: connect.NewClient[v1.ServiceById, v11.Service](
 			httpClient,
 			baseURL+ServicesServiceFindOneServiceProcedure,
 			connect.WithSchema(servicesServiceMethods.ByName("FindOneService")),
+			connect.WithClientOptions(opts...),
+		),
+		createService: connect.NewClient[v1.CreateServiceDto, v11.Service](
+			httpClient,
+			baseURL+ServicesServiceCreateServiceProcedure,
+			connect.WithSchema(servicesServiceMethods.ByName("CreateService")),
 			connect.WithClientOptions(opts...),
 		),
 		upsertService: connect.NewClient[v1.UpsertServiceDto, v1.UpsertServiceResponseDto](
@@ -157,7 +178,9 @@ func NewServicesServiceClient(httpClient connect.HTTPClient, baseURL string, opt
 // servicesServiceClient implements ServicesServiceClient.
 type servicesServiceClient struct {
 	findAllServices                      *connect.Client[v1.ServicesByTeamIdOrProjectId, v11.Services]
+	findAllDeployments                   *connect.Client[v1.ServiceByIdWithEnvironment, v12.Deployments]
 	findOneService                       *connect.Client[v1.ServiceById, v11.Service]
+	createService                        *connect.Client[v1.CreateServiceDto, v11.Service]
 	upsertService                        *connect.Client[v1.UpsertServiceDto, v1.UpsertServiceResponseDto]
 	deleteService                        *connect.Client[v1.ServiceById, v11.Service]
 	redeployServiceEnvironment           *connect.Client[v1.ServiceByIdWithEnvironment, v11.ServiceEnvironment]
@@ -173,9 +196,19 @@ func (c *servicesServiceClient) FindAllServices(ctx context.Context, req *connec
 	return c.findAllServices.CallUnary(ctx, req)
 }
 
+// FindAllDeployments calls pyrite.v1.services.v1.ServicesService.FindAllDeployments.
+func (c *servicesServiceClient) FindAllDeployments(ctx context.Context, req *connect.Request[v1.ServiceByIdWithEnvironment]) (*connect.Response[v12.Deployments], error) {
+	return c.findAllDeployments.CallUnary(ctx, req)
+}
+
 // FindOneService calls pyrite.v1.services.v1.ServicesService.FindOneService.
 func (c *servicesServiceClient) FindOneService(ctx context.Context, req *connect.Request[v1.ServiceById]) (*connect.Response[v11.Service], error) {
 	return c.findOneService.CallUnary(ctx, req)
+}
+
+// CreateService calls pyrite.v1.services.v1.ServicesService.CreateService.
+func (c *servicesServiceClient) CreateService(ctx context.Context, req *connect.Request[v1.CreateServiceDto]) (*connect.Response[v11.Service], error) {
+	return c.createService.CallUnary(ctx, req)
 }
 
 // UpsertService calls pyrite.v1.services.v1.ServicesService.UpsertService.
@@ -223,7 +256,9 @@ func (c *servicesServiceClient) SyncNetworkForAllServiceEnvironments(ctx context
 // ServicesServiceHandler is an implementation of the pyrite.v1.services.v1.ServicesService service.
 type ServicesServiceHandler interface {
 	FindAllServices(context.Context, *connect.Request[v1.ServicesByTeamIdOrProjectId]) (*connect.Response[v11.Services], error)
+	FindAllDeployments(context.Context, *connect.Request[v1.ServiceByIdWithEnvironment]) (*connect.Response[v12.Deployments], error)
 	FindOneService(context.Context, *connect.Request[v1.ServiceById]) (*connect.Response[v11.Service], error)
+	CreateService(context.Context, *connect.Request[v1.CreateServiceDto]) (*connect.Response[v11.Service], error)
 	UpsertService(context.Context, *connect.Request[v1.UpsertServiceDto]) (*connect.Response[v1.UpsertServiceResponseDto], error)
 	DeleteService(context.Context, *connect.Request[v1.ServiceById]) (*connect.Response[v11.Service], error)
 	RedeployServiceEnvironment(context.Context, *connect.Request[v1.ServiceByIdWithEnvironment]) (*connect.Response[v11.ServiceEnvironment], error)
@@ -247,10 +282,22 @@ func NewServicesServiceHandler(svc ServicesServiceHandler, opts ...connect.Handl
 		connect.WithSchema(servicesServiceMethods.ByName("FindAllServices")),
 		connect.WithHandlerOptions(opts...),
 	)
+	servicesServiceFindAllDeploymentsHandler := connect.NewUnaryHandler(
+		ServicesServiceFindAllDeploymentsProcedure,
+		svc.FindAllDeployments,
+		connect.WithSchema(servicesServiceMethods.ByName("FindAllDeployments")),
+		connect.WithHandlerOptions(opts...),
+	)
 	servicesServiceFindOneServiceHandler := connect.NewUnaryHandler(
 		ServicesServiceFindOneServiceProcedure,
 		svc.FindOneService,
 		connect.WithSchema(servicesServiceMethods.ByName("FindOneService")),
+		connect.WithHandlerOptions(opts...),
+	)
+	servicesServiceCreateServiceHandler := connect.NewUnaryHandler(
+		ServicesServiceCreateServiceProcedure,
+		svc.CreateService,
+		connect.WithSchema(servicesServiceMethods.ByName("CreateService")),
 		connect.WithHandlerOptions(opts...),
 	)
 	servicesServiceUpsertServiceHandler := connect.NewUnaryHandler(
@@ -305,8 +352,12 @@ func NewServicesServiceHandler(svc ServicesServiceHandler, opts ...connect.Handl
 		switch r.URL.Path {
 		case ServicesServiceFindAllServicesProcedure:
 			servicesServiceFindAllServicesHandler.ServeHTTP(w, r)
+		case ServicesServiceFindAllDeploymentsProcedure:
+			servicesServiceFindAllDeploymentsHandler.ServeHTTP(w, r)
 		case ServicesServiceFindOneServiceProcedure:
 			servicesServiceFindOneServiceHandler.ServeHTTP(w, r)
+		case ServicesServiceCreateServiceProcedure:
+			servicesServiceCreateServiceHandler.ServeHTTP(w, r)
 		case ServicesServiceUpsertServiceProcedure:
 			servicesServiceUpsertServiceHandler.ServeHTTP(w, r)
 		case ServicesServiceDeleteServiceProcedure:
@@ -336,8 +387,16 @@ func (UnimplementedServicesServiceHandler) FindAllServices(context.Context, *con
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServicesService.FindAllServices is not implemented"))
 }
 
+func (UnimplementedServicesServiceHandler) FindAllDeployments(context.Context, *connect.Request[v1.ServiceByIdWithEnvironment]) (*connect.Response[v12.Deployments], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServicesService.FindAllDeployments is not implemented"))
+}
+
 func (UnimplementedServicesServiceHandler) FindOneService(context.Context, *connect.Request[v1.ServiceById]) (*connect.Response[v11.Service], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServicesService.FindOneService is not implemented"))
+}
+
+func (UnimplementedServicesServiceHandler) CreateService(context.Context, *connect.Request[v1.CreateServiceDto]) (*connect.Response[v11.Service], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServicesService.CreateService is not implemented"))
 }
 
 func (UnimplementedServicesServiceHandler) UpsertService(context.Context, *connect.Request[v1.UpsertServiceDto]) (*connect.Response[v1.UpsertServiceResponseDto], error) {

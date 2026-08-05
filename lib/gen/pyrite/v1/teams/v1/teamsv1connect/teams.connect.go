@@ -8,8 +8,7 @@ import (
 	connect "connectrpc.com/connect"
 	context "context"
 	errors "errors"
-	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/common/v1"
-	v11 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/teams/v1"
+	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/teams/v1"
 	http "net/http"
 	strings "strings"
 )
@@ -49,11 +48,11 @@ const (
 
 // TeamServiceClient is a client for the pyrite.v1.teams.v1.TeamService service.
 type TeamServiceClient interface {
-	FindAllTeams(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Teams], error)
-	FindOneTeam(context.Context, *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error)
-	CreateTeam(context.Context, *connect.Request[v11.CreateTeamDto]) (*connect.Response[v11.Team], error)
-	UpdateTeam(context.Context, *connect.Request[v11.UpdateTeamDto]) (*connect.Response[v11.Team], error)
-	DeleteTeam(context.Context, *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error)
+	FindAllTeams(context.Context, *connect.Request[v1.TeamsRequest]) (*connect.Response[v1.Teams], error)
+	FindOneTeam(context.Context, *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error)
+	CreateTeam(context.Context, *connect.Request[v1.CreateTeamDto]) (*connect.Response[v1.Team], error)
+	UpdateTeam(context.Context, *connect.Request[v1.UpdateTeamDto]) (*connect.Response[v1.Team], error)
+	DeleteTeam(context.Context, *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error)
 }
 
 // NewTeamServiceClient constructs a client for the pyrite.v1.teams.v1.TeamService service. By
@@ -65,33 +64,33 @@ type TeamServiceClient interface {
 // http://api.acme.com or https://acme.com/grpc).
 func NewTeamServiceClient(httpClient connect.HTTPClient, baseURL string, opts ...connect.ClientOption) TeamServiceClient {
 	baseURL = strings.TrimRight(baseURL, "/")
-	teamServiceMethods := v11.File_pyrite_v1_teams_v1_teams_proto.Services().ByName("TeamService").Methods()
+	teamServiceMethods := v1.File_pyrite_v1_teams_v1_teams_proto.Services().ByName("TeamService").Methods()
 	return &teamServiceClient{
-		findAllTeams: connect.NewClient[v1.Empty, v11.Teams](
+		findAllTeams: connect.NewClient[v1.TeamsRequest, v1.Teams](
 			httpClient,
 			baseURL+TeamServiceFindAllTeamsProcedure,
 			connect.WithSchema(teamServiceMethods.ByName("FindAllTeams")),
 			connect.WithClientOptions(opts...),
 		),
-		findOneTeam: connect.NewClient[v11.TeamById, v11.Team](
+		findOneTeam: connect.NewClient[v1.TeamById, v1.Team](
 			httpClient,
 			baseURL+TeamServiceFindOneTeamProcedure,
 			connect.WithSchema(teamServiceMethods.ByName("FindOneTeam")),
 			connect.WithClientOptions(opts...),
 		),
-		createTeam: connect.NewClient[v11.CreateTeamDto, v11.Team](
+		createTeam: connect.NewClient[v1.CreateTeamDto, v1.Team](
 			httpClient,
 			baseURL+TeamServiceCreateTeamProcedure,
 			connect.WithSchema(teamServiceMethods.ByName("CreateTeam")),
 			connect.WithClientOptions(opts...),
 		),
-		updateTeam: connect.NewClient[v11.UpdateTeamDto, v11.Team](
+		updateTeam: connect.NewClient[v1.UpdateTeamDto, v1.Team](
 			httpClient,
 			baseURL+TeamServiceUpdateTeamProcedure,
 			connect.WithSchema(teamServiceMethods.ByName("UpdateTeam")),
 			connect.WithClientOptions(opts...),
 		),
-		deleteTeam: connect.NewClient[v11.TeamById, v11.Team](
+		deleteTeam: connect.NewClient[v1.TeamById, v1.Team](
 			httpClient,
 			baseURL+TeamServiceDeleteTeamProcedure,
 			connect.WithSchema(teamServiceMethods.ByName("DeleteTeam")),
@@ -102,45 +101,45 @@ func NewTeamServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 
 // teamServiceClient implements TeamServiceClient.
 type teamServiceClient struct {
-	findAllTeams *connect.Client[v1.Empty, v11.Teams]
-	findOneTeam  *connect.Client[v11.TeamById, v11.Team]
-	createTeam   *connect.Client[v11.CreateTeamDto, v11.Team]
-	updateTeam   *connect.Client[v11.UpdateTeamDto, v11.Team]
-	deleteTeam   *connect.Client[v11.TeamById, v11.Team]
+	findAllTeams *connect.Client[v1.TeamsRequest, v1.Teams]
+	findOneTeam  *connect.Client[v1.TeamById, v1.Team]
+	createTeam   *connect.Client[v1.CreateTeamDto, v1.Team]
+	updateTeam   *connect.Client[v1.UpdateTeamDto, v1.Team]
+	deleteTeam   *connect.Client[v1.TeamById, v1.Team]
 }
 
 // FindAllTeams calls pyrite.v1.teams.v1.TeamService.FindAllTeams.
-func (c *teamServiceClient) FindAllTeams(ctx context.Context, req *connect.Request[v1.Empty]) (*connect.Response[v11.Teams], error) {
+func (c *teamServiceClient) FindAllTeams(ctx context.Context, req *connect.Request[v1.TeamsRequest]) (*connect.Response[v1.Teams], error) {
 	return c.findAllTeams.CallUnary(ctx, req)
 }
 
 // FindOneTeam calls pyrite.v1.teams.v1.TeamService.FindOneTeam.
-func (c *teamServiceClient) FindOneTeam(ctx context.Context, req *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error) {
+func (c *teamServiceClient) FindOneTeam(ctx context.Context, req *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error) {
 	return c.findOneTeam.CallUnary(ctx, req)
 }
 
 // CreateTeam calls pyrite.v1.teams.v1.TeamService.CreateTeam.
-func (c *teamServiceClient) CreateTeam(ctx context.Context, req *connect.Request[v11.CreateTeamDto]) (*connect.Response[v11.Team], error) {
+func (c *teamServiceClient) CreateTeam(ctx context.Context, req *connect.Request[v1.CreateTeamDto]) (*connect.Response[v1.Team], error) {
 	return c.createTeam.CallUnary(ctx, req)
 }
 
 // UpdateTeam calls pyrite.v1.teams.v1.TeamService.UpdateTeam.
-func (c *teamServiceClient) UpdateTeam(ctx context.Context, req *connect.Request[v11.UpdateTeamDto]) (*connect.Response[v11.Team], error) {
+func (c *teamServiceClient) UpdateTeam(ctx context.Context, req *connect.Request[v1.UpdateTeamDto]) (*connect.Response[v1.Team], error) {
 	return c.updateTeam.CallUnary(ctx, req)
 }
 
 // DeleteTeam calls pyrite.v1.teams.v1.TeamService.DeleteTeam.
-func (c *teamServiceClient) DeleteTeam(ctx context.Context, req *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error) {
+func (c *teamServiceClient) DeleteTeam(ctx context.Context, req *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error) {
 	return c.deleteTeam.CallUnary(ctx, req)
 }
 
 // TeamServiceHandler is an implementation of the pyrite.v1.teams.v1.TeamService service.
 type TeamServiceHandler interface {
-	FindAllTeams(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Teams], error)
-	FindOneTeam(context.Context, *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error)
-	CreateTeam(context.Context, *connect.Request[v11.CreateTeamDto]) (*connect.Response[v11.Team], error)
-	UpdateTeam(context.Context, *connect.Request[v11.UpdateTeamDto]) (*connect.Response[v11.Team], error)
-	DeleteTeam(context.Context, *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error)
+	FindAllTeams(context.Context, *connect.Request[v1.TeamsRequest]) (*connect.Response[v1.Teams], error)
+	FindOneTeam(context.Context, *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error)
+	CreateTeam(context.Context, *connect.Request[v1.CreateTeamDto]) (*connect.Response[v1.Team], error)
+	UpdateTeam(context.Context, *connect.Request[v1.UpdateTeamDto]) (*connect.Response[v1.Team], error)
+	DeleteTeam(context.Context, *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error)
 }
 
 // NewTeamServiceHandler builds an HTTP handler from the service implementation. It returns the path
@@ -149,7 +148,7 @@ type TeamServiceHandler interface {
 // By default, handlers support the Connect, gRPC, and gRPC-Web protocols with the binary Protobuf
 // and JSON codecs. They also support gzip compression.
 func NewTeamServiceHandler(svc TeamServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
-	teamServiceMethods := v11.File_pyrite_v1_teams_v1_teams_proto.Services().ByName("TeamService").Methods()
+	teamServiceMethods := v1.File_pyrite_v1_teams_v1_teams_proto.Services().ByName("TeamService").Methods()
 	teamServiceFindAllTeamsHandler := connect.NewUnaryHandler(
 		TeamServiceFindAllTeamsProcedure,
 		svc.FindAllTeams,
@@ -201,22 +200,22 @@ func NewTeamServiceHandler(svc TeamServiceHandler, opts ...connect.HandlerOption
 // UnimplementedTeamServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedTeamServiceHandler struct{}
 
-func (UnimplementedTeamServiceHandler) FindAllTeams(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Teams], error) {
+func (UnimplementedTeamServiceHandler) FindAllTeams(context.Context, *connect.Request[v1.TeamsRequest]) (*connect.Response[v1.Teams], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.teams.v1.TeamService.FindAllTeams is not implemented"))
 }
 
-func (UnimplementedTeamServiceHandler) FindOneTeam(context.Context, *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error) {
+func (UnimplementedTeamServiceHandler) FindOneTeam(context.Context, *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.teams.v1.TeamService.FindOneTeam is not implemented"))
 }
 
-func (UnimplementedTeamServiceHandler) CreateTeam(context.Context, *connect.Request[v11.CreateTeamDto]) (*connect.Response[v11.Team], error) {
+func (UnimplementedTeamServiceHandler) CreateTeam(context.Context, *connect.Request[v1.CreateTeamDto]) (*connect.Response[v1.Team], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.teams.v1.TeamService.CreateTeam is not implemented"))
 }
 
-func (UnimplementedTeamServiceHandler) UpdateTeam(context.Context, *connect.Request[v11.UpdateTeamDto]) (*connect.Response[v11.Team], error) {
+func (UnimplementedTeamServiceHandler) UpdateTeam(context.Context, *connect.Request[v1.UpdateTeamDto]) (*connect.Response[v1.Team], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.teams.v1.TeamService.UpdateTeam is not implemented"))
 }
 
-func (UnimplementedTeamServiceHandler) DeleteTeam(context.Context, *connect.Request[v11.TeamById]) (*connect.Response[v11.Team], error) {
+func (UnimplementedTeamServiceHandler) DeleteTeam(context.Context, *connect.Request[v1.TeamById]) (*connect.Response[v1.Team], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.teams.v1.TeamService.DeleteTeam is not implemented"))
 }

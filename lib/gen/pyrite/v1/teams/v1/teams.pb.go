@@ -178,6 +178,66 @@ func (x *TeamById) GetId() string {
 	return ""
 }
 
+type TeamsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	WithMeta      *bool                  `protobuf:"varint,1,opt,name=with_meta,json=withMeta,proto3,oneof" json:"with_meta,omitempty"`
+	Search        *string                `protobuf:"bytes,2,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v1.CursorPagination   `protobuf:"bytes,3,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *TeamsRequest) Reset() {
+	*x = TeamsRequest{}
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[3]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *TeamsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*TeamsRequest) ProtoMessage() {}
+
+func (x *TeamsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[3]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use TeamsRequest.ProtoReflect.Descriptor instead.
+func (*TeamsRequest) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{3}
+}
+
+func (x *TeamsRequest) GetWithMeta() bool {
+	if x != nil && x.WithMeta != nil {
+		return *x.WithMeta
+	}
+	return false
+}
+
+func (x *TeamsRequest) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
+}
+
+func (x *TeamsRequest) GetPagination() *v1.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 type TeamMeta struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	OwnerEmail    string                 `protobuf:"bytes,1,opt,name=owner_email,json=ownerEmail,proto3" json:"owner_email,omitempty"`
@@ -189,7 +249,7 @@ type TeamMeta struct {
 
 func (x *TeamMeta) Reset() {
 	*x = TeamMeta{}
-	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[3]
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -201,7 +261,7 @@ func (x *TeamMeta) String() string {
 func (*TeamMeta) ProtoMessage() {}
 
 func (x *TeamMeta) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[3]
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -214,7 +274,7 @@ func (x *TeamMeta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use TeamMeta.ProtoReflect.Descriptor instead.
 func (*TeamMeta) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{3}
+	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *TeamMeta) GetOwnerEmail() string {
@@ -254,7 +314,7 @@ type Team struct {
 
 func (x *Team) Reset() {
 	*x = Team{}
-	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[4]
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -266,7 +326,7 @@ func (x *Team) String() string {
 func (*Team) ProtoMessage() {}
 
 func (x *Team) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[4]
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -279,7 +339,7 @@ func (x *Team) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Team.ProtoReflect.Descriptor instead.
 func (*Team) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{4}
+	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *Team) GetId() string {
@@ -341,13 +401,17 @@ func (x *Team) GetMeta() *TeamMeta {
 type Teams struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Teams         []*Team                `protobuf:"bytes,1,rep,name=teams,proto3" json:"teams,omitempty"`
+	PageSize      int32                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SortBy        string                 `protobuf:"bytes,3,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	HasNextPage   bool                   `protobuf:"varint,4,opt,name=has_next_page,json=hasNextPage,proto3" json:"has_next_page,omitempty"`
+	NextCursor    *string                `protobuf:"bytes,5,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Teams) Reset() {
 	*x = Teams{}
-	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[5]
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -359,7 +423,7 @@ func (x *Teams) String() string {
 func (*Teams) ProtoMessage() {}
 
 func (x *Teams) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[5]
+	mi := &file_pyrite_v1_teams_v1_teams_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -372,7 +436,7 @@ func (x *Teams) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Teams.ProtoReflect.Descriptor instead.
 func (*Teams) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{5}
+	return file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *Teams) GetTeams() []*Team {
@@ -380,6 +444,34 @@ func (x *Teams) GetTeams() []*Team {
 		return x.Teams
 	}
 	return nil
+}
+
+func (x *Teams) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *Teams) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *Teams) GetHasNextPage() bool {
+	if x != nil {
+		return x.HasNextPage
+	}
+	return false
+}
+
+func (x *Teams) GetNextCursor() string {
+	if x != nil && x.NextCursor != nil {
+		return *x.NextCursor
+	}
+	return ""
 }
 
 var File_pyrite_v1_teams_v1_teams_proto protoreflect.FileDescriptor
@@ -397,7 +489,17 @@ const file_pyrite_v1_teams_v1_teams_proto_rawDesc = "" +
 	"\x05_nameB\x0f\n" +
 	"\r_subscription\"\x1a\n" +
 	"\bTeamById\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"w\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\"\xc1\x01\n" +
+	"\fTeamsRequest\x12 \n" +
+	"\twith_meta\x18\x01 \x01(\bH\x00R\bwithMeta\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x02 \x01(\tH\x01R\x06search\x88\x01\x01\x12J\n" +
+	"\n" +
+	"pagination\x18\x03 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x02R\n" +
+	"pagination\x88\x01\x01B\f\n" +
+	"\n" +
+	"_with_metaB\t\n" +
+	"\a_searchB\r\n" +
+	"\v_pagination\"w\n" +
 	"\bTeamMeta\x12\x1f\n" +
 	"\vowner_email\x18\x01 \x01(\tR\n" +
 	"ownerEmail\x12%\n" +
@@ -414,11 +516,17 @@ const file_pyrite_v1_teams_v1_teams_proto_rawDesc = "" +
 	"updated_at\x18\x06 \x01(\tR\tupdatedAt\x12\x16\n" +
 	"\x06status\x18\a \x01(\x05R\x06status\x125\n" +
 	"\x04meta\x18\b \x01(\v2\x1c.pyrite.v1.teams.v1.TeamMetaH\x00R\x04meta\x88\x01\x01B\a\n" +
-	"\x05_meta\"7\n" +
+	"\x05_meta\"\xc7\x01\n" +
 	"\x05Teams\x12.\n" +
-	"\x05teams\x18\x01 \x03(\v2\x18.pyrite.v1.teams.v1.TeamR\x05teams2\x81\x03\n" +
-	"\vTeamService\x12G\n" +
-	"\fFindAllTeams\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x19.pyrite.v1.teams.v1.Teams\"\x00\x12G\n" +
+	"\x05teams\x18\x01 \x03(\v2\x18.pyrite.v1.teams.v1.TeamR\x05teams\x12\x1b\n" +
+	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\x12\x17\n" +
+	"\asort_by\x18\x03 \x01(\tR\x06sortBy\x12\"\n" +
+	"\rhas_next_page\x18\x04 \x01(\bR\vhasNextPage\x12$\n" +
+	"\vnext_cursor\x18\x05 \x01(\tH\x00R\n" +
+	"nextCursor\x88\x01\x01B\x0e\n" +
+	"\f_next_cursor2\x87\x03\n" +
+	"\vTeamService\x12M\n" +
+	"\fFindAllTeams\x12 .pyrite.v1.teams.v1.TeamsRequest\x1a\x19.pyrite.v1.teams.v1.Teams\"\x00\x12G\n" +
 	"\vFindOneTeam\x12\x1c.pyrite.v1.teams.v1.TeamById\x1a\x18.pyrite.v1.teams.v1.Team\"\x00\x12K\n" +
 	"\n" +
 	"CreateTeam\x12!.pyrite.v1.teams.v1.CreateTeamDto\x1a\x18.pyrite.v1.teams.v1.Team\"\x00\x12K\n" +
@@ -441,34 +549,36 @@ func file_pyrite_v1_teams_v1_teams_proto_rawDescGZIP() []byte {
 	return file_pyrite_v1_teams_v1_teams_proto_rawDescData
 }
 
-var file_pyrite_v1_teams_v1_teams_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_pyrite_v1_teams_v1_teams_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_pyrite_v1_teams_v1_teams_proto_goTypes = []any{
-	(*CreateTeamDto)(nil), // 0: pyrite.v1.teams.v1.CreateTeamDto
-	(*UpdateTeamDto)(nil), // 1: pyrite.v1.teams.v1.UpdateTeamDto
-	(*TeamById)(nil),      // 2: pyrite.v1.teams.v1.TeamById
-	(*TeamMeta)(nil),      // 3: pyrite.v1.teams.v1.TeamMeta
-	(*Team)(nil),          // 4: pyrite.v1.teams.v1.Team
-	(*Teams)(nil),         // 5: pyrite.v1.teams.v1.Teams
-	(*v1.Empty)(nil),      // 6: pyrite.v1.common.v1.Empty
+	(*CreateTeamDto)(nil),       // 0: pyrite.v1.teams.v1.CreateTeamDto
+	(*UpdateTeamDto)(nil),       // 1: pyrite.v1.teams.v1.UpdateTeamDto
+	(*TeamById)(nil),            // 2: pyrite.v1.teams.v1.TeamById
+	(*TeamsRequest)(nil),        // 3: pyrite.v1.teams.v1.TeamsRequest
+	(*TeamMeta)(nil),            // 4: pyrite.v1.teams.v1.TeamMeta
+	(*Team)(nil),                // 5: pyrite.v1.teams.v1.Team
+	(*Teams)(nil),               // 6: pyrite.v1.teams.v1.Teams
+	(*v1.CursorPagination)(nil), // 7: pyrite.v1.common.v1.CursorPagination
 }
 var file_pyrite_v1_teams_v1_teams_proto_depIdxs = []int32{
-	3, // 0: pyrite.v1.teams.v1.Team.meta:type_name -> pyrite.v1.teams.v1.TeamMeta
-	4, // 1: pyrite.v1.teams.v1.Teams.teams:type_name -> pyrite.v1.teams.v1.Team
-	6, // 2: pyrite.v1.teams.v1.TeamService.FindAllTeams:input_type -> pyrite.v1.common.v1.Empty
-	2, // 3: pyrite.v1.teams.v1.TeamService.FindOneTeam:input_type -> pyrite.v1.teams.v1.TeamById
-	0, // 4: pyrite.v1.teams.v1.TeamService.CreateTeam:input_type -> pyrite.v1.teams.v1.CreateTeamDto
-	1, // 5: pyrite.v1.teams.v1.TeamService.UpdateTeam:input_type -> pyrite.v1.teams.v1.UpdateTeamDto
-	2, // 6: pyrite.v1.teams.v1.TeamService.DeleteTeam:input_type -> pyrite.v1.teams.v1.TeamById
-	5, // 7: pyrite.v1.teams.v1.TeamService.FindAllTeams:output_type -> pyrite.v1.teams.v1.Teams
-	4, // 8: pyrite.v1.teams.v1.TeamService.FindOneTeam:output_type -> pyrite.v1.teams.v1.Team
-	4, // 9: pyrite.v1.teams.v1.TeamService.CreateTeam:output_type -> pyrite.v1.teams.v1.Team
-	4, // 10: pyrite.v1.teams.v1.TeamService.UpdateTeam:output_type -> pyrite.v1.teams.v1.Team
-	4, // 11: pyrite.v1.teams.v1.TeamService.DeleteTeam:output_type -> pyrite.v1.teams.v1.Team
-	7, // [7:12] is the sub-list for method output_type
-	2, // [2:7] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	7, // 0: pyrite.v1.teams.v1.TeamsRequest.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	4, // 1: pyrite.v1.teams.v1.Team.meta:type_name -> pyrite.v1.teams.v1.TeamMeta
+	5, // 2: pyrite.v1.teams.v1.Teams.teams:type_name -> pyrite.v1.teams.v1.Team
+	3, // 3: pyrite.v1.teams.v1.TeamService.FindAllTeams:input_type -> pyrite.v1.teams.v1.TeamsRequest
+	2, // 4: pyrite.v1.teams.v1.TeamService.FindOneTeam:input_type -> pyrite.v1.teams.v1.TeamById
+	0, // 5: pyrite.v1.teams.v1.TeamService.CreateTeam:input_type -> pyrite.v1.teams.v1.CreateTeamDto
+	1, // 6: pyrite.v1.teams.v1.TeamService.UpdateTeam:input_type -> pyrite.v1.teams.v1.UpdateTeamDto
+	2, // 7: pyrite.v1.teams.v1.TeamService.DeleteTeam:input_type -> pyrite.v1.teams.v1.TeamById
+	6, // 8: pyrite.v1.teams.v1.TeamService.FindAllTeams:output_type -> pyrite.v1.teams.v1.Teams
+	5, // 9: pyrite.v1.teams.v1.TeamService.FindOneTeam:output_type -> pyrite.v1.teams.v1.Team
+	5, // 10: pyrite.v1.teams.v1.TeamService.CreateTeam:output_type -> pyrite.v1.teams.v1.Team
+	5, // 11: pyrite.v1.teams.v1.TeamService.UpdateTeam:output_type -> pyrite.v1.teams.v1.Team
+	5, // 12: pyrite.v1.teams.v1.TeamService.DeleteTeam:output_type -> pyrite.v1.teams.v1.Team
+	8, // [8:13] is the sub-list for method output_type
+	3, // [3:8] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_teams_v1_teams_proto_init() }
@@ -477,14 +587,16 @@ func file_pyrite_v1_teams_v1_teams_proto_init() {
 		return
 	}
 	file_pyrite_v1_teams_v1_teams_proto_msgTypes[1].OneofWrappers = []any{}
-	file_pyrite_v1_teams_v1_teams_proto_msgTypes[4].OneofWrappers = []any{}
+	file_pyrite_v1_teams_v1_teams_proto_msgTypes[3].OneofWrappers = []any{}
+	file_pyrite_v1_teams_v1_teams_proto_msgTypes[5].OneofWrappers = []any{}
+	file_pyrite_v1_teams_v1_teams_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pyrite_v1_teams_v1_teams_proto_rawDesc), len(file_pyrite_v1_teams_v1_teams_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

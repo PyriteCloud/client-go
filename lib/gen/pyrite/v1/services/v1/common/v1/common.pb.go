@@ -187,6 +187,10 @@ func (x *Service) GetStatus() int32 {
 type Services struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Services      []*Service             `protobuf:"bytes,1,rep,name=services,proto3" json:"services,omitempty"`
+	PageSize      int32                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SortBy        string                 `protobuf:"bytes,3,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	HasNextPage   bool                   `protobuf:"varint,4,opt,name=has_next_page,json=hasNextPage,proto3" json:"has_next_page,omitempty"`
+	NextCursor    *string                `protobuf:"bytes,5,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -226,6 +230,34 @@ func (x *Services) GetServices() []*Service {
 		return x.Services
 	}
 	return nil
+}
+
+func (x *Services) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *Services) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *Services) GetHasNextPage() bool {
+	if x != nil {
+		return x.HasNextPage
+	}
+	return false
+}
+
+func (x *Services) GetNextCursor() string {
+	if x != nil && x.NextCursor != nil {
+		return *x.NextCursor
+	}
+	return ""
 }
 
 type ServiceEnvironmentMeta struct {
@@ -445,6 +477,10 @@ func (*ServiceEnvironment_PostgresDeployment) isServiceEnvironment_ActiveDeploym
 type ServiceEnvironments struct {
 	state               protoimpl.MessageState `protogen:"open.v1"`
 	ServiceEnvironments []*ServiceEnvironment  `protobuf:"bytes,1,rep,name=service_environments,json=serviceEnvironments,proto3" json:"service_environments,omitempty"`
+	PageSize            int32                  `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SortBy              string                 `protobuf:"bytes,3,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	HasNextPage         bool                   `protobuf:"varint,4,opt,name=has_next_page,json=hasNextPage,proto3" json:"has_next_page,omitempty"`
+	NextCursor          *string                `protobuf:"bytes,5,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
 	unknownFields       protoimpl.UnknownFields
 	sizeCache           protoimpl.SizeCache
 }
@@ -486,6 +522,34 @@ func (x *ServiceEnvironments) GetServiceEnvironments() []*ServiceEnvironment {
 	return nil
 }
 
+func (x *ServiceEnvironments) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *ServiceEnvironments) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *ServiceEnvironments) GetHasNextPage() bool {
+	if x != nil {
+		return x.HasNextPage
+	}
+	return false
+}
+
+func (x *ServiceEnvironments) GetNextCursor() string {
+	if x != nil && x.NextCursor != nil {
+		return *x.NextCursor
+	}
+	return ""
+}
+
 var File_pyrite_v1_services_v1_common_v1_common_proto protoreflect.FileDescriptor
 
 const file_pyrite_v1_services_v1_common_v1_common_proto_rawDesc = "" +
@@ -511,9 +575,15 @@ const file_pyrite_v1_services_v1_common_v1_common_proto_rawDesc = "" +
 	"updated_at\x18\x06 \x01(\tR\tupdatedAt\x12E\n" +
 	"\x04meta\x18\a \x01(\v2,.pyrite.v1.services.v1.common.v1.ServiceMetaH\x00R\x04meta\x88\x01\x01\x12\x16\n" +
 	"\x06status\x18\b \x01(\x05R\x06statusB\a\n" +
-	"\x05_meta\"P\n" +
+	"\x05_meta\"\xe0\x01\n" +
 	"\bServices\x12D\n" +
-	"\bservices\x18\x01 \x03(\v2(.pyrite.v1.services.v1.common.v1.ServiceR\bservices\"\xf4\x01\n" +
+	"\bservices\x18\x01 \x03(\v2(.pyrite.v1.services.v1.common.v1.ServiceR\bservices\x12\x1b\n" +
+	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\x12\x17\n" +
+	"\asort_by\x18\x03 \x01(\tR\x06sortBy\x12\"\n" +
+	"\rhas_next_page\x18\x04 \x01(\bR\vhasNextPage\x12$\n" +
+	"\vnext_cursor\x18\x05 \x01(\tH\x00R\n" +
+	"nextCursor\x88\x01\x01B\x0e\n" +
+	"\f_next_cursor\"\xf4\x01\n" +
 	"\x16ServiceEnvironmentMeta\x121\n" +
 	"\x04team\x18\x01 \x01(\v2\x18.pyrite.v1.teams.v1.TeamH\x00R\x04team\x88\x01\x01\x12=\n" +
 	"\aproject\x18\x02 \x01(\v2\x1e.pyrite.v1.projects.v1.ProjectH\x01R\aproject\x88\x01\x01\x12G\n" +
@@ -540,9 +610,15 @@ const file_pyrite_v1_services_v1_common_v1_common_proto_rawDesc = "" +
 	" \x01(\v27.pyrite.v1.services.v1.common.v1.ServiceEnvironmentMetaH\x01R\x04meta\x88\x01\x01\x12\x16\n" +
 	"\x06status\x18\v \x01(\x05R\x06statusB\x13\n" +
 	"\x11active_deploymentB\a\n" +
-	"\x05_meta\"}\n" +
+	"\x05_meta\"\x8d\x02\n" +
 	"\x13ServiceEnvironments\x12f\n" +
-	"\x14service_environments\x18\x01 \x03(\v23.pyrite.v1.services.v1.common.v1.ServiceEnvironmentR\x13serviceEnvironmentsB\xa8\x02\n" +
+	"\x14service_environments\x18\x01 \x03(\v23.pyrite.v1.services.v1.common.v1.ServiceEnvironmentR\x13serviceEnvironments\x12\x1b\n" +
+	"\tpage_size\x18\x02 \x01(\x05R\bpageSize\x12\x17\n" +
+	"\asort_by\x18\x03 \x01(\tR\x06sortBy\x12\"\n" +
+	"\rhas_next_page\x18\x04 \x01(\bR\vhasNextPage\x12$\n" +
+	"\vnext_cursor\x18\x05 \x01(\tH\x00R\n" +
+	"nextCursor\x88\x01\x01B\x0e\n" +
+	"\f_next_cursorB\xa8\x02\n" +
 	"#com.pyrite.v1.services.v1.common.v1B\vCommonProtoP\x01ZQgithub.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/common/v1;commonv1\xa2\x02\x05PVSVC\xaa\x02\x1fPyrite.V1.Services.V1.Common.V1\xca\x02\x1fPyrite\\V1\\Services\\V1\\Common\\V1\xe2\x02+Pyrite\\V1\\Services\\V1\\Common\\V1\\GPBMetadata\xea\x02$Pyrite::V1::Services::V1::Common::V1b\x06proto3"
 
 var (
@@ -596,11 +672,13 @@ func file_pyrite_v1_services_v1_common_v1_common_proto_init() {
 	}
 	file_pyrite_v1_services_v1_common_v1_common_proto_msgTypes[0].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_common_v1_common_proto_msgTypes[1].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_common_v1_common_proto_msgTypes[2].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_common_v1_common_proto_msgTypes[3].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_common_v1_common_proto_msgTypes[4].OneofWrappers = []any{
 		(*ServiceEnvironment_DockerDeployment)(nil),
 		(*ServiceEnvironment_PostgresDeployment)(nil),
 	}
+	file_pyrite_v1_services_v1_common_v1_common_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{

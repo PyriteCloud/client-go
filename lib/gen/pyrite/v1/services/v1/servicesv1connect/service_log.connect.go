@@ -40,7 +40,7 @@ const (
 
 // ServiceLogServiceClient is a client for the pyrite.v1.services.v1.ServiceLogService service.
 type ServiceLogServiceClient interface {
-	FindAllServiceLogs(context.Context, *connect.Request[v1.ServiceLogsFilter]) (*connect.Response[v1.ServiceLogs], error)
+	FindAllServiceLogs(context.Context, *connect.Request[v1.ServiceLogsRequest]) (*connect.Response[v1.ServiceLogs], error)
 }
 
 // NewServiceLogServiceClient constructs a client for the pyrite.v1.services.v1.ServiceLogService
@@ -54,7 +54,7 @@ func NewServiceLogServiceClient(httpClient connect.HTTPClient, baseURL string, o
 	baseURL = strings.TrimRight(baseURL, "/")
 	serviceLogServiceMethods := v1.File_pyrite_v1_services_v1_service_log_proto.Services().ByName("ServiceLogService").Methods()
 	return &serviceLogServiceClient{
-		findAllServiceLogs: connect.NewClient[v1.ServiceLogsFilter, v1.ServiceLogs](
+		findAllServiceLogs: connect.NewClient[v1.ServiceLogsRequest, v1.ServiceLogs](
 			httpClient,
 			baseURL+ServiceLogServiceFindAllServiceLogsProcedure,
 			connect.WithSchema(serviceLogServiceMethods.ByName("FindAllServiceLogs")),
@@ -65,18 +65,18 @@ func NewServiceLogServiceClient(httpClient connect.HTTPClient, baseURL string, o
 
 // serviceLogServiceClient implements ServiceLogServiceClient.
 type serviceLogServiceClient struct {
-	findAllServiceLogs *connect.Client[v1.ServiceLogsFilter, v1.ServiceLogs]
+	findAllServiceLogs *connect.Client[v1.ServiceLogsRequest, v1.ServiceLogs]
 }
 
 // FindAllServiceLogs calls pyrite.v1.services.v1.ServiceLogService.FindAllServiceLogs.
-func (c *serviceLogServiceClient) FindAllServiceLogs(ctx context.Context, req *connect.Request[v1.ServiceLogsFilter]) (*connect.Response[v1.ServiceLogs], error) {
+func (c *serviceLogServiceClient) FindAllServiceLogs(ctx context.Context, req *connect.Request[v1.ServiceLogsRequest]) (*connect.Response[v1.ServiceLogs], error) {
 	return c.findAllServiceLogs.CallUnary(ctx, req)
 }
 
 // ServiceLogServiceHandler is an implementation of the pyrite.v1.services.v1.ServiceLogService
 // service.
 type ServiceLogServiceHandler interface {
-	FindAllServiceLogs(context.Context, *connect.Request[v1.ServiceLogsFilter]) (*connect.Response[v1.ServiceLogs], error)
+	FindAllServiceLogs(context.Context, *connect.Request[v1.ServiceLogsRequest]) (*connect.Response[v1.ServiceLogs], error)
 }
 
 // NewServiceLogServiceHandler builds an HTTP handler from the service implementation. It returns
@@ -105,6 +105,6 @@ func NewServiceLogServiceHandler(svc ServiceLogServiceHandler, opts ...connect.H
 // UnimplementedServiceLogServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedServiceLogServiceHandler struct{}
 
-func (UnimplementedServiceLogServiceHandler) FindAllServiceLogs(context.Context, *connect.Request[v1.ServiceLogsFilter]) (*connect.Response[v1.ServiceLogs], error) {
+func (UnimplementedServiceLogServiceHandler) FindAllServiceLogs(context.Context, *connect.Request[v1.ServiceLogsRequest]) (*connect.Response[v1.ServiceLogs], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServiceLogService.FindAllServiceLogs is not implemented"))
 }

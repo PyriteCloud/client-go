@@ -57,6 +57,150 @@ func (*Empty) Descriptor() ([]byte, []int) {
 	return file_pyrite_v1_common_v1_common_proto_rawDescGZIP(), []int{0}
 }
 
+type CursorPagination struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PageSize      *int32                 `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3,oneof" json:"page_size,omitempty"`
+	Cursor        *string                `protobuf:"bytes,2,opt,name=cursor,proto3,oneof" json:"cursor,omitempty"`
+	SortBy        *string                `protobuf:"bytes,3,opt,name=sort_by,json=sortBy,proto3,oneof" json:"sort_by,omitempty"`
+	SortDir       *string                `protobuf:"bytes,4,opt,name=sort_dir,json=sortDir,proto3,oneof" json:"sort_dir,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CursorPagination) Reset() {
+	*x = CursorPagination{}
+	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CursorPagination) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CursorPagination) ProtoMessage() {}
+
+func (x *CursorPagination) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CursorPagination.ProtoReflect.Descriptor instead.
+func (*CursorPagination) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_common_v1_common_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *CursorPagination) GetPageSize() int32 {
+	if x != nil && x.PageSize != nil {
+		return *x.PageSize
+	}
+	return 0
+}
+
+func (x *CursorPagination) GetCursor() string {
+	if x != nil && x.Cursor != nil {
+		return *x.Cursor
+	}
+	return ""
+}
+
+func (x *CursorPagination) GetSortBy() string {
+	if x != nil && x.SortBy != nil {
+		return *x.SortBy
+	}
+	return ""
+}
+
+func (x *CursorPagination) GetSortDir() string {
+	if x != nil && x.SortDir != nil {
+		return *x.SortDir
+	}
+	return ""
+}
+
+type CursorPaginationMetadata struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PageSize      int32                  `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	SortBy        string                 `protobuf:"bytes,2,opt,name=sort_by,json=sortBy,proto3" json:"sort_by,omitempty"`
+	SortDir       string                 `protobuf:"bytes,3,opt,name=sort_dir,json=sortDir,proto3" json:"sort_dir,omitempty"`
+	HasNextPage   bool                   `protobuf:"varint,4,opt,name=has_next_page,json=hasNextPage,proto3" json:"has_next_page,omitempty"`
+	NextCursor    *string                `protobuf:"bytes,5,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CursorPaginationMetadata) Reset() {
+	*x = CursorPaginationMetadata{}
+	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CursorPaginationMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CursorPaginationMetadata) ProtoMessage() {}
+
+func (x *CursorPaginationMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CursorPaginationMetadata.ProtoReflect.Descriptor instead.
+func (*CursorPaginationMetadata) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_common_v1_common_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *CursorPaginationMetadata) GetPageSize() int32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *CursorPaginationMetadata) GetSortBy() string {
+	if x != nil {
+		return x.SortBy
+	}
+	return ""
+}
+
+func (x *CursorPaginationMetadata) GetSortDir() string {
+	if x != nil {
+		return x.SortDir
+	}
+	return ""
+}
+
+func (x *CursorPaginationMetadata) GetHasNextPage() bool {
+	if x != nil {
+		return x.HasNextPage
+	}
+	return false
+}
+
+func (x *CursorPaginationMetadata) GetNextCursor() string {
+	if x != nil && x.NextCursor != nil {
+		return *x.NextCursor
+	}
+	return ""
+}
+
 type MetaUser struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -68,7 +212,7 @@ type MetaUser struct {
 
 func (x *MetaUser) Reset() {
 	*x = MetaUser{}
-	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[1]
+	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -80,7 +224,7 @@ func (x *MetaUser) String() string {
 func (*MetaUser) ProtoMessage() {}
 
 func (x *MetaUser) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[1]
+	mi := &file_pyrite_v1_common_v1_common_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -93,7 +237,7 @@ func (x *MetaUser) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use MetaUser.ProtoReflect.Descriptor instead.
 func (*MetaUser) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_common_v1_common_proto_rawDescGZIP(), []int{1}
+	return file_pyrite_v1_common_v1_common_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *MetaUser) GetId() string {
@@ -122,7 +266,26 @@ var File_pyrite_v1_common_v1_common_proto protoreflect.FileDescriptor
 const file_pyrite_v1_common_v1_common_proto_rawDesc = "" +
 	"\n" +
 	" pyrite/v1/common/v1/common.proto\x12\x13pyrite.v1.common.v1\"\a\n" +
-	"\x05Empty\"D\n" +
+	"\x05Empty\"\xc1\x01\n" +
+	"\x10CursorPagination\x12 \n" +
+	"\tpage_size\x18\x01 \x01(\x05H\x00R\bpageSize\x88\x01\x01\x12\x1b\n" +
+	"\x06cursor\x18\x02 \x01(\tH\x01R\x06cursor\x88\x01\x01\x12\x1c\n" +
+	"\asort_by\x18\x03 \x01(\tH\x02R\x06sortBy\x88\x01\x01\x12\x1e\n" +
+	"\bsort_dir\x18\x04 \x01(\tH\x03R\asortDir\x88\x01\x01B\f\n" +
+	"\n" +
+	"_page_sizeB\t\n" +
+	"\a_cursorB\n" +
+	"\n" +
+	"\b_sort_byB\v\n" +
+	"\t_sort_dir\"\xc5\x01\n" +
+	"\x18CursorPaginationMetadata\x12\x1b\n" +
+	"\tpage_size\x18\x01 \x01(\x05R\bpageSize\x12\x17\n" +
+	"\asort_by\x18\x02 \x01(\tR\x06sortBy\x12\x19\n" +
+	"\bsort_dir\x18\x03 \x01(\tR\asortDir\x12\"\n" +
+	"\rhas_next_page\x18\x04 \x01(\bR\vhasNextPage\x12$\n" +
+	"\vnext_cursor\x18\x05 \x01(\tH\x00R\n" +
+	"nextCursor\x88\x01\x01B\x0e\n" +
+	"\f_next_cursor\"D\n" +
 	"\bMetaUser\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
 	"\x04name\x18\x02 \x01(\tR\x04name\x12\x14\n" +
@@ -141,10 +304,12 @@ func file_pyrite_v1_common_v1_common_proto_rawDescGZIP() []byte {
 	return file_pyrite_v1_common_v1_common_proto_rawDescData
 }
 
-var file_pyrite_v1_common_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_pyrite_v1_common_v1_common_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
 var file_pyrite_v1_common_v1_common_proto_goTypes = []any{
-	(*Empty)(nil),    // 0: pyrite.v1.common.v1.Empty
-	(*MetaUser)(nil), // 1: pyrite.v1.common.v1.MetaUser
+	(*Empty)(nil),                    // 0: pyrite.v1.common.v1.Empty
+	(*CursorPagination)(nil),         // 1: pyrite.v1.common.v1.CursorPagination
+	(*CursorPaginationMetadata)(nil), // 2: pyrite.v1.common.v1.CursorPaginationMetadata
+	(*MetaUser)(nil),                 // 3: pyrite.v1.common.v1.MetaUser
 }
 var file_pyrite_v1_common_v1_common_proto_depIdxs = []int32{
 	0, // [0:0] is the sub-list for method output_type
@@ -159,13 +324,15 @@ func file_pyrite_v1_common_v1_common_proto_init() {
 	if File_pyrite_v1_common_v1_common_proto != nil {
 		return
 	}
+	file_pyrite_v1_common_v1_common_proto_msgTypes[1].OneofWrappers = []any{}
+	file_pyrite_v1_common_v1_common_proto_msgTypes[2].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pyrite_v1_common_v1_common_proto_rawDesc), len(file_pyrite_v1_common_v1_common_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   2,
+			NumMessages:   4,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

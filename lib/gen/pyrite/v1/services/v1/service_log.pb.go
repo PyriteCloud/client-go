@@ -22,21 +22,191 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type LogsCursorPagination struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Cursor        string                 `protobuf:"bytes,1,opt,name=cursor,proto3" json:"cursor,omitempty"`
+	PageSize      uint32                 `protobuf:"varint,2,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogsCursorPagination) Reset() {
+	*x = LogsCursorPagination{}
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogsCursorPagination) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogsCursorPagination) ProtoMessage() {}
+
+func (x *LogsCursorPagination) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogsCursorPagination.ProtoReflect.Descriptor instead.
+func (*LogsCursorPagination) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *LogsCursorPagination) GetCursor() string {
+	if x != nil {
+		return x.Cursor
+	}
+	return ""
+}
+
+func (x *LogsCursorPagination) GetPageSize() uint32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+type LogsCursorPaginationMetadata struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	PageSize      uint32                 `protobuf:"varint,1,opt,name=page_size,json=pageSize,proto3" json:"page_size,omitempty"`
+	NextCursor    *string                `protobuf:"bytes,2,opt,name=next_cursor,json=nextCursor,proto3,oneof" json:"next_cursor,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LogsCursorPaginationMetadata) Reset() {
+	*x = LogsCursorPaginationMetadata{}
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LogsCursorPaginationMetadata) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LogsCursorPaginationMetadata) ProtoMessage() {}
+
+func (x *LogsCursorPaginationMetadata) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LogsCursorPaginationMetadata.ProtoReflect.Descriptor instead.
+func (*LogsCursorPaginationMetadata) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *LogsCursorPaginationMetadata) GetPageSize() uint32 {
+	if x != nil {
+		return x.PageSize
+	}
+	return 0
+}
+
+func (x *LogsCursorPaginationMetadata) GetNextCursor() string {
+	if x != nil && x.NextCursor != nil {
+		return *x.NextCursor
+	}
+	return ""
+}
+
+type ServiceLogsRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	From          string                 `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
+	To            string                 `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	Filter        *ServiceLogsFilter     `protobuf:"bytes,3,opt,name=filter,proto3" json:"filter,omitempty"`
+	Pagination    *LogsCursorPagination  `protobuf:"bytes,4,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServiceLogsRequest) Reset() {
+	*x = ServiceLogsRequest{}
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[2]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceLogsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceLogsRequest) ProtoMessage() {}
+
+func (x *ServiceLogsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[2]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceLogsRequest.ProtoReflect.Descriptor instead.
+func (*ServiceLogsRequest) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *ServiceLogsRequest) GetFrom() string {
+	if x != nil {
+		return x.From
+	}
+	return ""
+}
+
+func (x *ServiceLogsRequest) GetTo() string {
+	if x != nil {
+		return x.To
+	}
+	return ""
+}
+
+func (x *ServiceLogsRequest) GetFilter() *ServiceLogsFilter {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
+func (x *ServiceLogsRequest) GetPagination() *LogsCursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 type ServiceLogsFilter struct {
 	state                protoimpl.MessageState `protogen:"open.v1"`
 	ServiceEnvironmentId string                 `protobuf:"bytes,1,opt,name=service_environment_id,json=serviceEnvironmentId,proto3" json:"service_environment_id,omitempty"`
 	DeploymentId         *string                `protobuf:"bytes,2,opt,name=deployment_id,json=deploymentId,proto3,oneof" json:"deployment_id,omitempty"`
 	Region               *string                `protobuf:"bytes,3,opt,name=region,proto3,oneof" json:"region,omitempty"`
-	Page                 *int32                 `protobuf:"varint,4,opt,name=page,proto3,oneof" json:"page,omitempty"`
-	HistoryMode          *bool                  `protobuf:"varint,5,opt,name=history_mode,json=historyMode,proto3,oneof" json:"history_mode,omitempty"`
-	Now                  string                 `protobuf:"bytes,6,opt,name=now,proto3" json:"now,omitempty"`
+	Search               *string                `protobuf:"bytes,4,opt,name=search,proto3,oneof" json:"search,omitempty"`
 	unknownFields        protoimpl.UnknownFields
 	sizeCache            protoimpl.SizeCache
 }
 
 func (x *ServiceLogsFilter) Reset() {
 	*x = ServiceLogsFilter{}
-	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[0]
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -48,7 +218,7 @@ func (x *ServiceLogsFilter) String() string {
 func (*ServiceLogsFilter) ProtoMessage() {}
 
 func (x *ServiceLogsFilter) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[0]
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -61,7 +231,7 @@ func (x *ServiceLogsFilter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceLogsFilter.ProtoReflect.Descriptor instead.
 func (*ServiceLogsFilter) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{0}
+	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ServiceLogsFilter) GetServiceEnvironmentId() string {
@@ -85,23 +255,9 @@ func (x *ServiceLogsFilter) GetRegion() string {
 	return ""
 }
 
-func (x *ServiceLogsFilter) GetPage() int32 {
-	if x != nil && x.Page != nil {
-		return *x.Page
-	}
-	return 0
-}
-
-func (x *ServiceLogsFilter) GetHistoryMode() bool {
-	if x != nil && x.HistoryMode != nil {
-		return *x.HistoryMode
-	}
-	return false
-}
-
-func (x *ServiceLogsFilter) GetNow() string {
-	if x != nil {
-		return x.Now
+func (x *ServiceLogsFilter) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
 	}
 	return ""
 }
@@ -117,7 +273,7 @@ type ServiceLog struct {
 
 func (x *ServiceLog) Reset() {
 	*x = ServiceLog{}
-	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[1]
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -129,7 +285,7 @@ func (x *ServiceLog) String() string {
 func (*ServiceLog) ProtoMessage() {}
 
 func (x *ServiceLog) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[1]
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -142,7 +298,7 @@ func (x *ServiceLog) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceLog.ProtoReflect.Descriptor instead.
 func (*ServiceLog) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{1}
+	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ServiceLog) GetTimestamp() string {
@@ -167,19 +323,16 @@ func (x *ServiceLog) GetMeta() *structpb.Struct {
 }
 
 type ServiceLogs struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	ServiceLogs   []*ServiceLog          `protobuf:"bytes,1,rep,name=service_logs,json=serviceLogs,proto3" json:"service_logs,omitempty"`
-	Page          *int32                 `protobuf:"varint,2,opt,name=page,proto3,oneof" json:"page,omitempty"`
-	NextPage      *int32                 `protobuf:"varint,3,opt,name=next_page,json=nextPage,proto3,oneof" json:"next_page,omitempty"`
-	PerPage       *int32                 `protobuf:"varint,4,opt,name=per_page,json=perPage,proto3,oneof" json:"per_page,omitempty"`
-	Total         *int32                 `protobuf:"varint,5,opt,name=total,proto3,oneof" json:"total,omitempty"`
+	state         protoimpl.MessageState        `protogen:"open.v1"`
+	ServiceLogs   []*ServiceLog                 `protobuf:"bytes,1,rep,name=service_logs,json=serviceLogs,proto3" json:"service_logs,omitempty"`
+	Pagination    *LogsCursorPaginationMetadata `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServiceLogs) Reset() {
 	*x = ServiceLogs{}
-	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[2]
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -191,7 +344,7 @@ func (x *ServiceLogs) String() string {
 func (*ServiceLogs) ProtoMessage() {}
 
 func (x *ServiceLogs) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[2]
+	mi := &file_pyrite_v1_services_v1_service_log_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -204,7 +357,7 @@ func (x *ServiceLogs) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceLogs.ProtoReflect.Descriptor instead.
 func (*ServiceLogs) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{2}
+	return file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ServiceLogs) GetServiceLogs() []*ServiceLog {
@@ -214,68 +367,54 @@ func (x *ServiceLogs) GetServiceLogs() []*ServiceLog {
 	return nil
 }
 
-func (x *ServiceLogs) GetPage() int32 {
-	if x != nil && x.Page != nil {
-		return *x.Page
+func (x *ServiceLogs) GetPagination() *LogsCursorPaginationMetadata {
+	if x != nil {
+		return x.Pagination
 	}
-	return 0
-}
-
-func (x *ServiceLogs) GetNextPage() int32 {
-	if x != nil && x.NextPage != nil {
-		return *x.NextPage
-	}
-	return 0
-}
-
-func (x *ServiceLogs) GetPerPage() int32 {
-	if x != nil && x.PerPage != nil {
-		return *x.PerPage
-	}
-	return 0
-}
-
-func (x *ServiceLogs) GetTotal() int32 {
-	if x != nil && x.Total != nil {
-		return *x.Total
-	}
-	return 0
+	return nil
 }
 
 var File_pyrite_v1_services_v1_service_log_proto protoreflect.FileDescriptor
 
 const file_pyrite_v1_services_v1_service_log_proto_rawDesc = "" +
 	"\n" +
-	"'pyrite/v1/services/v1/service_log.proto\x12\x15pyrite.v1.services.v1\x1a\x1cgoogle/protobuf/struct.proto\"\x9a\x02\n" +
+	"'pyrite/v1/services/v1/service_log.proto\x12\x15pyrite.v1.services.v1\x1a\x1cgoogle/protobuf/struct.proto\"K\n" +
+	"\x14LogsCursorPagination\x12\x16\n" +
+	"\x06cursor\x18\x01 \x01(\tR\x06cursor\x12\x1b\n" +
+	"\tpage_size\x18\x02 \x01(\rR\bpageSize\"q\n" +
+	"\x1cLogsCursorPaginationMetadata\x12\x1b\n" +
+	"\tpage_size\x18\x01 \x01(\rR\bpageSize\x12$\n" +
+	"\vnext_cursor\x18\x02 \x01(\tH\x00R\n" +
+	"nextCursor\x88\x01\x01B\x0e\n" +
+	"\f_next_cursor\"\xdb\x01\n" +
+	"\x12ServiceLogsRequest\x12\x12\n" +
+	"\x04from\x18\x01 \x01(\tR\x04from\x12\x0e\n" +
+	"\x02to\x18\x02 \x01(\tR\x02to\x12@\n" +
+	"\x06filter\x18\x03 \x01(\v2(.pyrite.v1.services.v1.ServiceLogsFilterR\x06filter\x12P\n" +
+	"\n" +
+	"pagination\x18\x04 \x01(\v2+.pyrite.v1.services.v1.LogsCursorPaginationH\x00R\n" +
+	"pagination\x88\x01\x01B\r\n" +
+	"\v_pagination\"\xd5\x01\n" +
 	"\x11ServiceLogsFilter\x124\n" +
 	"\x16service_environment_id\x18\x01 \x01(\tR\x14serviceEnvironmentId\x12(\n" +
 	"\rdeployment_id\x18\x02 \x01(\tH\x00R\fdeploymentId\x88\x01\x01\x12\x1b\n" +
-	"\x06region\x18\x03 \x01(\tH\x01R\x06region\x88\x01\x01\x12\x17\n" +
-	"\x04page\x18\x04 \x01(\x05H\x02R\x04page\x88\x01\x01\x12&\n" +
-	"\fhistory_mode\x18\x05 \x01(\bH\x03R\vhistoryMode\x88\x01\x01\x12\x10\n" +
-	"\x03now\x18\x06 \x01(\tR\x03nowB\x10\n" +
+	"\x06region\x18\x03 \x01(\tH\x01R\x06region\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x04 \x01(\tH\x02R\x06search\x88\x01\x01B\x10\n" +
 	"\x0e_deployment_idB\t\n" +
-	"\a_regionB\a\n" +
-	"\x05_pageB\x0f\n" +
-	"\r_history_mode\"i\n" +
+	"\a_regionB\t\n" +
+	"\a_search\"i\n" +
 	"\n" +
 	"ServiceLog\x12\x1c\n" +
 	"\ttimestamp\x18\x01 \x01(\tR\ttimestamp\x12\x10\n" +
 	"\x03log\x18\x02 \x01(\tR\x03log\x12+\n" +
-	"\x04meta\x18\x03 \x01(\v2\x17.google.protobuf.StructR\x04meta\"\xf7\x01\n" +
+	"\x04meta\x18\x03 \x01(\v2\x17.google.protobuf.StructR\x04meta\"\xa8\x01\n" +
 	"\vServiceLogs\x12D\n" +
-	"\fservice_logs\x18\x01 \x03(\v2!.pyrite.v1.services.v1.ServiceLogR\vserviceLogs\x12\x17\n" +
-	"\x04page\x18\x02 \x01(\x05H\x00R\x04page\x88\x01\x01\x12 \n" +
-	"\tnext_page\x18\x03 \x01(\x05H\x01R\bnextPage\x88\x01\x01\x12\x1e\n" +
-	"\bper_page\x18\x04 \x01(\x05H\x02R\aperPage\x88\x01\x01\x12\x19\n" +
-	"\x05total\x18\x05 \x01(\x05H\x03R\x05total\x88\x01\x01B\a\n" +
-	"\x05_pageB\f\n" +
+	"\fservice_logs\x18\x01 \x03(\v2!.pyrite.v1.services.v1.ServiceLogR\vserviceLogs\x12S\n" +
 	"\n" +
-	"_next_pageB\v\n" +
-	"\t_per_pageB\b\n" +
-	"\x06_total2w\n" +
-	"\x11ServiceLogService\x12b\n" +
-	"\x12FindAllServiceLogs\x12(.pyrite.v1.services.v1.ServiceLogsFilter\x1a\".pyrite.v1.services.v1.ServiceLogsB\xee\x01\n" +
+	"pagination\x18\x02 \x01(\v23.pyrite.v1.services.v1.LogsCursorPaginationMetadataR\n" +
+	"pagination2x\n" +
+	"\x11ServiceLogService\x12c\n" +
+	"\x12FindAllServiceLogs\x12).pyrite.v1.services.v1.ServiceLogsRequest\x1a\".pyrite.v1.services.v1.ServiceLogsB\xee\x01\n" +
 	"\x19com.pyrite.v1.services.v1B\x0fServiceLogProtoP\x01ZIgithub.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1;servicesv1\xa2\x02\x03PVS\xaa\x02\x15Pyrite.V1.Services.V1\xca\x02\x15Pyrite\\V1\\Services\\V1\xe2\x02!Pyrite\\V1\\Services\\V1\\GPBMetadata\xea\x02\x18Pyrite::V1::Services::V1b\x06proto3"
 
 var (
@@ -290,23 +429,29 @@ func file_pyrite_v1_services_v1_service_log_proto_rawDescGZIP() []byte {
 	return file_pyrite_v1_services_v1_service_log_proto_rawDescData
 }
 
-var file_pyrite_v1_services_v1_service_log_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_pyrite_v1_services_v1_service_log_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_pyrite_v1_services_v1_service_log_proto_goTypes = []any{
-	(*ServiceLogsFilter)(nil), // 0: pyrite.v1.services.v1.ServiceLogsFilter
-	(*ServiceLog)(nil),        // 1: pyrite.v1.services.v1.ServiceLog
-	(*ServiceLogs)(nil),       // 2: pyrite.v1.services.v1.ServiceLogs
-	(*structpb.Struct)(nil),   // 3: google.protobuf.Struct
+	(*LogsCursorPagination)(nil),         // 0: pyrite.v1.services.v1.LogsCursorPagination
+	(*LogsCursorPaginationMetadata)(nil), // 1: pyrite.v1.services.v1.LogsCursorPaginationMetadata
+	(*ServiceLogsRequest)(nil),           // 2: pyrite.v1.services.v1.ServiceLogsRequest
+	(*ServiceLogsFilter)(nil),            // 3: pyrite.v1.services.v1.ServiceLogsFilter
+	(*ServiceLog)(nil),                   // 4: pyrite.v1.services.v1.ServiceLog
+	(*ServiceLogs)(nil),                  // 5: pyrite.v1.services.v1.ServiceLogs
+	(*structpb.Struct)(nil),              // 6: google.protobuf.Struct
 }
 var file_pyrite_v1_services_v1_service_log_proto_depIdxs = []int32{
-	3, // 0: pyrite.v1.services.v1.ServiceLog.meta:type_name -> google.protobuf.Struct
-	1, // 1: pyrite.v1.services.v1.ServiceLogs.service_logs:type_name -> pyrite.v1.services.v1.ServiceLog
-	0, // 2: pyrite.v1.services.v1.ServiceLogService.FindAllServiceLogs:input_type -> pyrite.v1.services.v1.ServiceLogsFilter
-	2, // 3: pyrite.v1.services.v1.ServiceLogService.FindAllServiceLogs:output_type -> pyrite.v1.services.v1.ServiceLogs
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	3, // 0: pyrite.v1.services.v1.ServiceLogsRequest.filter:type_name -> pyrite.v1.services.v1.ServiceLogsFilter
+	0, // 1: pyrite.v1.services.v1.ServiceLogsRequest.pagination:type_name -> pyrite.v1.services.v1.LogsCursorPagination
+	6, // 2: pyrite.v1.services.v1.ServiceLog.meta:type_name -> google.protobuf.Struct
+	4, // 3: pyrite.v1.services.v1.ServiceLogs.service_logs:type_name -> pyrite.v1.services.v1.ServiceLog
+	1, // 4: pyrite.v1.services.v1.ServiceLogs.pagination:type_name -> pyrite.v1.services.v1.LogsCursorPaginationMetadata
+	2, // 5: pyrite.v1.services.v1.ServiceLogService.FindAllServiceLogs:input_type -> pyrite.v1.services.v1.ServiceLogsRequest
+	5, // 6: pyrite.v1.services.v1.ServiceLogService.FindAllServiceLogs:output_type -> pyrite.v1.services.v1.ServiceLogs
+	6, // [6:7] is the sub-list for method output_type
+	5, // [5:6] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_services_v1_service_log_proto_init() }
@@ -314,15 +459,16 @@ func file_pyrite_v1_services_v1_service_log_proto_init() {
 	if File_pyrite_v1_services_v1_service_log_proto != nil {
 		return
 	}
-	file_pyrite_v1_services_v1_service_log_proto_msgTypes[0].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_service_log_proto_msgTypes[1].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_service_log_proto_msgTypes[2].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_service_log_proto_msgTypes[3].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pyrite_v1_services_v1_service_log_proto_rawDesc), len(file_pyrite_v1_services_v1_service_log_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   6,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

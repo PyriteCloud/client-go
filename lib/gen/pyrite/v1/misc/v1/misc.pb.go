@@ -997,12 +997,13 @@ const file_pyrite_v1_misc_v1_misc_proto_rawDesc = "" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
 	"\x05price\x18\x02 \x01(\x01R\x05price\"B\n" +
 	"\vFixedPrices\x123\n" +
-	"\x05items\x18\x01 \x03(\v2\x1d.pyrite.v1.misc.v1.FixedPriceR\x05items2\x8e\x05\n" +
+	"\x05items\x18\x01 \x03(\v2\x1d.pyrite.v1.misc.v1.FixedPriceR\x05items2\xd9\x05\n" +
 	"\vMiscService\x12M\n" +
 	"\x13FindAllServiceTypes\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x18.pyrite.v1.misc.v1.Items\"\x00\x12J\n" +
 	"\x10FindAllProtocols\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x18.pyrite.v1.misc.v1.Items\"\x00\x12F\n" +
 	"\fFindAllRoles\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x18.pyrite.v1.misc.v1.Items\"\x00\x12I\n" +
-	"\x0fFindAllRuntimes\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x18.pyrite.v1.misc.v1.Items\"\x00\x12J\n" +
+	"\x0fFindAllRuntimes\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x18.pyrite.v1.misc.v1.Items\"\x00\x12I\n" +
+	"\x0fFindAllBuilders\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x18.pyrite.v1.misc.v1.Items\"\x00\x12J\n" +
 	"\x0eFindAllRegions\x12\x1a.pyrite.v1.common.v1.Empty\x1a\x1a.pyrite.v1.misc.v1.Regions\"\x00\x12Q\n" +
 	"\fFindAllPlans\x12%.pyrite.v1.misc.v1.PlansByServiceType\x1a\x18.pyrite.v1.misc.v1.Plans\"\x00\x12^\n" +
 	"\x18FindAllTeamSubscriptions\x12\x1a.pyrite.v1.common.v1.Empty\x1a$.pyrite.v1.misc.v1.TeamSubscriptions\"\x00\x12R\n" +
@@ -1056,20 +1057,22 @@ var file_pyrite_v1_misc_v1_misc_proto_depIdxs = []int32{
 	16, // 11: pyrite.v1.misc.v1.MiscService.FindAllProtocols:input_type -> pyrite.v1.common.v1.Empty
 	16, // 12: pyrite.v1.misc.v1.MiscService.FindAllRoles:input_type -> pyrite.v1.common.v1.Empty
 	16, // 13: pyrite.v1.misc.v1.MiscService.FindAllRuntimes:input_type -> pyrite.v1.common.v1.Empty
-	16, // 14: pyrite.v1.misc.v1.MiscService.FindAllRegions:input_type -> pyrite.v1.common.v1.Empty
-	0,  // 15: pyrite.v1.misc.v1.MiscService.FindAllPlans:input_type -> pyrite.v1.misc.v1.PlansByServiceType
-	16, // 16: pyrite.v1.misc.v1.MiscService.FindAllTeamSubscriptions:input_type -> pyrite.v1.common.v1.Empty
-	16, // 17: pyrite.v1.misc.v1.MiscService.FindAllFixedPrices:input_type -> pyrite.v1.common.v1.Empty
-	1,  // 18: pyrite.v1.misc.v1.MiscService.FindAllServiceTypes:output_type -> pyrite.v1.misc.v1.Items
-	1,  // 19: pyrite.v1.misc.v1.MiscService.FindAllProtocols:output_type -> pyrite.v1.misc.v1.Items
-	1,  // 20: pyrite.v1.misc.v1.MiscService.FindAllRoles:output_type -> pyrite.v1.misc.v1.Items
-	1,  // 21: pyrite.v1.misc.v1.MiscService.FindAllRuntimes:output_type -> pyrite.v1.misc.v1.Items
-	3,  // 22: pyrite.v1.misc.v1.MiscService.FindAllRegions:output_type -> pyrite.v1.misc.v1.Regions
-	11, // 23: pyrite.v1.misc.v1.MiscService.FindAllPlans:output_type -> pyrite.v1.misc.v1.Plans
-	13, // 24: pyrite.v1.misc.v1.MiscService.FindAllTeamSubscriptions:output_type -> pyrite.v1.misc.v1.TeamSubscriptions
-	15, // 25: pyrite.v1.misc.v1.MiscService.FindAllFixedPrices:output_type -> pyrite.v1.misc.v1.FixedPrices
-	18, // [18:26] is the sub-list for method output_type
-	10, // [10:18] is the sub-list for method input_type
+	16, // 14: pyrite.v1.misc.v1.MiscService.FindAllBuilders:input_type -> pyrite.v1.common.v1.Empty
+	16, // 15: pyrite.v1.misc.v1.MiscService.FindAllRegions:input_type -> pyrite.v1.common.v1.Empty
+	0,  // 16: pyrite.v1.misc.v1.MiscService.FindAllPlans:input_type -> pyrite.v1.misc.v1.PlansByServiceType
+	16, // 17: pyrite.v1.misc.v1.MiscService.FindAllTeamSubscriptions:input_type -> pyrite.v1.common.v1.Empty
+	16, // 18: pyrite.v1.misc.v1.MiscService.FindAllFixedPrices:input_type -> pyrite.v1.common.v1.Empty
+	1,  // 19: pyrite.v1.misc.v1.MiscService.FindAllServiceTypes:output_type -> pyrite.v1.misc.v1.Items
+	1,  // 20: pyrite.v1.misc.v1.MiscService.FindAllProtocols:output_type -> pyrite.v1.misc.v1.Items
+	1,  // 21: pyrite.v1.misc.v1.MiscService.FindAllRoles:output_type -> pyrite.v1.misc.v1.Items
+	1,  // 22: pyrite.v1.misc.v1.MiscService.FindAllRuntimes:output_type -> pyrite.v1.misc.v1.Items
+	1,  // 23: pyrite.v1.misc.v1.MiscService.FindAllBuilders:output_type -> pyrite.v1.misc.v1.Items
+	3,  // 24: pyrite.v1.misc.v1.MiscService.FindAllRegions:output_type -> pyrite.v1.misc.v1.Regions
+	11, // 25: pyrite.v1.misc.v1.MiscService.FindAllPlans:output_type -> pyrite.v1.misc.v1.Plans
+	13, // 26: pyrite.v1.misc.v1.MiscService.FindAllTeamSubscriptions:output_type -> pyrite.v1.misc.v1.TeamSubscriptions
+	15, // 27: pyrite.v1.misc.v1.MiscService.FindAllFixedPrices:output_type -> pyrite.v1.misc.v1.FixedPrices
+	19, // [19:28] is the sub-list for method output_type
+	10, // [10:19] is the sub-list for method input_type
 	10, // [10:10] is the sub-list for extension type_name
 	10, // [10:10] is the sub-list for extension extendee
 	0,  // [0:10] is the sub-list for field type_name

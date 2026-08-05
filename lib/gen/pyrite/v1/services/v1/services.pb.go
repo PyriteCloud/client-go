@@ -7,6 +7,7 @@
 package servicesv1
 
 import (
+	v12 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/common/v1"
 	v11 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/common/v1"
 	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/deployments/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -22,6 +23,66 @@ const (
 	// Verify that runtime/protoimpl is sufficiently up-to-date.
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
+
+type CreateServiceDto struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Type          string                 `protobuf:"bytes,2,opt,name=type,proto3" json:"type,omitempty"`
+	ProjectId     string                 `protobuf:"bytes,3,opt,name=project_id,json=projectId,proto3" json:"project_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *CreateServiceDto) Reset() {
+	*x = CreateServiceDto{}
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *CreateServiceDto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*CreateServiceDto) ProtoMessage() {}
+
+func (x *CreateServiceDto) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use CreateServiceDto.ProtoReflect.Descriptor instead.
+func (*CreateServiceDto) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *CreateServiceDto) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *CreateServiceDto) GetType() string {
+	if x != nil {
+		return x.Type
+	}
+	return ""
+}
+
+func (x *CreateServiceDto) GetProjectId() string {
+	if x != nil {
+		return x.ProjectId
+	}
+	return ""
+}
 
 type UpsertServiceDto struct {
 	state       protoimpl.MessageState `protogen:"open.v1"`
@@ -40,7 +101,7 @@ type UpsertServiceDto struct {
 
 func (x *UpsertServiceDto) Reset() {
 	*x = UpsertServiceDto{}
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[0]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -52,7 +113,7 @@ func (x *UpsertServiceDto) String() string {
 func (*UpsertServiceDto) ProtoMessage() {}
 
 func (x *UpsertServiceDto) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[0]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -65,7 +126,7 @@ func (x *UpsertServiceDto) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpsertServiceDto.ProtoReflect.Descriptor instead.
 func (*UpsertServiceDto) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{0}
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *UpsertServiceDto) GetName() string {
@@ -147,7 +208,7 @@ type UpsertServiceResponseDto struct {
 
 func (x *UpsertServiceResponseDto) Reset() {
 	*x = UpsertServiceResponseDto{}
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[1]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -159,7 +220,7 @@ func (x *UpsertServiceResponseDto) String() string {
 func (*UpsertServiceResponseDto) ProtoMessage() {}
 
 func (x *UpsertServiceResponseDto) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[1]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -172,7 +233,7 @@ func (x *UpsertServiceResponseDto) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpsertServiceResponseDto.ProtoReflect.Descriptor instead.
 func (*UpsertServiceResponseDto) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{1}
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *UpsertServiceResponseDto) GetService() *v11.Service {
@@ -198,13 +259,17 @@ type ServicesByTeamIdOrProjectId struct {
 	Id            isServicesByTeamIdOrProjectId_Id `protobuf_oneof:"id"`
 	ForTeamVolume *bool                            `protobuf:"varint,3,opt,name=for_team_volume,json=forTeamVolume,proto3,oneof" json:"for_team_volume,omitempty"`
 	WithMeta      *bool                            `protobuf:"varint,4,opt,name=with_meta,json=withMeta,proto3,oneof" json:"with_meta,omitempty"`
+	Type          *string                          `protobuf:"bytes,5,opt,name=type,proto3,oneof" json:"type,omitempty"`
+	Status        *int32                           `protobuf:"varint,6,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Search        *string                          `protobuf:"bytes,7,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v12.CursorPagination            `protobuf:"bytes,8,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServicesByTeamIdOrProjectId) Reset() {
 	*x = ServicesByTeamIdOrProjectId{}
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[2]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -216,7 +281,7 @@ func (x *ServicesByTeamIdOrProjectId) String() string {
 func (*ServicesByTeamIdOrProjectId) ProtoMessage() {}
 
 func (x *ServicesByTeamIdOrProjectId) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[2]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -229,7 +294,7 @@ func (x *ServicesByTeamIdOrProjectId) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServicesByTeamIdOrProjectId.ProtoReflect.Descriptor instead.
 func (*ServicesByTeamIdOrProjectId) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{2}
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ServicesByTeamIdOrProjectId) GetId() isServicesByTeamIdOrProjectId_Id {
@@ -271,6 +336,34 @@ func (x *ServicesByTeamIdOrProjectId) GetWithMeta() bool {
 	return false
 }
 
+func (x *ServicesByTeamIdOrProjectId) GetType() string {
+	if x != nil && x.Type != nil {
+		return *x.Type
+	}
+	return ""
+}
+
+func (x *ServicesByTeamIdOrProjectId) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+func (x *ServicesByTeamIdOrProjectId) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
+}
+
+func (x *ServicesByTeamIdOrProjectId) GetPagination() *v12.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 type isServicesByTeamIdOrProjectId_Id interface {
 	isServicesByTeamIdOrProjectId_Id()
 }
@@ -291,13 +384,17 @@ type ServiceById struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	WithMeta      *bool                  `protobuf:"varint,2,opt,name=with_meta,json=withMeta,proto3,oneof" json:"with_meta,omitempty"`
+	Type          *string                `protobuf:"bytes,3,opt,name=type,proto3,oneof" json:"type,omitempty"`
+	Status        *int32                 `protobuf:"varint,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Search        *string                `protobuf:"bytes,5,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v12.CursorPagination  `protobuf:"bytes,6,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServiceById) Reset() {
 	*x = ServiceById{}
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[3]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -309,7 +406,7 @@ func (x *ServiceById) String() string {
 func (*ServiceById) ProtoMessage() {}
 
 func (x *ServiceById) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[3]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -322,7 +419,7 @@ func (x *ServiceById) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceById.ProtoReflect.Descriptor instead.
 func (*ServiceById) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{3}
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *ServiceById) GetId() string {
@@ -339,18 +436,50 @@ func (x *ServiceById) GetWithMeta() bool {
 	return false
 }
 
+func (x *ServiceById) GetType() string {
+	if x != nil && x.Type != nil {
+		return *x.Type
+	}
+	return ""
+}
+
+func (x *ServiceById) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+func (x *ServiceById) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
+}
+
+func (x *ServiceById) GetPagination() *v12.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 type ServiceByIdWithEnvironment struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	Environment   *string                `protobuf:"bytes,2,opt,name=environment,proto3,oneof" json:"environment,omitempty"`
 	WithMeta      *bool                  `protobuf:"varint,3,opt,name=with_meta,json=withMeta,proto3,oneof" json:"with_meta,omitempty"`
+	Type          *string                `protobuf:"bytes,4,opt,name=type,proto3,oneof" json:"type,omitempty"`
+	Status        *int32                 `protobuf:"varint,5,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Search        *string                `protobuf:"bytes,6,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v12.CursorPagination  `protobuf:"bytes,7,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServiceByIdWithEnvironment) Reset() {
 	*x = ServiceByIdWithEnvironment{}
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[4]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -362,7 +491,7 @@ func (x *ServiceByIdWithEnvironment) String() string {
 func (*ServiceByIdWithEnvironment) ProtoMessage() {}
 
 func (x *ServiceByIdWithEnvironment) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[4]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -375,7 +504,7 @@ func (x *ServiceByIdWithEnvironment) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceByIdWithEnvironment.ProtoReflect.Descriptor instead.
 func (*ServiceByIdWithEnvironment) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{4}
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *ServiceByIdWithEnvironment) GetId() string {
@@ -399,6 +528,34 @@ func (x *ServiceByIdWithEnvironment) GetWithMeta() bool {
 	return false
 }
 
+func (x *ServiceByIdWithEnvironment) GetType() string {
+	if x != nil && x.Type != nil {
+		return *x.Type
+	}
+	return ""
+}
+
+func (x *ServiceByIdWithEnvironment) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+func (x *ServiceByIdWithEnvironment) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
+}
+
+func (x *ServiceByIdWithEnvironment) GetPagination() *v12.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 type ServiceToken struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Token         string                 `protobuf:"bytes,1,opt,name=token,proto3" json:"token,omitempty"`
@@ -408,7 +565,7 @@ type ServiceToken struct {
 
 func (x *ServiceToken) Reset() {
 	*x = ServiceToken{}
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[5]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -420,7 +577,7 @@ func (x *ServiceToken) String() string {
 func (*ServiceToken) ProtoMessage() {}
 
 func (x *ServiceToken) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[5]
+	mi := &file_pyrite_v1_services_v1_services_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -433,7 +590,7 @@ func (x *ServiceToken) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceToken.ProtoReflect.Descriptor instead.
 func (*ServiceToken) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{5}
+	return file_pyrite_v1_services_v1_services_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *ServiceToken) GetToken() string {
@@ -447,7 +604,12 @@ var File_pyrite_v1_services_v1_services_proto protoreflect.FileDescriptor
 
 const file_pyrite_v1_services_v1_services_proto_rawDesc = "" +
 	"\n" +
-	"$pyrite/v1/services/v1/services.proto\x12\x15pyrite.v1.services.v1\x1a,pyrite/v1/services/v1/common/v1/common.proto\x1a=pyrite/v1/services/v1/deployments/v1/docker_deployments.proto\x1a?pyrite/v1/services/v1/deployments/v1/postgres_deployments.proto\"\xef\x02\n" +
+	"$pyrite/v1/services/v1/services.proto\x12\x15pyrite.v1.services.v1\x1a pyrite/v1/common/v1/common.proto\x1a,pyrite/v1/services/v1/common/v1/common.proto\x1a6pyrite/v1/services/v1/deployments/v1/deployments.proto\x1a=pyrite/v1/services/v1/deployments/v1/docker_deployments.proto\x1a?pyrite/v1/services/v1/deployments/v1/postgres_deployments.proto\"Y\n" +
+	"\x10CreateServiceDto\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
+	"\x04type\x18\x02 \x01(\tR\x04type\x12\x1d\n" +
+	"\n" +
+	"project_id\x18\x03 \x01(\tR\tprojectId\"\xef\x02\n" +
 	"\x10UpsertServiceDto\x12\x12\n" +
 	"\x04name\x18\x01 \x01(\tR\x04name\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12\x1d\n" +
@@ -460,34 +622,67 @@ const file_pyrite_v1_services_v1_services_proto_rawDesc = "" +
 	"\f_environment\"\xc4\x01\n" +
 	"\x18UpsertServiceResponseDto\x12B\n" +
 	"\aservice\x18\x01 \x01(\v2(.pyrite.v1.services.v1.common.v1.ServiceR\aservice\x12d\n" +
-	"\x13service_environment\x18\x02 \x01(\v23.pyrite.v1.services.v1.common.v1.ServiceEnvironmentR\x12serviceEnvironment\"\xd0\x01\n" +
+	"\x13service_environment\x18\x02 \x01(\v23.pyrite.v1.services.v1.common.v1.ServiceEnvironmentR\x12serviceEnvironment\"\x9d\x03\n" +
 	"\x1bServicesByTeamIdOrProjectId\x12\x19\n" +
 	"\ateam_id\x18\x01 \x01(\tH\x00R\x06teamId\x12\x1f\n" +
 	"\n" +
 	"project_id\x18\x02 \x01(\tH\x00R\tprojectId\x12+\n" +
 	"\x0ffor_team_volume\x18\x03 \x01(\bH\x01R\rforTeamVolume\x88\x01\x01\x12 \n" +
-	"\twith_meta\x18\x04 \x01(\bH\x02R\bwithMeta\x88\x01\x01B\x04\n" +
+	"\twith_meta\x18\x04 \x01(\bH\x02R\bwithMeta\x88\x01\x01\x12\x17\n" +
+	"\x04type\x18\x05 \x01(\tH\x03R\x04type\x88\x01\x01\x12\x1b\n" +
+	"\x06status\x18\x06 \x01(\x05H\x04R\x06status\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\a \x01(\tH\x05R\x06search\x88\x01\x01\x12J\n" +
+	"\n" +
+	"pagination\x18\b \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x06R\n" +
+	"pagination\x88\x01\x01B\x04\n" +
 	"\x02idB\x12\n" +
 	"\x10_for_team_volumeB\f\n" +
 	"\n" +
-	"_with_meta\"M\n" +
+	"_with_metaB\a\n" +
+	"\x05_typeB\t\n" +
+	"\a_statusB\t\n" +
+	"\a_searchB\r\n" +
+	"\v_pagination\"\x9a\x02\n" +
 	"\vServiceById\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12 \n" +
-	"\twith_meta\x18\x02 \x01(\bH\x00R\bwithMeta\x88\x01\x01B\f\n" +
+	"\twith_meta\x18\x02 \x01(\bH\x00R\bwithMeta\x88\x01\x01\x12\x17\n" +
+	"\x04type\x18\x03 \x01(\tH\x01R\x04type\x88\x01\x01\x12\x1b\n" +
+	"\x06status\x18\x04 \x01(\x05H\x02R\x06status\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x05 \x01(\tH\x03R\x06search\x88\x01\x01\x12J\n" +
 	"\n" +
-	"_with_meta\"\x93\x01\n" +
+	"pagination\x18\x06 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x04R\n" +
+	"pagination\x88\x01\x01B\f\n" +
+	"\n" +
+	"_with_metaB\a\n" +
+	"\x05_typeB\t\n" +
+	"\a_statusB\t\n" +
+	"\a_searchB\r\n" +
+	"\v_pagination\"\xe0\x02\n" +
 	"\x1aServiceByIdWithEnvironment\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12%\n" +
 	"\venvironment\x18\x02 \x01(\tH\x00R\venvironment\x88\x01\x01\x12 \n" +
-	"\twith_meta\x18\x03 \x01(\bH\x01R\bwithMeta\x88\x01\x01B\x0e\n" +
+	"\twith_meta\x18\x03 \x01(\bH\x01R\bwithMeta\x88\x01\x01\x12\x17\n" +
+	"\x04type\x18\x04 \x01(\tH\x02R\x04type\x88\x01\x01\x12\x1b\n" +
+	"\x06status\x18\x05 \x01(\x05H\x03R\x06status\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x06 \x01(\tH\x04R\x06search\x88\x01\x01\x12J\n" +
+	"\n" +
+	"pagination\x18\a \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x05R\n" +
+	"pagination\x88\x01\x01B\x0e\n" +
 	"\f_environmentB\f\n" +
 	"\n" +
-	"_with_meta\"$\n" +
+	"_with_metaB\a\n" +
+	"\x05_typeB\t\n" +
+	"\a_statusB\t\n" +
+	"\a_searchB\r\n" +
+	"\v_pagination\"$\n" +
 	"\fServiceToken\x12\x14\n" +
-	"\x05token\x18\x01 \x01(\tR\x05token2\x8d\t\n" +
+	"\x05token\x18\x01 \x01(\tR\x05token2\xf1\n" +
+	"\n" +
 	"\x0fServicesService\x12r\n" +
-	"\x0fFindAllServices\x122.pyrite.v1.services.v1.ServicesByTeamIdOrProjectId\x1a).pyrite.v1.services.v1.common.v1.Services\"\x00\x12`\n" +
-	"\x0eFindOneService\x12\".pyrite.v1.services.v1.ServiceById\x1a(.pyrite.v1.services.v1.common.v1.Service\"\x00\x12k\n" +
+	"\x0fFindAllServices\x122.pyrite.v1.services.v1.ServicesByTeamIdOrProjectId\x1a).pyrite.v1.services.v1.common.v1.Services\"\x00\x12|\n" +
+	"\x12FindAllDeployments\x121.pyrite.v1.services.v1.ServiceByIdWithEnvironment\x1a1.pyrite.v1.services.v1.deployments.v1.Deployments\"\x00\x12`\n" +
+	"\x0eFindOneService\x12\".pyrite.v1.services.v1.ServiceById\x1a(.pyrite.v1.services.v1.common.v1.Service\"\x00\x12d\n" +
+	"\rCreateService\x12'.pyrite.v1.services.v1.CreateServiceDto\x1a(.pyrite.v1.services.v1.common.v1.Service\"\x00\x12k\n" +
 	"\rUpsertService\x12'.pyrite.v1.services.v1.UpsertServiceDto\x1a/.pyrite.v1.services.v1.UpsertServiceResponseDto\"\x00\x12_\n" +
 	"\rDeleteService\x12\".pyrite.v1.services.v1.ServiceById\x1a(.pyrite.v1.services.v1.common.v1.Service\"\x00\x12\x86\x01\n" +
 	"\x1aRedeployServiceEnvironment\x121.pyrite.v1.services.v1.ServiceByIdWithEnvironment\x1a3.pyrite.v1.services.v1.common.v1.ServiceEnvironment\"\x00\x12\x83\x01\n" +
@@ -510,50 +705,60 @@ func file_pyrite_v1_services_v1_services_proto_rawDescGZIP() []byte {
 	return file_pyrite_v1_services_v1_services_proto_rawDescData
 }
 
-var file_pyrite_v1_services_v1_services_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_pyrite_v1_services_v1_services_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_pyrite_v1_services_v1_services_proto_goTypes = []any{
-	(*UpsertServiceDto)(nil),            // 0: pyrite.v1.services.v1.UpsertServiceDto
-	(*UpsertServiceResponseDto)(nil),    // 1: pyrite.v1.services.v1.UpsertServiceResponseDto
-	(*ServicesByTeamIdOrProjectId)(nil), // 2: pyrite.v1.services.v1.ServicesByTeamIdOrProjectId
-	(*ServiceById)(nil),                 // 3: pyrite.v1.services.v1.ServiceById
-	(*ServiceByIdWithEnvironment)(nil),  // 4: pyrite.v1.services.v1.ServiceByIdWithEnvironment
-	(*ServiceToken)(nil),                // 5: pyrite.v1.services.v1.ServiceToken
-	(*v1.DockerDeploymentDto)(nil),      // 6: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto
-	(*v1.PostgresDeploymentDto)(nil),    // 7: pyrite.v1.services.v1.deployments.v1.PostgresDeploymentDto
-	(*v11.Service)(nil),                 // 8: pyrite.v1.services.v1.common.v1.Service
-	(*v11.ServiceEnvironment)(nil),      // 9: pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	(*v11.Services)(nil),                // 10: pyrite.v1.services.v1.common.v1.Services
+	(*CreateServiceDto)(nil),            // 0: pyrite.v1.services.v1.CreateServiceDto
+	(*UpsertServiceDto)(nil),            // 1: pyrite.v1.services.v1.UpsertServiceDto
+	(*UpsertServiceResponseDto)(nil),    // 2: pyrite.v1.services.v1.UpsertServiceResponseDto
+	(*ServicesByTeamIdOrProjectId)(nil), // 3: pyrite.v1.services.v1.ServicesByTeamIdOrProjectId
+	(*ServiceById)(nil),                 // 4: pyrite.v1.services.v1.ServiceById
+	(*ServiceByIdWithEnvironment)(nil),  // 5: pyrite.v1.services.v1.ServiceByIdWithEnvironment
+	(*ServiceToken)(nil),                // 6: pyrite.v1.services.v1.ServiceToken
+	(*v1.DockerDeploymentDto)(nil),      // 7: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto
+	(*v1.PostgresDeploymentDto)(nil),    // 8: pyrite.v1.services.v1.deployments.v1.PostgresDeploymentDto
+	(*v11.Service)(nil),                 // 9: pyrite.v1.services.v1.common.v1.Service
+	(*v11.ServiceEnvironment)(nil),      // 10: pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	(*v12.CursorPagination)(nil),        // 11: pyrite.v1.common.v1.CursorPagination
+	(*v11.Services)(nil),                // 12: pyrite.v1.services.v1.common.v1.Services
+	(*v1.Deployments)(nil),              // 13: pyrite.v1.services.v1.deployments.v1.Deployments
 }
 var file_pyrite_v1_services_v1_services_proto_depIdxs = []int32{
-	6,  // 0: pyrite.v1.services.v1.UpsertServiceDto.docker_config:type_name -> pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto
-	7,  // 1: pyrite.v1.services.v1.UpsertServiceDto.postgres_config:type_name -> pyrite.v1.services.v1.deployments.v1.PostgresDeploymentDto
-	8,  // 2: pyrite.v1.services.v1.UpsertServiceResponseDto.service:type_name -> pyrite.v1.services.v1.common.v1.Service
-	9,  // 3: pyrite.v1.services.v1.UpsertServiceResponseDto.service_environment:type_name -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	2,  // 4: pyrite.v1.services.v1.ServicesService.FindAllServices:input_type -> pyrite.v1.services.v1.ServicesByTeamIdOrProjectId
-	3,  // 5: pyrite.v1.services.v1.ServicesService.FindOneService:input_type -> pyrite.v1.services.v1.ServiceById
-	0,  // 6: pyrite.v1.services.v1.ServicesService.UpsertService:input_type -> pyrite.v1.services.v1.UpsertServiceDto
-	3,  // 7: pyrite.v1.services.v1.ServicesService.DeleteService:input_type -> pyrite.v1.services.v1.ServiceById
-	4,  // 8: pyrite.v1.services.v1.ServicesService.RedeployServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
-	4,  // 9: pyrite.v1.services.v1.ServicesService.PauseServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
-	4,  // 10: pyrite.v1.services.v1.ServicesService.ResumeServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
-	3,  // 11: pyrite.v1.services.v1.ServicesService.FindTokenForService:input_type -> pyrite.v1.services.v1.ServiceById
-	3,  // 12: pyrite.v1.services.v1.ServicesService.RegenerateTokenForService:input_type -> pyrite.v1.services.v1.ServiceById
-	3,  // 13: pyrite.v1.services.v1.ServicesService.SyncNetworkForAllServiceEnvironments:input_type -> pyrite.v1.services.v1.ServiceById
-	10, // 14: pyrite.v1.services.v1.ServicesService.FindAllServices:output_type -> pyrite.v1.services.v1.common.v1.Services
-	8,  // 15: pyrite.v1.services.v1.ServicesService.FindOneService:output_type -> pyrite.v1.services.v1.common.v1.Service
-	1,  // 16: pyrite.v1.services.v1.ServicesService.UpsertService:output_type -> pyrite.v1.services.v1.UpsertServiceResponseDto
-	8,  // 17: pyrite.v1.services.v1.ServicesService.DeleteService:output_type -> pyrite.v1.services.v1.common.v1.Service
-	9,  // 18: pyrite.v1.services.v1.ServicesService.RedeployServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	9,  // 19: pyrite.v1.services.v1.ServicesService.PauseServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	9,  // 20: pyrite.v1.services.v1.ServicesService.ResumeServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	5,  // 21: pyrite.v1.services.v1.ServicesService.FindTokenForService:output_type -> pyrite.v1.services.v1.ServiceToken
-	5,  // 22: pyrite.v1.services.v1.ServicesService.RegenerateTokenForService:output_type -> pyrite.v1.services.v1.ServiceToken
-	8,  // 23: pyrite.v1.services.v1.ServicesService.SyncNetworkForAllServiceEnvironments:output_type -> pyrite.v1.services.v1.common.v1.Service
-	14, // [14:24] is the sub-list for method output_type
-	4,  // [4:14] is the sub-list for method input_type
-	4,  // [4:4] is the sub-list for extension type_name
-	4,  // [4:4] is the sub-list for extension extendee
-	0,  // [0:4] is the sub-list for field type_name
+	7,  // 0: pyrite.v1.services.v1.UpsertServiceDto.docker_config:type_name -> pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto
+	8,  // 1: pyrite.v1.services.v1.UpsertServiceDto.postgres_config:type_name -> pyrite.v1.services.v1.deployments.v1.PostgresDeploymentDto
+	9,  // 2: pyrite.v1.services.v1.UpsertServiceResponseDto.service:type_name -> pyrite.v1.services.v1.common.v1.Service
+	10, // 3: pyrite.v1.services.v1.UpsertServiceResponseDto.service_environment:type_name -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	11, // 4: pyrite.v1.services.v1.ServicesByTeamIdOrProjectId.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	11, // 5: pyrite.v1.services.v1.ServiceById.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	11, // 6: pyrite.v1.services.v1.ServiceByIdWithEnvironment.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	3,  // 7: pyrite.v1.services.v1.ServicesService.FindAllServices:input_type -> pyrite.v1.services.v1.ServicesByTeamIdOrProjectId
+	5,  // 8: pyrite.v1.services.v1.ServicesService.FindAllDeployments:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
+	4,  // 9: pyrite.v1.services.v1.ServicesService.FindOneService:input_type -> pyrite.v1.services.v1.ServiceById
+	0,  // 10: pyrite.v1.services.v1.ServicesService.CreateService:input_type -> pyrite.v1.services.v1.CreateServiceDto
+	1,  // 11: pyrite.v1.services.v1.ServicesService.UpsertService:input_type -> pyrite.v1.services.v1.UpsertServiceDto
+	4,  // 12: pyrite.v1.services.v1.ServicesService.DeleteService:input_type -> pyrite.v1.services.v1.ServiceById
+	5,  // 13: pyrite.v1.services.v1.ServicesService.RedeployServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
+	5,  // 14: pyrite.v1.services.v1.ServicesService.PauseServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
+	5,  // 15: pyrite.v1.services.v1.ServicesService.ResumeServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceByIdWithEnvironment
+	4,  // 16: pyrite.v1.services.v1.ServicesService.FindTokenForService:input_type -> pyrite.v1.services.v1.ServiceById
+	4,  // 17: pyrite.v1.services.v1.ServicesService.RegenerateTokenForService:input_type -> pyrite.v1.services.v1.ServiceById
+	4,  // 18: pyrite.v1.services.v1.ServicesService.SyncNetworkForAllServiceEnvironments:input_type -> pyrite.v1.services.v1.ServiceById
+	12, // 19: pyrite.v1.services.v1.ServicesService.FindAllServices:output_type -> pyrite.v1.services.v1.common.v1.Services
+	13, // 20: pyrite.v1.services.v1.ServicesService.FindAllDeployments:output_type -> pyrite.v1.services.v1.deployments.v1.Deployments
+	9,  // 21: pyrite.v1.services.v1.ServicesService.FindOneService:output_type -> pyrite.v1.services.v1.common.v1.Service
+	9,  // 22: pyrite.v1.services.v1.ServicesService.CreateService:output_type -> pyrite.v1.services.v1.common.v1.Service
+	2,  // 23: pyrite.v1.services.v1.ServicesService.UpsertService:output_type -> pyrite.v1.services.v1.UpsertServiceResponseDto
+	9,  // 24: pyrite.v1.services.v1.ServicesService.DeleteService:output_type -> pyrite.v1.services.v1.common.v1.Service
+	10, // 25: pyrite.v1.services.v1.ServicesService.RedeployServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	10, // 26: pyrite.v1.services.v1.ServicesService.PauseServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	10, // 27: pyrite.v1.services.v1.ServicesService.ResumeServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	6,  // 28: pyrite.v1.services.v1.ServicesService.FindTokenForService:output_type -> pyrite.v1.services.v1.ServiceToken
+	6,  // 29: pyrite.v1.services.v1.ServicesService.RegenerateTokenForService:output_type -> pyrite.v1.services.v1.ServiceToken
+	9,  // 30: pyrite.v1.services.v1.ServicesService.SyncNetworkForAllServiceEnvironments:output_type -> pyrite.v1.services.v1.common.v1.Service
+	19, // [19:31] is the sub-list for method output_type
+	7,  // [7:19] is the sub-list for method input_type
+	7,  // [7:7] is the sub-list for extension type_name
+	7,  // [7:7] is the sub-list for extension extendee
+	0,  // [0:7] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_services_v1_services_proto_init() }
@@ -561,23 +766,23 @@ func file_pyrite_v1_services_v1_services_proto_init() {
 	if File_pyrite_v1_services_v1_services_proto != nil {
 		return
 	}
-	file_pyrite_v1_services_v1_services_proto_msgTypes[0].OneofWrappers = []any{
+	file_pyrite_v1_services_v1_services_proto_msgTypes[1].OneofWrappers = []any{
 		(*UpsertServiceDto_DockerConfig)(nil),
 		(*UpsertServiceDto_PostgresConfig)(nil),
 	}
-	file_pyrite_v1_services_v1_services_proto_msgTypes[2].OneofWrappers = []any{
+	file_pyrite_v1_services_v1_services_proto_msgTypes[3].OneofWrappers = []any{
 		(*ServicesByTeamIdOrProjectId_TeamId)(nil),
 		(*ServicesByTeamIdOrProjectId_ProjectId)(nil),
 	}
-	file_pyrite_v1_services_v1_services_proto_msgTypes[3].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_services_proto_msgTypes[4].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_services_proto_msgTypes[5].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pyrite_v1_services_v1_services_proto_rawDesc), len(file_pyrite_v1_services_v1_services_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

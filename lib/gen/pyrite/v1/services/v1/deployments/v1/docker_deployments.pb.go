@@ -581,30 +581,222 @@ func (x *DeploymentVolumeList) GetVolumes() []*DeploymentVolumeDto {
 	return nil
 }
 
+type DockerDeploymentImageSourceDto struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Ref           string                 `protobuf:"bytes,1,opt,name=ref,proto3" json:"ref,omitempty"`
+	RegistryId    *string                `protobuf:"bytes,2,opt,name=registry_id,json=registryId,proto3,oneof" json:"registry_id,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DockerDeploymentImageSourceDto) Reset() {
+	*x = DockerDeploymentImageSourceDto{}
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[10]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DockerDeploymentImageSourceDto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DockerDeploymentImageSourceDto) ProtoMessage() {}
+
+func (x *DockerDeploymentImageSourceDto) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[10]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DockerDeploymentImageSourceDto.ProtoReflect.Descriptor instead.
+func (*DockerDeploymentImageSourceDto) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{10}
+}
+
+func (x *DockerDeploymentImageSourceDto) GetRef() string {
+	if x != nil {
+		return x.Ref
+	}
+	return ""
+}
+
+func (x *DockerDeploymentImageSourceDto) GetRegistryId() string {
+	if x != nil && x.RegistryId != nil {
+		return *x.RegistryId
+	}
+	return ""
+}
+
+type DockerDeploymentBuildConfigDto struct {
+	state          protoimpl.MessageState `protogen:"open.v1"`
+	Builder        string                 `protobuf:"bytes,1,opt,name=builder,proto3" json:"builder,omitempty"`
+	Context        *string                `protobuf:"bytes,2,opt,name=context,proto3,oneof" json:"context,omitempty"`
+	DockerfilePath *string                `protobuf:"bytes,3,opt,name=dockerfile_path,json=dockerfilePath,proto3,oneof" json:"dockerfile_path,omitempty"`
+	unknownFields  protoimpl.UnknownFields
+	sizeCache      protoimpl.SizeCache
+}
+
+func (x *DockerDeploymentBuildConfigDto) Reset() {
+	*x = DockerDeploymentBuildConfigDto{}
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[11]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DockerDeploymentBuildConfigDto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DockerDeploymentBuildConfigDto) ProtoMessage() {}
+
+func (x *DockerDeploymentBuildConfigDto) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[11]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DockerDeploymentBuildConfigDto.ProtoReflect.Descriptor instead.
+func (*DockerDeploymentBuildConfigDto) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{11}
+}
+
+func (x *DockerDeploymentBuildConfigDto) GetBuilder() string {
+	if x != nil {
+		return x.Builder
+	}
+	return ""
+}
+
+func (x *DockerDeploymentBuildConfigDto) GetContext() string {
+	if x != nil && x.Context != nil {
+		return *x.Context
+	}
+	return ""
+}
+
+func (x *DockerDeploymentBuildConfigDto) GetDockerfilePath() string {
+	if x != nil && x.DockerfilePath != nil {
+		return *x.DockerfilePath
+	}
+	return ""
+}
+
+type DockerDeploymentGitSourceDto struct {
+	state         protoimpl.MessageState          `protogen:"open.v1"`
+	RepoUrl       string                          `protobuf:"bytes,1,opt,name=repo_url,json=repoUrl,proto3" json:"repo_url,omitempty"`
+	Branch        string                          `protobuf:"bytes,2,opt,name=branch,proto3" json:"branch,omitempty"`
+	Sha           *string                         `protobuf:"bytes,3,opt,name=sha,proto3,oneof" json:"sha,omitempty"`
+	WithBuild     *bool                           `protobuf:"varint,4,opt,name=with_build,json=withBuild,proto3,oneof" json:"with_build,omitempty"`
+	Build         *DockerDeploymentBuildConfigDto `protobuf:"bytes,5,opt,name=build,proto3,oneof" json:"build,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *DockerDeploymentGitSourceDto) Reset() {
+	*x = DockerDeploymentGitSourceDto{}
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *DockerDeploymentGitSourceDto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*DockerDeploymentGitSourceDto) ProtoMessage() {}
+
+func (x *DockerDeploymentGitSourceDto) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use DockerDeploymentGitSourceDto.ProtoReflect.Descriptor instead.
+func (*DockerDeploymentGitSourceDto) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *DockerDeploymentGitSourceDto) GetRepoUrl() string {
+	if x != nil {
+		return x.RepoUrl
+	}
+	return ""
+}
+
+func (x *DockerDeploymentGitSourceDto) GetBranch() string {
+	if x != nil {
+		return x.Branch
+	}
+	return ""
+}
+
+func (x *DockerDeploymentGitSourceDto) GetSha() string {
+	if x != nil && x.Sha != nil {
+		return *x.Sha
+	}
+	return ""
+}
+
+func (x *DockerDeploymentGitSourceDto) GetWithBuild() bool {
+	if x != nil && x.WithBuild != nil {
+		return *x.WithBuild
+	}
+	return false
+}
+
+func (x *DockerDeploymentGitSourceDto) GetBuild() *DockerDeploymentBuildConfigDto {
+	if x != nil {
+		return x.Build
+	}
+	return nil
+}
+
 type DockerDeploymentDto struct {
-	state            protoimpl.MessageState     `protogen:"open.v1"`
-	Image            string                     `protobuf:"bytes,1,opt,name=image,proto3" json:"image,omitempty"`
-	RegistryId       *string                    `protobuf:"bytes,2,opt,name=registry_id,json=registryId,proto3,oneof" json:"registry_id,omitempty"`
-	Runtime          string                     `protobuf:"bytes,3,opt,name=runtime,proto3" json:"runtime,omitempty"`
-	Command          *string                    `protobuf:"bytes,4,opt,name=command,proto3,oneof" json:"command,omitempty"`
-	Args             *string                    `protobuf:"bytes,5,opt,name=args,proto3,oneof" json:"args,omitempty"`
-	Env              *string                    `protobuf:"bytes,6,opt,name=env,proto3,oneof" json:"env,omitempty"`
-	WithProjectEnv   *bool                      `protobuf:"varint,7,opt,name=with_project_env,json=withProjectEnv,proto3,oneof" json:"with_project_env,omitempty"`
-	IsPrivate        *bool                      `protobuf:"varint,8,opt,name=is_private,json=isPrivate,proto3,oneof" json:"is_private,omitempty"`
-	IsPrivileged     *bool                      `protobuf:"varint,9,opt,name=is_privileged,json=isPrivileged,proto3,oneof" json:"is_privileged,omitempty"`
-	Plan             string                     `protobuf:"bytes,10,opt,name=plan,proto3" json:"plan,omitempty"`
-	RegionsList      *DeploymentRegionList      `protobuf:"bytes,11,opt,name=regions_list,json=regionsList,proto3,oneof" json:"regions_list,omitempty"`
-	PortsList        *DeploymentPortList        `protobuf:"bytes,12,opt,name=ports_list,json=portsList,proto3,oneof" json:"ports_list,omitempty"`
-	FilesList        *DeploymentFileList        `protobuf:"bytes,13,opt,name=files_list,json=filesList,proto3,oneof" json:"files_list,omitempty"`
-	VolumesList      *DeploymentVolumeList      `protobuf:"bytes,14,opt,name=volumes_list,json=volumesList,proto3,oneof" json:"volumes_list,omitempty"`
-	HealthChecksList *DeploymentHealthCheckList `protobuf:"bytes,15,opt,name=health_checks_list,json=healthChecksList,proto3,oneof" json:"health_checks_list,omitempty"`
+	state      protoimpl.MessageState `protogen:"open.v1"`
+	SourceType string                 `protobuf:"bytes,1,opt,name=source_type,json=sourceType,proto3" json:"source_type,omitempty"`
+	// Types that are valid to be assigned to Source:
+	//
+	//	*DockerDeploymentDto_Image
+	//	*DockerDeploymentDto_Git
+	Source           isDockerDeploymentDto_Source `protobuf_oneof:"source"`
+	Runtime          string                       `protobuf:"bytes,4,opt,name=runtime,proto3" json:"runtime,omitempty"`
+	Command          *string                      `protobuf:"bytes,5,opt,name=command,proto3,oneof" json:"command,omitempty"`
+	Args             *string                      `protobuf:"bytes,6,opt,name=args,proto3,oneof" json:"args,omitempty"`
+	Env              *string                      `protobuf:"bytes,7,opt,name=env,proto3,oneof" json:"env,omitempty"`
+	WithProjectEnv   *bool                        `protobuf:"varint,8,opt,name=with_project_env,json=withProjectEnv,proto3,oneof" json:"with_project_env,omitempty"`
+	IsPrivate        *bool                        `protobuf:"varint,9,opt,name=is_private,json=isPrivate,proto3,oneof" json:"is_private,omitempty"`
+	IsPrivileged     *bool                        `protobuf:"varint,10,opt,name=is_privileged,json=isPrivileged,proto3,oneof" json:"is_privileged,omitempty"`
+	Plan             string                       `protobuf:"bytes,11,opt,name=plan,proto3" json:"plan,omitempty"`
+	RegionsList      *DeploymentRegionList        `protobuf:"bytes,12,opt,name=regions_list,json=regionsList,proto3,oneof" json:"regions_list,omitempty"`
+	PortsList        *DeploymentPortList          `protobuf:"bytes,13,opt,name=ports_list,json=portsList,proto3,oneof" json:"ports_list,omitempty"`
+	FilesList        *DeploymentFileList          `protobuf:"bytes,14,opt,name=files_list,json=filesList,proto3,oneof" json:"files_list,omitempty"`
+	VolumesList      *DeploymentVolumeList        `protobuf:"bytes,15,opt,name=volumes_list,json=volumesList,proto3,oneof" json:"volumes_list,omitempty"`
+	HealthChecksList *DeploymentHealthCheckList   `protobuf:"bytes,16,opt,name=health_checks_list,json=healthChecksList,proto3,oneof" json:"health_checks_list,omitempty"`
 	unknownFields    protoimpl.UnknownFields
 	sizeCache        protoimpl.SizeCache
 }
 
 func (x *DockerDeploymentDto) Reset() {
 	*x = DockerDeploymentDto{}
-	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[10]
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -616,7 +808,7 @@ func (x *DockerDeploymentDto) String() string {
 func (*DockerDeploymentDto) ProtoMessage() {}
 
 func (x *DockerDeploymentDto) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[10]
+	mi := &file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -629,21 +821,39 @@ func (x *DockerDeploymentDto) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DockerDeploymentDto.ProtoReflect.Descriptor instead.
 func (*DockerDeploymentDto) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{10}
+	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{13}
 }
 
-func (x *DockerDeploymentDto) GetImage() string {
+func (x *DockerDeploymentDto) GetSourceType() string {
 	if x != nil {
-		return x.Image
+		return x.SourceType
 	}
 	return ""
 }
 
-func (x *DockerDeploymentDto) GetRegistryId() string {
-	if x != nil && x.RegistryId != nil {
-		return *x.RegistryId
+func (x *DockerDeploymentDto) GetSource() isDockerDeploymentDto_Source {
+	if x != nil {
+		return x.Source
 	}
-	return ""
+	return nil
+}
+
+func (x *DockerDeploymentDto) GetImage() *DockerDeploymentImageSourceDto {
+	if x != nil {
+		if x, ok := x.Source.(*DockerDeploymentDto_Image); ok {
+			return x.Image
+		}
+	}
+	return nil
+}
+
+func (x *DockerDeploymentDto) GetGit() *DockerDeploymentGitSourceDto {
+	if x != nil {
+		if x, ok := x.Source.(*DockerDeploymentDto_Git); ok {
+			return x.Git
+		}
+	}
+	return nil
 }
 
 func (x *DockerDeploymentDto) GetRuntime() string {
@@ -737,6 +947,22 @@ func (x *DockerDeploymentDto) GetHealthChecksList() *DeploymentHealthCheckList {
 	return nil
 }
 
+type isDockerDeploymentDto_Source interface {
+	isDockerDeploymentDto_Source()
+}
+
+type DockerDeploymentDto_Image struct {
+	Image *DockerDeploymentImageSourceDto `protobuf:"bytes,2,opt,name=image,proto3,oneof"`
+}
+
+type DockerDeploymentDto_Git struct {
+	Git *DockerDeploymentGitSourceDto `protobuf:"bytes,3,opt,name=git,proto3,oneof"`
+}
+
+func (*DockerDeploymentDto_Image) isDockerDeploymentDto_Source() {}
+
+func (*DockerDeploymentDto_Git) isDockerDeploymentDto_Source() {}
+
 var File_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto protoreflect.FileDescriptor
 
 const file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDesc = "" +
@@ -781,30 +1007,53 @@ const file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDesc
 	"\x12DeploymentFileList\x12M\n" +
 	"\x05files\x18\x01 \x03(\v27.pyrite.v1.services.v1.deployments.v1.DeploymentFileDtoR\x05files\"k\n" +
 	"\x14DeploymentVolumeList\x12S\n" +
-	"\avolumes\x18\x01 \x03(\v29.pyrite.v1.services.v1.deployments.v1.DeploymentVolumeDtoR\avolumes\"\xfd\a\n" +
-	"\x13DockerDeploymentDto\x12\x14\n" +
-	"\x05image\x18\x01 \x01(\tR\x05image\x12$\n" +
+	"\avolumes\x18\x01 \x03(\v29.pyrite.v1.services.v1.deployments.v1.DeploymentVolumeDtoR\avolumes\"h\n" +
+	"\x1eDockerDeploymentImageSourceDto\x12\x10\n" +
+	"\x03ref\x18\x01 \x01(\tR\x03ref\x12$\n" +
 	"\vregistry_id\x18\x02 \x01(\tH\x00R\n" +
-	"registryId\x88\x01\x01\x12\x18\n" +
-	"\aruntime\x18\x03 \x01(\tR\aruntime\x12\x1d\n" +
-	"\acommand\x18\x04 \x01(\tH\x01R\acommand\x88\x01\x01\x12\x17\n" +
-	"\x04args\x18\x05 \x01(\tH\x02R\x04args\x88\x01\x01\x12\x15\n" +
-	"\x03env\x18\x06 \x01(\tH\x03R\x03env\x88\x01\x01\x12-\n" +
-	"\x10with_project_env\x18\a \x01(\bH\x04R\x0ewithProjectEnv\x88\x01\x01\x12\"\n" +
+	"registryId\x88\x01\x01B\x0e\n" +
+	"\f_registry_id\"\xa7\x01\n" +
+	"\x1eDockerDeploymentBuildConfigDto\x12\x18\n" +
+	"\abuilder\x18\x01 \x01(\tR\abuilder\x12\x1d\n" +
+	"\acontext\x18\x02 \x01(\tH\x00R\acontext\x88\x01\x01\x12,\n" +
+	"\x0fdockerfile_path\x18\x03 \x01(\tH\x01R\x0edockerfilePath\x88\x01\x01B\n" +
 	"\n" +
-	"is_private\x18\b \x01(\bH\x05R\tisPrivate\x88\x01\x01\x12(\n" +
-	"\ris_privileged\x18\t \x01(\bH\x06R\fisPrivileged\x88\x01\x01\x12\x12\n" +
-	"\x04plan\x18\n" +
-	" \x01(\tR\x04plan\x12b\n" +
-	"\fregions_list\x18\v \x01(\v2:.pyrite.v1.services.v1.deployments.v1.DeploymentRegionListH\aR\vregionsList\x88\x01\x01\x12\\\n" +
+	"\b_contextB\x12\n" +
+	"\x10_dockerfile_path\"\x8e\x02\n" +
+	"\x1cDockerDeploymentGitSourceDto\x12\x19\n" +
+	"\brepo_url\x18\x01 \x01(\tR\arepoUrl\x12\x16\n" +
+	"\x06branch\x18\x02 \x01(\tR\x06branch\x12\x15\n" +
+	"\x03sha\x18\x03 \x01(\tH\x00R\x03sha\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"ports_list\x18\f \x01(\v28.pyrite.v1.services.v1.deployments.v1.DeploymentPortListH\bR\tportsList\x88\x01\x01\x12\\\n" +
+	"with_build\x18\x04 \x01(\bH\x01R\twithBuild\x88\x01\x01\x12_\n" +
+	"\x05build\x18\x05 \x01(\v2D.pyrite.v1.services.v1.deployments.v1.DockerDeploymentBuildConfigDtoH\x02R\x05build\x88\x01\x01B\x06\n" +
+	"\x04_shaB\r\n" +
+	"\v_with_buildB\b\n" +
+	"\x06_build\"\x92\t\n" +
+	"\x13DockerDeploymentDto\x12\x1f\n" +
+	"\vsource_type\x18\x01 \x01(\tR\n" +
+	"sourceType\x12\\\n" +
+	"\x05image\x18\x02 \x01(\v2D.pyrite.v1.services.v1.deployments.v1.DockerDeploymentImageSourceDtoH\x00R\x05image\x12V\n" +
+	"\x03git\x18\x03 \x01(\v2B.pyrite.v1.services.v1.deployments.v1.DockerDeploymentGitSourceDtoH\x00R\x03git\x12\x18\n" +
+	"\aruntime\x18\x04 \x01(\tR\aruntime\x12\x1d\n" +
+	"\acommand\x18\x05 \x01(\tH\x01R\acommand\x88\x01\x01\x12\x17\n" +
+	"\x04args\x18\x06 \x01(\tH\x02R\x04args\x88\x01\x01\x12\x15\n" +
+	"\x03env\x18\a \x01(\tH\x03R\x03env\x88\x01\x01\x12-\n" +
+	"\x10with_project_env\x18\b \x01(\bH\x04R\x0ewithProjectEnv\x88\x01\x01\x12\"\n" +
 	"\n" +
-	"files_list\x18\r \x01(\v28.pyrite.v1.services.v1.deployments.v1.DeploymentFileListH\tR\tfilesList\x88\x01\x01\x12b\n" +
-	"\fvolumes_list\x18\x0e \x01(\v2:.pyrite.v1.services.v1.deployments.v1.DeploymentVolumeListH\n" +
+	"is_private\x18\t \x01(\bH\x05R\tisPrivate\x88\x01\x01\x12(\n" +
+	"\ris_privileged\x18\n" +
+	" \x01(\bH\x06R\fisPrivileged\x88\x01\x01\x12\x12\n" +
+	"\x04plan\x18\v \x01(\tR\x04plan\x12b\n" +
+	"\fregions_list\x18\f \x01(\v2:.pyrite.v1.services.v1.deployments.v1.DeploymentRegionListH\aR\vregionsList\x88\x01\x01\x12\\\n" +
+	"\n" +
+	"ports_list\x18\r \x01(\v28.pyrite.v1.services.v1.deployments.v1.DeploymentPortListH\bR\tportsList\x88\x01\x01\x12\\\n" +
+	"\n" +
+	"files_list\x18\x0e \x01(\v28.pyrite.v1.services.v1.deployments.v1.DeploymentFileListH\tR\tfilesList\x88\x01\x01\x12b\n" +
+	"\fvolumes_list\x18\x0f \x01(\v2:.pyrite.v1.services.v1.deployments.v1.DeploymentVolumeListH\n" +
 	"R\vvolumesList\x88\x01\x01\x12r\n" +
-	"\x12health_checks_list\x18\x0f \x01(\v2?.pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckListH\vR\x10healthChecksList\x88\x01\x01B\x0e\n" +
-	"\f_registry_idB\n" +
+	"\x12health_checks_list\x18\x10 \x01(\v2?.pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckListH\vR\x10healthChecksList\x88\x01\x01B\b\n" +
+	"\x06sourceB\n" +
 	"\n" +
 	"\b_commandB\a\n" +
 	"\x05_argsB\x06\n" +
@@ -831,19 +1080,22 @@ func file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescG
 	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescData
 }
 
-var file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes = make([]protoimpl.MessageInfo, 11)
+var file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_goTypes = []any{
-	(*DeploymentRegionDto)(nil),       // 0: pyrite.v1.services.v1.deployments.v1.DeploymentRegionDto
-	(*DeploymentRegionList)(nil),      // 1: pyrite.v1.services.v1.deployments.v1.DeploymentRegionList
-	(*DeploymentPortDto)(nil),         // 2: pyrite.v1.services.v1.deployments.v1.DeploymentPortDto
-	(*DeploymentPortList)(nil),        // 3: pyrite.v1.services.v1.deployments.v1.DeploymentPortList
-	(*DeploymentHealthCheckDto)(nil),  // 4: pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckDto
-	(*DeploymentHealthCheckList)(nil), // 5: pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckList
-	(*DeploymentFileDto)(nil),         // 6: pyrite.v1.services.v1.deployments.v1.DeploymentFileDto
-	(*DeploymentVolumeDto)(nil),       // 7: pyrite.v1.services.v1.deployments.v1.DeploymentVolumeDto
-	(*DeploymentFileList)(nil),        // 8: pyrite.v1.services.v1.deployments.v1.DeploymentFileList
-	(*DeploymentVolumeList)(nil),      // 9: pyrite.v1.services.v1.deployments.v1.DeploymentVolumeList
-	(*DockerDeploymentDto)(nil),       // 10: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto
+	(*DeploymentRegionDto)(nil),            // 0: pyrite.v1.services.v1.deployments.v1.DeploymentRegionDto
+	(*DeploymentRegionList)(nil),           // 1: pyrite.v1.services.v1.deployments.v1.DeploymentRegionList
+	(*DeploymentPortDto)(nil),              // 2: pyrite.v1.services.v1.deployments.v1.DeploymentPortDto
+	(*DeploymentPortList)(nil),             // 3: pyrite.v1.services.v1.deployments.v1.DeploymentPortList
+	(*DeploymentHealthCheckDto)(nil),       // 4: pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckDto
+	(*DeploymentHealthCheckList)(nil),      // 5: pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckList
+	(*DeploymentFileDto)(nil),              // 6: pyrite.v1.services.v1.deployments.v1.DeploymentFileDto
+	(*DeploymentVolumeDto)(nil),            // 7: pyrite.v1.services.v1.deployments.v1.DeploymentVolumeDto
+	(*DeploymentFileList)(nil),             // 8: pyrite.v1.services.v1.deployments.v1.DeploymentFileList
+	(*DeploymentVolumeList)(nil),           // 9: pyrite.v1.services.v1.deployments.v1.DeploymentVolumeList
+	(*DockerDeploymentImageSourceDto)(nil), // 10: pyrite.v1.services.v1.deployments.v1.DockerDeploymentImageSourceDto
+	(*DockerDeploymentBuildConfigDto)(nil), // 11: pyrite.v1.services.v1.deployments.v1.DockerDeploymentBuildConfigDto
+	(*DockerDeploymentGitSourceDto)(nil),   // 12: pyrite.v1.services.v1.deployments.v1.DockerDeploymentGitSourceDto
+	(*DockerDeploymentDto)(nil),            // 13: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto
 }
 var file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_depIdxs = []int32{
 	0,  // 0: pyrite.v1.services.v1.deployments.v1.DeploymentRegionList.regions:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentRegionDto
@@ -851,16 +1103,19 @@ var file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_depIdxs =
 	4,  // 2: pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckList.health_checks:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckDto
 	6,  // 3: pyrite.v1.services.v1.deployments.v1.DeploymentFileList.files:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentFileDto
 	7,  // 4: pyrite.v1.services.v1.deployments.v1.DeploymentVolumeList.volumes:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentVolumeDto
-	1,  // 5: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.regions_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentRegionList
-	3,  // 6: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.ports_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentPortList
-	8,  // 7: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.files_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentFileList
-	9,  // 8: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.volumes_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentVolumeList
-	5,  // 9: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.health_checks_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckList
-	10, // [10:10] is the sub-list for method output_type
-	10, // [10:10] is the sub-list for method input_type
-	10, // [10:10] is the sub-list for extension type_name
-	10, // [10:10] is the sub-list for extension extendee
-	0,  // [0:10] is the sub-list for field type_name
+	11, // 5: pyrite.v1.services.v1.deployments.v1.DockerDeploymentGitSourceDto.build:type_name -> pyrite.v1.services.v1.deployments.v1.DockerDeploymentBuildConfigDto
+	10, // 6: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.image:type_name -> pyrite.v1.services.v1.deployments.v1.DockerDeploymentImageSourceDto
+	12, // 7: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.git:type_name -> pyrite.v1.services.v1.deployments.v1.DockerDeploymentGitSourceDto
+	1,  // 8: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.regions_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentRegionList
+	3,  // 9: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.ports_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentPortList
+	8,  // 10: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.files_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentFileList
+	9,  // 11: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.volumes_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentVolumeList
+	5,  // 12: pyrite.v1.services.v1.deployments.v1.DockerDeploymentDto.health_checks_list:type_name -> pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckList
+	13, // [13:13] is the sub-list for method output_type
+	13, // [13:13] is the sub-list for method input_type
+	13, // [13:13] is the sub-list for extension type_name
+	13, // [13:13] is the sub-list for extension extendee
+	0,  // [0:13] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_init() }
@@ -872,13 +1127,19 @@ func file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_init() {
 	file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[6].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[7].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[10].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[11].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[12].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_msgTypes[13].OneofWrappers = []any{
+		(*DockerDeploymentDto_Image)(nil),
+		(*DockerDeploymentDto_Git)(nil),
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDesc), len(file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   11,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   0,
 		},

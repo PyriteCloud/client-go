@@ -46,6 +46,9 @@ const (
 	// MiscServiceFindAllRuntimesProcedure is the fully-qualified name of the MiscService's
 	// FindAllRuntimes RPC.
 	MiscServiceFindAllRuntimesProcedure = "/pyrite.v1.misc.v1.MiscService/FindAllRuntimes"
+	// MiscServiceFindAllBuildersProcedure is the fully-qualified name of the MiscService's
+	// FindAllBuilders RPC.
+	MiscServiceFindAllBuildersProcedure = "/pyrite.v1.misc.v1.MiscService/FindAllBuilders"
 	// MiscServiceFindAllRegionsProcedure is the fully-qualified name of the MiscService's
 	// FindAllRegions RPC.
 	MiscServiceFindAllRegionsProcedure = "/pyrite.v1.misc.v1.MiscService/FindAllRegions"
@@ -66,6 +69,7 @@ type MiscServiceClient interface {
 	FindAllProtocols(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
 	FindAllRoles(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
 	FindAllRuntimes(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
+	FindAllBuilders(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
 	FindAllRegions(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Regions], error)
 	FindAllPlans(context.Context, *connect.Request[v11.PlansByServiceType]) (*connect.Response[v11.Plans], error)
 	FindAllTeamSubscriptions(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.TeamSubscriptions], error)
@@ -107,6 +111,12 @@ func NewMiscServiceClient(httpClient connect.HTTPClient, baseURL string, opts ..
 			connect.WithSchema(miscServiceMethods.ByName("FindAllRuntimes")),
 			connect.WithClientOptions(opts...),
 		),
+		findAllBuilders: connect.NewClient[v1.Empty, v11.Items](
+			httpClient,
+			baseURL+MiscServiceFindAllBuildersProcedure,
+			connect.WithSchema(miscServiceMethods.ByName("FindAllBuilders")),
+			connect.WithClientOptions(opts...),
+		),
 		findAllRegions: connect.NewClient[v1.Empty, v11.Regions](
 			httpClient,
 			baseURL+MiscServiceFindAllRegionsProcedure,
@@ -140,6 +150,7 @@ type miscServiceClient struct {
 	findAllProtocols         *connect.Client[v1.Empty, v11.Items]
 	findAllRoles             *connect.Client[v1.Empty, v11.Items]
 	findAllRuntimes          *connect.Client[v1.Empty, v11.Items]
+	findAllBuilders          *connect.Client[v1.Empty, v11.Items]
 	findAllRegions           *connect.Client[v1.Empty, v11.Regions]
 	findAllPlans             *connect.Client[v11.PlansByServiceType, v11.Plans]
 	findAllTeamSubscriptions *connect.Client[v1.Empty, v11.TeamSubscriptions]
@@ -164,6 +175,11 @@ func (c *miscServiceClient) FindAllRoles(ctx context.Context, req *connect.Reque
 // FindAllRuntimes calls pyrite.v1.misc.v1.MiscService.FindAllRuntimes.
 func (c *miscServiceClient) FindAllRuntimes(ctx context.Context, req *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error) {
 	return c.findAllRuntimes.CallUnary(ctx, req)
+}
+
+// FindAllBuilders calls pyrite.v1.misc.v1.MiscService.FindAllBuilders.
+func (c *miscServiceClient) FindAllBuilders(ctx context.Context, req *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error) {
+	return c.findAllBuilders.CallUnary(ctx, req)
 }
 
 // FindAllRegions calls pyrite.v1.misc.v1.MiscService.FindAllRegions.
@@ -192,6 +208,7 @@ type MiscServiceHandler interface {
 	FindAllProtocols(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
 	FindAllRoles(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
 	FindAllRuntimes(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
+	FindAllBuilders(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error)
 	FindAllRegions(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Regions], error)
 	FindAllPlans(context.Context, *connect.Request[v11.PlansByServiceType]) (*connect.Response[v11.Plans], error)
 	FindAllTeamSubscriptions(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.TeamSubscriptions], error)
@@ -229,6 +246,12 @@ func NewMiscServiceHandler(svc MiscServiceHandler, opts ...connect.HandlerOption
 		connect.WithSchema(miscServiceMethods.ByName("FindAllRuntimes")),
 		connect.WithHandlerOptions(opts...),
 	)
+	miscServiceFindAllBuildersHandler := connect.NewUnaryHandler(
+		MiscServiceFindAllBuildersProcedure,
+		svc.FindAllBuilders,
+		connect.WithSchema(miscServiceMethods.ByName("FindAllBuilders")),
+		connect.WithHandlerOptions(opts...),
+	)
 	miscServiceFindAllRegionsHandler := connect.NewUnaryHandler(
 		MiscServiceFindAllRegionsProcedure,
 		svc.FindAllRegions,
@@ -263,6 +286,8 @@ func NewMiscServiceHandler(svc MiscServiceHandler, opts ...connect.HandlerOption
 			miscServiceFindAllRolesHandler.ServeHTTP(w, r)
 		case MiscServiceFindAllRuntimesProcedure:
 			miscServiceFindAllRuntimesHandler.ServeHTTP(w, r)
+		case MiscServiceFindAllBuildersProcedure:
+			miscServiceFindAllBuildersHandler.ServeHTTP(w, r)
 		case MiscServiceFindAllRegionsProcedure:
 			miscServiceFindAllRegionsHandler.ServeHTTP(w, r)
 		case MiscServiceFindAllPlansProcedure:
@@ -294,6 +319,10 @@ func (UnimplementedMiscServiceHandler) FindAllRoles(context.Context, *connect.Re
 
 func (UnimplementedMiscServiceHandler) FindAllRuntimes(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error) {
 	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.misc.v1.MiscService.FindAllRuntimes is not implemented"))
+}
+
+func (UnimplementedMiscServiceHandler) FindAllBuilders(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Items], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.misc.v1.MiscService.FindAllBuilders is not implemented"))
 }
 
 func (UnimplementedMiscServiceHandler) FindAllRegions(context.Context, *connect.Request[v1.Empty]) (*connect.Response[v11.Regions], error) {

@@ -7,8 +7,9 @@
 package servicesv1
 
 import (
-	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/common/v1"
-	v11 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/deployments/v1"
+	v1 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/common/v1"
+	v11 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/common/v1"
+	v12 "github.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1/deployments/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -31,6 +32,9 @@ type ServiceEnvironmentByTeamIdOrProjectIdOrServiceId struct {
 	//	*ServiceEnvironmentByTeamIdOrProjectIdOrServiceId_ProjectId
 	//	*ServiceEnvironmentByTeamIdOrProjectIdOrServiceId_ServiceId
 	Id            isServiceEnvironmentByTeamIdOrProjectIdOrServiceId_Id `protobuf_oneof:"id"`
+	Status        *int32                                                `protobuf:"varint,4,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Search        *string                                               `protobuf:"bytes,5,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v1.CursorPagination                                  `protobuf:"bytes,6,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -99,6 +103,27 @@ func (x *ServiceEnvironmentByTeamIdOrProjectIdOrServiceId) GetServiceId() string
 	return ""
 }
 
+func (x *ServiceEnvironmentByTeamIdOrProjectIdOrServiceId) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+func (x *ServiceEnvironmentByTeamIdOrProjectIdOrServiceId) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
+}
+
+func (x *ServiceEnvironmentByTeamIdOrProjectIdOrServiceId) GetPagination() *v1.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
+}
+
 type isServiceEnvironmentByTeamIdOrProjectIdOrServiceId_Id interface {
 	isServiceEnvironmentByTeamIdOrProjectIdOrServiceId_Id()
 }
@@ -127,6 +152,9 @@ func (*ServiceEnvironmentByTeamIdOrProjectIdOrServiceId_ServiceId) isServiceEnvi
 type ServiceEnvironmentById struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Status        *int32                 `protobuf:"varint,2,opt,name=status,proto3,oneof" json:"status,omitempty"`
+	Search        *string                `protobuf:"bytes,3,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v1.CursorPagination   `protobuf:"bytes,4,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -166,6 +194,27 @@ func (x *ServiceEnvironmentById) GetId() string {
 		return x.Id
 	}
 	return ""
+}
+
+func (x *ServiceEnvironmentById) GetStatus() int32 {
+	if x != nil && x.Status != nil {
+		return *x.Status
+	}
+	return 0
+}
+
+func (x *ServiceEnvironmentById) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
+}
+
+func (x *ServiceEnvironmentById) GetPagination() *v1.CursorPagination {
+	if x != nil {
+		return x.Pagination
+	}
+	return nil
 }
 
 type ServiceEnvironmentByIdWithDeploymentId struct {
@@ -612,16 +661,32 @@ var File_pyrite_v1_services_v1_service_environment_proto protoreflect.FileDescri
 
 const file_pyrite_v1_services_v1_service_environment_proto_rawDesc = "" +
 	"\n" +
-	"/pyrite/v1/services/v1/service_environment.proto\x12\x15pyrite.v1.services.v1\x1a,pyrite/v1/services/v1/common/v1/common.proto\x1a6pyrite/v1/services/v1/deployments/v1/deployments.proto\"\x95\x01\n" +
+	"/pyrite/v1/services/v1/service_environment.proto\x12\x15pyrite.v1.services.v1\x1a pyrite/v1/common/v1/common.proto\x1a,pyrite/v1/services/v1/common/v1/common.proto\x1a6pyrite/v1/services/v1/deployments/v1/deployments.proto\"\xc0\x02\n" +
 	"0ServiceEnvironmentByTeamIdOrProjectIdOrServiceId\x12\x19\n" +
 	"\ateam_id\x18\x01 \x01(\tH\x00R\x06teamId\x12\x1f\n" +
 	"\n" +
 	"project_id\x18\x02 \x01(\tH\x00R\tprojectId\x12\x1f\n" +
 	"\n" +
-	"service_id\x18\x03 \x01(\tH\x00R\tserviceIdB\x04\n" +
-	"\x02id\"(\n" +
+	"service_id\x18\x03 \x01(\tH\x00R\tserviceId\x12\x1b\n" +
+	"\x06status\x18\x04 \x01(\x05H\x01R\x06status\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x05 \x01(\tH\x02R\x06search\x88\x01\x01\x12J\n" +
+	"\n" +
+	"pagination\x18\x06 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x03R\n" +
+	"pagination\x88\x01\x01B\x04\n" +
+	"\x02idB\t\n" +
+	"\a_statusB\t\n" +
+	"\a_searchB\r\n" +
+	"\v_pagination\"\xd3\x01\n" +
 	"\x16ServiceEnvironmentById\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"t\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x1b\n" +
+	"\x06status\x18\x02 \x01(\x05H\x00R\x06status\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x03 \x01(\tH\x01R\x06search\x88\x01\x01\x12J\n" +
+	"\n" +
+	"pagination\x18\x04 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x02R\n" +
+	"pagination\x88\x01\x01B\t\n" +
+	"\a_statusB\t\n" +
+	"\a_searchB\r\n" +
+	"\v_pagination\"t\n" +
 	"&ServiceEnvironmentByIdWithDeploymentId\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12(\n" +
 	"\rdeployment_id\x18\x02 \x01(\tH\x00R\fdeploymentId\x88\x01\x01B\x10\n" +
@@ -691,43 +756,46 @@ var file_pyrite_v1_services_v1_service_environment_proto_goTypes = []any{
 	(*Pods)(nil),                                             // 7: pyrite.v1.services.v1.Pods
 	(*ServiceDetail)(nil),                                    // 8: pyrite.v1.services.v1.ServiceDetail
 	(*ServiceDetails)(nil),                                   // 9: pyrite.v1.services.v1.ServiceDetails
-	(*v1.ServiceEnvironments)(nil),                           // 10: pyrite.v1.services.v1.common.v1.ServiceEnvironments
-	(*v1.ServiceEnvironment)(nil),                            // 11: pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	(*v11.Deployments)(nil),                                  // 12: pyrite.v1.services.v1.deployments.v1.Deployments
+	(*v1.CursorPagination)(nil),                              // 10: pyrite.v1.common.v1.CursorPagination
+	(*v11.ServiceEnvironments)(nil),                          // 11: pyrite.v1.services.v1.common.v1.ServiceEnvironments
+	(*v11.ServiceEnvironment)(nil),                           // 12: pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	(*v12.Deployments)(nil),                                  // 13: pyrite.v1.services.v1.deployments.v1.Deployments
 }
 var file_pyrite_v1_services_v1_service_environment_proto_depIdxs = []int32{
-	5,  // 0: pyrite.v1.services.v1.RegionalPods.pods:type_name -> pyrite.v1.services.v1.Pod
-	6,  // 1: pyrite.v1.services.v1.Pods.regions:type_name -> pyrite.v1.services.v1.RegionalPods
-	8,  // 2: pyrite.v1.services.v1.ServiceDetails.details:type_name -> pyrite.v1.services.v1.ServiceDetail
-	0,  // 3: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllServiceEnvironments:input_type -> pyrite.v1.services.v1.ServiceEnvironmentByTeamIdOrProjectIdOrServiceId
-	1,  // 4: pyrite.v1.services.v1.ServiceEnvironmentService.FindOneServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	3,  // 5: pyrite.v1.services.v1.ServiceEnvironmentService.CreateServiceEnvironment:input_type -> pyrite.v1.services.v1.CreateServiceEnvironmentDto
-	4,  // 6: pyrite.v1.services.v1.ServiceEnvironmentService.UpdateServiceEnvironment:input_type -> pyrite.v1.services.v1.UpdateServiceEnvironmentDto
-	1,  // 7: pyrite.v1.services.v1.ServiceEnvironmentService.DeleteServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	1,  // 8: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllDeployments:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	2,  // 9: pyrite.v1.services.v1.ServiceEnvironmentService.RedeployServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentByIdWithDeploymentId
-	1,  // 10: pyrite.v1.services.v1.ServiceEnvironmentService.PauseServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	1,  // 11: pyrite.v1.services.v1.ServiceEnvironmentService.ResumeServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	1,  // 12: pyrite.v1.services.v1.ServiceEnvironmentService.FindPodsForServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	1,  // 13: pyrite.v1.services.v1.ServiceEnvironmentService.FindDetailsForServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	1,  // 14: pyrite.v1.services.v1.ServiceEnvironmentService.SyncNetworkForServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
-	10, // 15: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllServiceEnvironments:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironments
-	11, // 16: pyrite.v1.services.v1.ServiceEnvironmentService.FindOneServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	11, // 17: pyrite.v1.services.v1.ServiceEnvironmentService.CreateServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	11, // 18: pyrite.v1.services.v1.ServiceEnvironmentService.UpdateServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	11, // 19: pyrite.v1.services.v1.ServiceEnvironmentService.DeleteServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	12, // 20: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllDeployments:output_type -> pyrite.v1.services.v1.deployments.v1.Deployments
-	11, // 21: pyrite.v1.services.v1.ServiceEnvironmentService.RedeployServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	11, // 22: pyrite.v1.services.v1.ServiceEnvironmentService.PauseServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	11, // 23: pyrite.v1.services.v1.ServiceEnvironmentService.ResumeServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	7,  // 24: pyrite.v1.services.v1.ServiceEnvironmentService.FindPodsForServiceEnvironment:output_type -> pyrite.v1.services.v1.Pods
-	9,  // 25: pyrite.v1.services.v1.ServiceEnvironmentService.FindDetailsForServiceEnvironment:output_type -> pyrite.v1.services.v1.ServiceDetails
-	11, // 26: pyrite.v1.services.v1.ServiceEnvironmentService.SyncNetworkForServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
-	15, // [15:27] is the sub-list for method output_type
-	3,  // [3:15] is the sub-list for method input_type
-	3,  // [3:3] is the sub-list for extension type_name
-	3,  // [3:3] is the sub-list for extension extendee
-	0,  // [0:3] is the sub-list for field type_name
+	10, // 0: pyrite.v1.services.v1.ServiceEnvironmentByTeamIdOrProjectIdOrServiceId.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	10, // 1: pyrite.v1.services.v1.ServiceEnvironmentById.pagination:type_name -> pyrite.v1.common.v1.CursorPagination
+	5,  // 2: pyrite.v1.services.v1.RegionalPods.pods:type_name -> pyrite.v1.services.v1.Pod
+	6,  // 3: pyrite.v1.services.v1.Pods.regions:type_name -> pyrite.v1.services.v1.RegionalPods
+	8,  // 4: pyrite.v1.services.v1.ServiceDetails.details:type_name -> pyrite.v1.services.v1.ServiceDetail
+	0,  // 5: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllServiceEnvironments:input_type -> pyrite.v1.services.v1.ServiceEnvironmentByTeamIdOrProjectIdOrServiceId
+	1,  // 6: pyrite.v1.services.v1.ServiceEnvironmentService.FindOneServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	3,  // 7: pyrite.v1.services.v1.ServiceEnvironmentService.CreateServiceEnvironment:input_type -> pyrite.v1.services.v1.CreateServiceEnvironmentDto
+	4,  // 8: pyrite.v1.services.v1.ServiceEnvironmentService.UpdateServiceEnvironment:input_type -> pyrite.v1.services.v1.UpdateServiceEnvironmentDto
+	1,  // 9: pyrite.v1.services.v1.ServiceEnvironmentService.DeleteServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	1,  // 10: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllDeployments:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	2,  // 11: pyrite.v1.services.v1.ServiceEnvironmentService.RedeployServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentByIdWithDeploymentId
+	1,  // 12: pyrite.v1.services.v1.ServiceEnvironmentService.PauseServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	1,  // 13: pyrite.v1.services.v1.ServiceEnvironmentService.ResumeServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	1,  // 14: pyrite.v1.services.v1.ServiceEnvironmentService.FindPodsForServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	1,  // 15: pyrite.v1.services.v1.ServiceEnvironmentService.FindDetailsForServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	1,  // 16: pyrite.v1.services.v1.ServiceEnvironmentService.SyncNetworkForServiceEnvironment:input_type -> pyrite.v1.services.v1.ServiceEnvironmentById
+	11, // 17: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllServiceEnvironments:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironments
+	12, // 18: pyrite.v1.services.v1.ServiceEnvironmentService.FindOneServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	12, // 19: pyrite.v1.services.v1.ServiceEnvironmentService.CreateServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	12, // 20: pyrite.v1.services.v1.ServiceEnvironmentService.UpdateServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	12, // 21: pyrite.v1.services.v1.ServiceEnvironmentService.DeleteServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	13, // 22: pyrite.v1.services.v1.ServiceEnvironmentService.FindAllDeployments:output_type -> pyrite.v1.services.v1.deployments.v1.Deployments
+	12, // 23: pyrite.v1.services.v1.ServiceEnvironmentService.RedeployServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	12, // 24: pyrite.v1.services.v1.ServiceEnvironmentService.PauseServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	12, // 25: pyrite.v1.services.v1.ServiceEnvironmentService.ResumeServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	7,  // 26: pyrite.v1.services.v1.ServiceEnvironmentService.FindPodsForServiceEnvironment:output_type -> pyrite.v1.services.v1.Pods
+	9,  // 27: pyrite.v1.services.v1.ServiceEnvironmentService.FindDetailsForServiceEnvironment:output_type -> pyrite.v1.services.v1.ServiceDetails
+	12, // 28: pyrite.v1.services.v1.ServiceEnvironmentService.SyncNetworkForServiceEnvironment:output_type -> pyrite.v1.services.v1.common.v1.ServiceEnvironment
+	17, // [17:29] is the sub-list for method output_type
+	5,  // [5:17] is the sub-list for method input_type
+	5,  // [5:5] is the sub-list for extension type_name
+	5,  // [5:5] is the sub-list for extension extendee
+	0,  // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_services_v1_service_environment_proto_init() }
@@ -740,6 +808,7 @@ func file_pyrite_v1_services_v1_service_environment_proto_init() {
 		(*ServiceEnvironmentByTeamIdOrProjectIdOrServiceId_ProjectId)(nil),
 		(*ServiceEnvironmentByTeamIdOrProjectIdOrServiceId_ServiceId)(nil),
 	}
+	file_pyrite_v1_services_v1_service_environment_proto_msgTypes[1].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_service_environment_proto_msgTypes[2].OneofWrappers = []any{}
 	file_pyrite_v1_services_v1_service_environment_proto_msgTypes[6].OneofWrappers = []any{}
 	type x struct{}

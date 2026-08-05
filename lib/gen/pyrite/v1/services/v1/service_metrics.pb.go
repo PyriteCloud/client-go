@@ -21,23 +21,102 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type ServiceMetricsFilter struct {
-	state                  protoimpl.MessageState `protogen:"open.v1"`
-	ServiceEnvironmentId   string                 `protobuf:"bytes,1,opt,name=service_environment_id,json=serviceEnvironmentId,proto3" json:"service_environment_id,omitempty"`
-	DeploymentId           *string                `protobuf:"bytes,2,opt,name=deployment_id,json=deploymentId,proto3,oneof" json:"deployment_id,omitempty"`
-	Region                 *string                `protobuf:"bytes,3,opt,name=region,proto3,oneof" json:"region,omitempty"`
-	PercentageMode         *bool                  `protobuf:"varint,4,opt,name=percentage_mode,json=percentageMode,proto3,oneof" json:"percentage_mode,omitempty"`
-	StartDate              string                 `protobuf:"bytes,5,opt,name=start_date,json=startDate,proto3" json:"start_date,omitempty"`
-	EndDate                string                 `protobuf:"bytes,6,opt,name=end_date,json=endDate,proto3" json:"end_date,omitempty"`
-	AveragingWindowSeconds int32                  `protobuf:"varint,7,opt,name=averaging_window_seconds,json=averagingWindowSeconds,proto3" json:"averaging_window_seconds,omitempty"`
-	StepSeconds            int32                  `protobuf:"varint,8,opt,name=step_seconds,json=stepSeconds,proto3" json:"step_seconds,omitempty"`
+type ServiceMetricsRequest struct {
+	state                  protoimpl.MessageState   `protogen:"open.v1"`
+	From                   string                   `protobuf:"bytes,1,opt,name=from,proto3" json:"from,omitempty"`
+	To                     string                   `protobuf:"bytes,2,opt,name=to,proto3" json:"to,omitempty"`
+	AveragingWindowSeconds uint32                   `protobuf:"varint,3,opt,name=averaging_window_seconds,json=averagingWindowSeconds,proto3" json:"averaging_window_seconds,omitempty"`
+	StepSeconds            uint32                   `protobuf:"varint,4,opt,name=step_seconds,json=stepSeconds,proto3" json:"step_seconds,omitempty"`
+	Filter                 *ServiceMetricsFilter    `protobuf:"bytes,5,opt,name=filter,proto3" json:"filter,omitempty"`
+	Metrics                []*ServiceMetricSelector `protobuf:"bytes,6,rep,name=metrics,proto3" json:"metrics,omitempty"`
 	unknownFields          protoimpl.UnknownFields
 	sizeCache              protoimpl.SizeCache
 }
 
+func (x *ServiceMetricsRequest) Reset() {
+	*x = ServiceMetricsRequest{}
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceMetricsRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceMetricsRequest) ProtoMessage() {}
+
+func (x *ServiceMetricsRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceMetricsRequest.ProtoReflect.Descriptor instead.
+func (*ServiceMetricsRequest) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *ServiceMetricsRequest) GetFrom() string {
+	if x != nil {
+		return x.From
+	}
+	return ""
+}
+
+func (x *ServiceMetricsRequest) GetTo() string {
+	if x != nil {
+		return x.To
+	}
+	return ""
+}
+
+func (x *ServiceMetricsRequest) GetAveragingWindowSeconds() uint32 {
+	if x != nil {
+		return x.AveragingWindowSeconds
+	}
+	return 0
+}
+
+func (x *ServiceMetricsRequest) GetStepSeconds() uint32 {
+	if x != nil {
+		return x.StepSeconds
+	}
+	return 0
+}
+
+func (x *ServiceMetricsRequest) GetFilter() *ServiceMetricsFilter {
+	if x != nil {
+		return x.Filter
+	}
+	return nil
+}
+
+func (x *ServiceMetricsRequest) GetMetrics() []*ServiceMetricSelector {
+	if x != nil {
+		return x.Metrics
+	}
+	return nil
+}
+
+type ServiceMetricsFilter struct {
+	state                protoimpl.MessageState `protogen:"open.v1"`
+	ServiceEnvironmentId string                 `protobuf:"bytes,1,opt,name=service_environment_id,json=serviceEnvironmentId,proto3" json:"service_environment_id,omitempty"`
+	DeploymentId         *string                `protobuf:"bytes,2,opt,name=deployment_id,json=deploymentId,proto3,oneof" json:"deployment_id,omitempty"`
+	Region               *string                `protobuf:"bytes,3,opt,name=region,proto3,oneof" json:"region,omitempty"`
+	unknownFields        protoimpl.UnknownFields
+	sizeCache            protoimpl.SizeCache
+}
+
 func (x *ServiceMetricsFilter) Reset() {
 	*x = ServiceMetricsFilter{}
-	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[0]
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -49,7 +128,7 @@ func (x *ServiceMetricsFilter) String() string {
 func (*ServiceMetricsFilter) ProtoMessage() {}
 
 func (x *ServiceMetricsFilter) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[0]
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -62,7 +141,7 @@ func (x *ServiceMetricsFilter) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceMetricsFilter.ProtoReflect.Descriptor instead.
 func (*ServiceMetricsFilter) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{0}
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{1}
 }
 
 func (x *ServiceMetricsFilter) GetServiceEnvironmentId() string {
@@ -86,64 +165,30 @@ func (x *ServiceMetricsFilter) GetRegion() string {
 	return ""
 }
 
-func (x *ServiceMetricsFilter) GetPercentageMode() bool {
-	if x != nil && x.PercentageMode != nil {
-		return *x.PercentageMode
-	}
-	return false
-}
-
-func (x *ServiceMetricsFilter) GetStartDate() string {
-	if x != nil {
-		return x.StartDate
-	}
-	return ""
-}
-
-func (x *ServiceMetricsFilter) GetEndDate() string {
-	if x != nil {
-		return x.EndDate
-	}
-	return ""
-}
-
-func (x *ServiceMetricsFilter) GetAveragingWindowSeconds() int32 {
-	if x != nil {
-		return x.AveragingWindowSeconds
-	}
-	return 0
-}
-
-func (x *ServiceMetricsFilter) GetStepSeconds() int32 {
-	if x != nil {
-		return x.StepSeconds
-	}
-	return 0
-}
-
-type ServiceMetric struct {
+type ServiceMetricSelector struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Time          string                 `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
-	Value         float64                `protobuf:"fixed64,2,opt,name=value,proto3" json:"value,omitempty"`
+	Metric        string                 `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
+	Scope         *string                `protobuf:"bytes,2,opt,name=scope,proto3,oneof" json:"scope,omitempty"`
+	Series        []string               `protobuf:"bytes,3,rep,name=series,proto3" json:"series,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ServiceMetric) Reset() {
-	*x = ServiceMetric{}
-	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[1]
+func (x *ServiceMetricSelector) Reset() {
+	*x = ServiceMetricSelector{}
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ServiceMetric) String() string {
+func (x *ServiceMetricSelector) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ServiceMetric) ProtoMessage() {}
+func (*ServiceMetricSelector) ProtoMessage() {}
 
-func (x *ServiceMetric) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[1]
+func (x *ServiceMetricSelector) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -154,35 +199,42 @@ func (x *ServiceMetric) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ServiceMetric.ProtoReflect.Descriptor instead.
-func (*ServiceMetric) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use ServiceMetricSelector.ProtoReflect.Descriptor instead.
+func (*ServiceMetricSelector) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{2}
 }
 
-func (x *ServiceMetric) GetTime() string {
+func (x *ServiceMetricSelector) GetMetric() string {
 	if x != nil {
-		return x.Time
+		return x.Metric
 	}
 	return ""
 }
 
-func (x *ServiceMetric) GetValue() float64 {
-	if x != nil {
-		return x.Value
+func (x *ServiceMetricSelector) GetScope() string {
+	if x != nil && x.Scope != nil {
+		return *x.Scope
 	}
-	return 0
+	return ""
+}
+
+func (x *ServiceMetricSelector) GetSeries() []string {
+	if x != nil {
+		return x.Series
+	}
+	return nil
 }
 
 type ServiceMetrics struct {
-	state          protoimpl.MessageState `protogen:"open.v1"`
-	ServiceMetrics []*ServiceMetric       `protobuf:"bytes,1,rep,name=service_metrics,json=serviceMetrics,proto3" json:"service_metrics,omitempty"`
-	unknownFields  protoimpl.UnknownFields
-	sizeCache      protoimpl.SizeCache
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Metrics       []*ServiceMetric       `protobuf:"bytes,1,rep,name=metrics,proto3" json:"metrics,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
 }
 
 func (x *ServiceMetrics) Reset() {
 	*x = ServiceMetrics{}
-	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[2]
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -194,7 +246,7 @@ func (x *ServiceMetrics) String() string {
 func (*ServiceMetrics) ProtoMessage() {}
 
 func (x *ServiceMetrics) ProtoReflect() protoreflect.Message {
-	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[2]
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -207,44 +259,227 @@ func (x *ServiceMetrics) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ServiceMetrics.ProtoReflect.Descriptor instead.
 func (*ServiceMetrics) Descriptor() ([]byte, []int) {
-	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{2}
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *ServiceMetrics) GetServiceMetrics() []*ServiceMetric {
+func (x *ServiceMetrics) GetMetrics() []*ServiceMetric {
 	if x != nil {
-		return x.ServiceMetrics
+		return x.Metrics
 	}
 	return nil
+}
+
+type ServiceMetric struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Metric        string                 `protobuf:"bytes,1,opt,name=metric,proto3" json:"metric,omitempty"`
+	Unit          string                 `protobuf:"bytes,2,opt,name=unit,proto3" json:"unit,omitempty"`
+	Scope         *string                `protobuf:"bytes,3,opt,name=scope,proto3,oneof" json:"scope,omitempty"`
+	Series        []*ServiceMetricSeries `protobuf:"bytes,4,rep,name=series,proto3" json:"series,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServiceMetric) Reset() {
+	*x = ServiceMetric{}
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceMetric) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceMetric) ProtoMessage() {}
+
+func (x *ServiceMetric) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceMetric.ProtoReflect.Descriptor instead.
+func (*ServiceMetric) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *ServiceMetric) GetMetric() string {
+	if x != nil {
+		return x.Metric
+	}
+	return ""
+}
+
+func (x *ServiceMetric) GetUnit() string {
+	if x != nil {
+		return x.Unit
+	}
+	return ""
+}
+
+func (x *ServiceMetric) GetScope() string {
+	if x != nil && x.Scope != nil {
+		return *x.Scope
+	}
+	return ""
+}
+
+func (x *ServiceMetric) GetSeries() []*ServiceMetricSeries {
+	if x != nil {
+		return x.Series
+	}
+	return nil
+}
+
+type ServiceMetricSeries struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Series        string                 `protobuf:"bytes,1,opt,name=series,proto3" json:"series,omitempty"`
+	Values        []*ServiceMetricValue  `protobuf:"bytes,2,rep,name=values,proto3" json:"values,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServiceMetricSeries) Reset() {
+	*x = ServiceMetricSeries{}
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[5]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceMetricSeries) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceMetricSeries) ProtoMessage() {}
+
+func (x *ServiceMetricSeries) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[5]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceMetricSeries.ProtoReflect.Descriptor instead.
+func (*ServiceMetricSeries) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{5}
+}
+
+func (x *ServiceMetricSeries) GetSeries() string {
+	if x != nil {
+		return x.Series
+	}
+	return ""
+}
+
+func (x *ServiceMetricSeries) GetValues() []*ServiceMetricValue {
+	if x != nil {
+		return x.Values
+	}
+	return nil
+}
+
+type ServiceMetricValue struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Time          string                 `protobuf:"bytes,1,opt,name=time,proto3" json:"time,omitempty"`
+	Value         float64                `protobuf:"fixed64,2,opt,name=value,proto3" json:"value,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *ServiceMetricValue) Reset() {
+	*x = ServiceMetricValue{}
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[6]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *ServiceMetricValue) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*ServiceMetricValue) ProtoMessage() {}
+
+func (x *ServiceMetricValue) ProtoReflect() protoreflect.Message {
+	mi := &file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[6]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use ServiceMetricValue.ProtoReflect.Descriptor instead.
+func (*ServiceMetricValue) Descriptor() ([]byte, []int) {
+	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *ServiceMetricValue) GetTime() string {
+	if x != nil {
+		return x.Time
+	}
+	return ""
+}
+
+func (x *ServiceMetricValue) GetValue() float64 {
+	if x != nil {
+		return x.Value
+	}
+	return 0
 }
 
 var File_pyrite_v1_services_v1_service_metrics_proto protoreflect.FileDescriptor
 
 const file_pyrite_v1_services_v1_service_metrics_proto_rawDesc = "" +
 	"\n" +
-	"+pyrite/v1/services/v1/service_metrics.proto\x12\x15pyrite.v1.services.v1\"\x89\x03\n" +
+	"+pyrite/v1/services/v1/service_metrics.proto\x12\x15pyrite.v1.services.v1\"\xa5\x02\n" +
+	"\x15ServiceMetricsRequest\x12\x12\n" +
+	"\x04from\x18\x01 \x01(\tR\x04from\x12\x0e\n" +
+	"\x02to\x18\x02 \x01(\tR\x02to\x128\n" +
+	"\x18averaging_window_seconds\x18\x03 \x01(\rR\x16averagingWindowSeconds\x12!\n" +
+	"\fstep_seconds\x18\x04 \x01(\rR\vstepSeconds\x12C\n" +
+	"\x06filter\x18\x05 \x01(\v2+.pyrite.v1.services.v1.ServiceMetricsFilterR\x06filter\x12F\n" +
+	"\ametrics\x18\x06 \x03(\v2,.pyrite.v1.services.v1.ServiceMetricSelectorR\ametrics\"\xb0\x01\n" +
 	"\x14ServiceMetricsFilter\x124\n" +
 	"\x16service_environment_id\x18\x01 \x01(\tR\x14serviceEnvironmentId\x12(\n" +
 	"\rdeployment_id\x18\x02 \x01(\tH\x00R\fdeploymentId\x88\x01\x01\x12\x1b\n" +
-	"\x06region\x18\x03 \x01(\tH\x01R\x06region\x88\x01\x01\x12,\n" +
-	"\x0fpercentage_mode\x18\x04 \x01(\bH\x02R\x0epercentageMode\x88\x01\x01\x12\x1d\n" +
-	"\n" +
-	"start_date\x18\x05 \x01(\tR\tstartDate\x12\x19\n" +
-	"\bend_date\x18\x06 \x01(\tR\aendDate\x128\n" +
-	"\x18averaging_window_seconds\x18\a \x01(\x05R\x16averagingWindowSeconds\x12!\n" +
-	"\fstep_seconds\x18\b \x01(\x05R\vstepSecondsB\x10\n" +
+	"\x06region\x18\x03 \x01(\tH\x01R\x06region\x88\x01\x01B\x10\n" +
 	"\x0e_deployment_idB\t\n" +
-	"\a_regionB\x12\n" +
-	"\x10_percentage_mode\"9\n" +
-	"\rServiceMetric\x12\x12\n" +
+	"\a_region\"l\n" +
+	"\x15ServiceMetricSelector\x12\x16\n" +
+	"\x06metric\x18\x01 \x01(\tR\x06metric\x12\x19\n" +
+	"\x05scope\x18\x02 \x01(\tH\x00R\x05scope\x88\x01\x01\x12\x16\n" +
+	"\x06series\x18\x03 \x03(\tR\x06seriesB\b\n" +
+	"\x06_scope\"P\n" +
+	"\x0eServiceMetrics\x12>\n" +
+	"\ametrics\x18\x01 \x03(\v2$.pyrite.v1.services.v1.ServiceMetricR\ametrics\"\xa4\x01\n" +
+	"\rServiceMetric\x12\x16\n" +
+	"\x06metric\x18\x01 \x01(\tR\x06metric\x12\x12\n" +
+	"\x04unit\x18\x02 \x01(\tR\x04unit\x12\x19\n" +
+	"\x05scope\x18\x03 \x01(\tH\x00R\x05scope\x88\x01\x01\x12B\n" +
+	"\x06series\x18\x04 \x03(\v2*.pyrite.v1.services.v1.ServiceMetricSeriesR\x06seriesB\b\n" +
+	"\x06_scope\"p\n" +
+	"\x13ServiceMetricSeries\x12\x16\n" +
+	"\x06series\x18\x01 \x01(\tR\x06series\x12A\n" +
+	"\x06values\x18\x02 \x03(\v2).pyrite.v1.services.v1.ServiceMetricValueR\x06values\">\n" +
+	"\x12ServiceMetricValue\x12\x12\n" +
 	"\x04time\x18\x01 \x01(\tR\x04time\x12\x14\n" +
-	"\x05value\x18\x02 \x01(\x01R\x05value\"_\n" +
-	"\x0eServiceMetrics\x12M\n" +
-	"\x0fservice_metrics\x18\x01 \x03(\v2$.pyrite.v1.services.v1.ServiceMetricR\x0eserviceMetrics2\xda\x03\n" +
-	"\x15ServiceMetricsService\x12l\n" +
-	"\x16FindAllCPUUsageMetrics\x12+.pyrite.v1.services.v1.ServiceMetricsFilter\x1a%.pyrite.v1.services.v1.ServiceMetrics\x12o\n" +
-	"\x19FindAllMemoryUsageMetrics\x12+.pyrite.v1.services.v1.ServiceMetricsFilter\x1a%.pyrite.v1.services.v1.ServiceMetrics\x12p\n" +
-	"\x1aFindAllNetworkUsageMetrics\x12+.pyrite.v1.services.v1.ServiceMetricsFilter\x1a%.pyrite.v1.services.v1.ServiceMetrics\x12p\n" +
-	"\x1aFindAllReplicaCountMetrics\x12+.pyrite.v1.services.v1.ServiceMetricsFilter\x1a%.pyrite.v1.services.v1.ServiceMetricsB\xf2\x01\n" +
+	"\x05value\x18\x02 \x01(\x01R\x05value2~\n" +
+	"\x15ServiceMetricsService\x12e\n" +
+	"\x0eFindAllMetrics\x12,.pyrite.v1.services.v1.ServiceMetricsRequest\x1a%.pyrite.v1.services.v1.ServiceMetricsB\xf2\x01\n" +
 	"\x19com.pyrite.v1.services.v1B\x13ServiceMetricsProtoP\x01ZIgithub.com/PyriteCloud/client-go/lib/gen/pyrite/v1/services/v1;servicesv1\xa2\x02\x03PVS\xaa\x02\x15Pyrite.V1.Services.V1\xca\x02\x15Pyrite\\V1\\Services\\V1\xe2\x02!Pyrite\\V1\\Services\\V1\\GPBMetadata\xea\x02\x18Pyrite::V1::Services::V1b\x06proto3"
 
 var (
@@ -259,27 +494,29 @@ func file_pyrite_v1_services_v1_service_metrics_proto_rawDescGZIP() []byte {
 	return file_pyrite_v1_services_v1_service_metrics_proto_rawDescData
 }
 
-var file_pyrite_v1_services_v1_service_metrics_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
+var file_pyrite_v1_services_v1_service_metrics_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_pyrite_v1_services_v1_service_metrics_proto_goTypes = []any{
-	(*ServiceMetricsFilter)(nil), // 0: pyrite.v1.services.v1.ServiceMetricsFilter
-	(*ServiceMetric)(nil),        // 1: pyrite.v1.services.v1.ServiceMetric
-	(*ServiceMetrics)(nil),       // 2: pyrite.v1.services.v1.ServiceMetrics
+	(*ServiceMetricsRequest)(nil), // 0: pyrite.v1.services.v1.ServiceMetricsRequest
+	(*ServiceMetricsFilter)(nil),  // 1: pyrite.v1.services.v1.ServiceMetricsFilter
+	(*ServiceMetricSelector)(nil), // 2: pyrite.v1.services.v1.ServiceMetricSelector
+	(*ServiceMetrics)(nil),        // 3: pyrite.v1.services.v1.ServiceMetrics
+	(*ServiceMetric)(nil),         // 4: pyrite.v1.services.v1.ServiceMetric
+	(*ServiceMetricSeries)(nil),   // 5: pyrite.v1.services.v1.ServiceMetricSeries
+	(*ServiceMetricValue)(nil),    // 6: pyrite.v1.services.v1.ServiceMetricValue
 }
 var file_pyrite_v1_services_v1_service_metrics_proto_depIdxs = []int32{
-	1, // 0: pyrite.v1.services.v1.ServiceMetrics.service_metrics:type_name -> pyrite.v1.services.v1.ServiceMetric
-	0, // 1: pyrite.v1.services.v1.ServiceMetricsService.FindAllCPUUsageMetrics:input_type -> pyrite.v1.services.v1.ServiceMetricsFilter
-	0, // 2: pyrite.v1.services.v1.ServiceMetricsService.FindAllMemoryUsageMetrics:input_type -> pyrite.v1.services.v1.ServiceMetricsFilter
-	0, // 3: pyrite.v1.services.v1.ServiceMetricsService.FindAllNetworkUsageMetrics:input_type -> pyrite.v1.services.v1.ServiceMetricsFilter
-	0, // 4: pyrite.v1.services.v1.ServiceMetricsService.FindAllReplicaCountMetrics:input_type -> pyrite.v1.services.v1.ServiceMetricsFilter
-	2, // 5: pyrite.v1.services.v1.ServiceMetricsService.FindAllCPUUsageMetrics:output_type -> pyrite.v1.services.v1.ServiceMetrics
-	2, // 6: pyrite.v1.services.v1.ServiceMetricsService.FindAllMemoryUsageMetrics:output_type -> pyrite.v1.services.v1.ServiceMetrics
-	2, // 7: pyrite.v1.services.v1.ServiceMetricsService.FindAllNetworkUsageMetrics:output_type -> pyrite.v1.services.v1.ServiceMetrics
-	2, // 8: pyrite.v1.services.v1.ServiceMetricsService.FindAllReplicaCountMetrics:output_type -> pyrite.v1.services.v1.ServiceMetrics
-	5, // [5:9] is the sub-list for method output_type
-	1, // [1:5] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	1, // 0: pyrite.v1.services.v1.ServiceMetricsRequest.filter:type_name -> pyrite.v1.services.v1.ServiceMetricsFilter
+	2, // 1: pyrite.v1.services.v1.ServiceMetricsRequest.metrics:type_name -> pyrite.v1.services.v1.ServiceMetricSelector
+	4, // 2: pyrite.v1.services.v1.ServiceMetrics.metrics:type_name -> pyrite.v1.services.v1.ServiceMetric
+	5, // 3: pyrite.v1.services.v1.ServiceMetric.series:type_name -> pyrite.v1.services.v1.ServiceMetricSeries
+	6, // 4: pyrite.v1.services.v1.ServiceMetricSeries.values:type_name -> pyrite.v1.services.v1.ServiceMetricValue
+	0, // 5: pyrite.v1.services.v1.ServiceMetricsService.FindAllMetrics:input_type -> pyrite.v1.services.v1.ServiceMetricsRequest
+	3, // 6: pyrite.v1.services.v1.ServiceMetricsService.FindAllMetrics:output_type -> pyrite.v1.services.v1.ServiceMetrics
+	6, // [6:7] is the sub-list for method output_type
+	5, // [5:6] is the sub-list for method input_type
+	5, // [5:5] is the sub-list for extension type_name
+	5, // [5:5] is the sub-list for extension extendee
+	0, // [0:5] is the sub-list for field type_name
 }
 
 func init() { file_pyrite_v1_services_v1_service_metrics_proto_init() }
@@ -287,14 +524,16 @@ func file_pyrite_v1_services_v1_service_metrics_proto_init() {
 	if File_pyrite_v1_services_v1_service_metrics_proto != nil {
 		return
 	}
-	file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[0].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[1].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[2].OneofWrappers = []any{}
+	file_pyrite_v1_services_v1_service_metrics_proto_msgTypes[4].OneofWrappers = []any{}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_pyrite_v1_services_v1_service_metrics_proto_rawDesc), len(file_pyrite_v1_services_v1_service_metrics_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   3,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

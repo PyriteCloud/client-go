@@ -33,27 +33,15 @@ const (
 // reflection-formatted method names, remove the leading slash and convert the remaining slash to a
 // period.
 const (
-	// ServiceMetricsServiceFindAllCPUUsageMetricsProcedure is the fully-qualified name of the
-	// ServiceMetricsService's FindAllCPUUsageMetrics RPC.
-	ServiceMetricsServiceFindAllCPUUsageMetricsProcedure = "/pyrite.v1.services.v1.ServiceMetricsService/FindAllCPUUsageMetrics"
-	// ServiceMetricsServiceFindAllMemoryUsageMetricsProcedure is the fully-qualified name of the
-	// ServiceMetricsService's FindAllMemoryUsageMetrics RPC.
-	ServiceMetricsServiceFindAllMemoryUsageMetricsProcedure = "/pyrite.v1.services.v1.ServiceMetricsService/FindAllMemoryUsageMetrics"
-	// ServiceMetricsServiceFindAllNetworkUsageMetricsProcedure is the fully-qualified name of the
-	// ServiceMetricsService's FindAllNetworkUsageMetrics RPC.
-	ServiceMetricsServiceFindAllNetworkUsageMetricsProcedure = "/pyrite.v1.services.v1.ServiceMetricsService/FindAllNetworkUsageMetrics"
-	// ServiceMetricsServiceFindAllReplicaCountMetricsProcedure is the fully-qualified name of the
-	// ServiceMetricsService's FindAllReplicaCountMetrics RPC.
-	ServiceMetricsServiceFindAllReplicaCountMetricsProcedure = "/pyrite.v1.services.v1.ServiceMetricsService/FindAllReplicaCountMetrics"
+	// ServiceMetricsServiceFindAllMetricsProcedure is the fully-qualified name of the
+	// ServiceMetricsService's FindAllMetrics RPC.
+	ServiceMetricsServiceFindAllMetricsProcedure = "/pyrite.v1.services.v1.ServiceMetricsService/FindAllMetrics"
 )
 
 // ServiceMetricsServiceClient is a client for the pyrite.v1.services.v1.ServiceMetricsService
 // service.
 type ServiceMetricsServiceClient interface {
-	FindAllCPUUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
-	FindAllMemoryUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
-	FindAllNetworkUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
-	FindAllReplicaCountMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
+	FindAllMetrics(context.Context, *connect.Request[v1.ServiceMetricsRequest]) (*connect.Response[v1.ServiceMetrics], error)
 }
 
 // NewServiceMetricsServiceClient constructs a client for the
@@ -68,28 +56,10 @@ func NewServiceMetricsServiceClient(httpClient connect.HTTPClient, baseURL strin
 	baseURL = strings.TrimRight(baseURL, "/")
 	serviceMetricsServiceMethods := v1.File_pyrite_v1_services_v1_service_metrics_proto.Services().ByName("ServiceMetricsService").Methods()
 	return &serviceMetricsServiceClient{
-		findAllCPUUsageMetrics: connect.NewClient[v1.ServiceMetricsFilter, v1.ServiceMetrics](
+		findAllMetrics: connect.NewClient[v1.ServiceMetricsRequest, v1.ServiceMetrics](
 			httpClient,
-			baseURL+ServiceMetricsServiceFindAllCPUUsageMetricsProcedure,
-			connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllCPUUsageMetrics")),
-			connect.WithClientOptions(opts...),
-		),
-		findAllMemoryUsageMetrics: connect.NewClient[v1.ServiceMetricsFilter, v1.ServiceMetrics](
-			httpClient,
-			baseURL+ServiceMetricsServiceFindAllMemoryUsageMetricsProcedure,
-			connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllMemoryUsageMetrics")),
-			connect.WithClientOptions(opts...),
-		),
-		findAllNetworkUsageMetrics: connect.NewClient[v1.ServiceMetricsFilter, v1.ServiceMetrics](
-			httpClient,
-			baseURL+ServiceMetricsServiceFindAllNetworkUsageMetricsProcedure,
-			connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllNetworkUsageMetrics")),
-			connect.WithClientOptions(opts...),
-		),
-		findAllReplicaCountMetrics: connect.NewClient[v1.ServiceMetricsFilter, v1.ServiceMetrics](
-			httpClient,
-			baseURL+ServiceMetricsServiceFindAllReplicaCountMetricsProcedure,
-			connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllReplicaCountMetrics")),
+			baseURL+ServiceMetricsServiceFindAllMetricsProcedure,
+			connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllMetrics")),
 			connect.WithClientOptions(opts...),
 		),
 	}
@@ -97,42 +67,18 @@ func NewServiceMetricsServiceClient(httpClient connect.HTTPClient, baseURL strin
 
 // serviceMetricsServiceClient implements ServiceMetricsServiceClient.
 type serviceMetricsServiceClient struct {
-	findAllCPUUsageMetrics     *connect.Client[v1.ServiceMetricsFilter, v1.ServiceMetrics]
-	findAllMemoryUsageMetrics  *connect.Client[v1.ServiceMetricsFilter, v1.ServiceMetrics]
-	findAllNetworkUsageMetrics *connect.Client[v1.ServiceMetricsFilter, v1.ServiceMetrics]
-	findAllReplicaCountMetrics *connect.Client[v1.ServiceMetricsFilter, v1.ServiceMetrics]
+	findAllMetrics *connect.Client[v1.ServiceMetricsRequest, v1.ServiceMetrics]
 }
 
-// FindAllCPUUsageMetrics calls pyrite.v1.services.v1.ServiceMetricsService.FindAllCPUUsageMetrics.
-func (c *serviceMetricsServiceClient) FindAllCPUUsageMetrics(ctx context.Context, req *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return c.findAllCPUUsageMetrics.CallUnary(ctx, req)
-}
-
-// FindAllMemoryUsageMetrics calls
-// pyrite.v1.services.v1.ServiceMetricsService.FindAllMemoryUsageMetrics.
-func (c *serviceMetricsServiceClient) FindAllMemoryUsageMetrics(ctx context.Context, req *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return c.findAllMemoryUsageMetrics.CallUnary(ctx, req)
-}
-
-// FindAllNetworkUsageMetrics calls
-// pyrite.v1.services.v1.ServiceMetricsService.FindAllNetworkUsageMetrics.
-func (c *serviceMetricsServiceClient) FindAllNetworkUsageMetrics(ctx context.Context, req *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return c.findAllNetworkUsageMetrics.CallUnary(ctx, req)
-}
-
-// FindAllReplicaCountMetrics calls
-// pyrite.v1.services.v1.ServiceMetricsService.FindAllReplicaCountMetrics.
-func (c *serviceMetricsServiceClient) FindAllReplicaCountMetrics(ctx context.Context, req *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return c.findAllReplicaCountMetrics.CallUnary(ctx, req)
+// FindAllMetrics calls pyrite.v1.services.v1.ServiceMetricsService.FindAllMetrics.
+func (c *serviceMetricsServiceClient) FindAllMetrics(ctx context.Context, req *connect.Request[v1.ServiceMetricsRequest]) (*connect.Response[v1.ServiceMetrics], error) {
+	return c.findAllMetrics.CallUnary(ctx, req)
 }
 
 // ServiceMetricsServiceHandler is an implementation of the
 // pyrite.v1.services.v1.ServiceMetricsService service.
 type ServiceMetricsServiceHandler interface {
-	FindAllCPUUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
-	FindAllMemoryUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
-	FindAllNetworkUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
-	FindAllReplicaCountMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error)
+	FindAllMetrics(context.Context, *connect.Request[v1.ServiceMetricsRequest]) (*connect.Response[v1.ServiceMetrics], error)
 }
 
 // NewServiceMetricsServiceHandler builds an HTTP handler from the service implementation. It
@@ -142,40 +88,16 @@ type ServiceMetricsServiceHandler interface {
 // and JSON codecs. They also support gzip compression.
 func NewServiceMetricsServiceHandler(svc ServiceMetricsServiceHandler, opts ...connect.HandlerOption) (string, http.Handler) {
 	serviceMetricsServiceMethods := v1.File_pyrite_v1_services_v1_service_metrics_proto.Services().ByName("ServiceMetricsService").Methods()
-	serviceMetricsServiceFindAllCPUUsageMetricsHandler := connect.NewUnaryHandler(
-		ServiceMetricsServiceFindAllCPUUsageMetricsProcedure,
-		svc.FindAllCPUUsageMetrics,
-		connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllCPUUsageMetrics")),
-		connect.WithHandlerOptions(opts...),
-	)
-	serviceMetricsServiceFindAllMemoryUsageMetricsHandler := connect.NewUnaryHandler(
-		ServiceMetricsServiceFindAllMemoryUsageMetricsProcedure,
-		svc.FindAllMemoryUsageMetrics,
-		connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllMemoryUsageMetrics")),
-		connect.WithHandlerOptions(opts...),
-	)
-	serviceMetricsServiceFindAllNetworkUsageMetricsHandler := connect.NewUnaryHandler(
-		ServiceMetricsServiceFindAllNetworkUsageMetricsProcedure,
-		svc.FindAllNetworkUsageMetrics,
-		connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllNetworkUsageMetrics")),
-		connect.WithHandlerOptions(opts...),
-	)
-	serviceMetricsServiceFindAllReplicaCountMetricsHandler := connect.NewUnaryHandler(
-		ServiceMetricsServiceFindAllReplicaCountMetricsProcedure,
-		svc.FindAllReplicaCountMetrics,
-		connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllReplicaCountMetrics")),
+	serviceMetricsServiceFindAllMetricsHandler := connect.NewUnaryHandler(
+		ServiceMetricsServiceFindAllMetricsProcedure,
+		svc.FindAllMetrics,
+		connect.WithSchema(serviceMetricsServiceMethods.ByName("FindAllMetrics")),
 		connect.WithHandlerOptions(opts...),
 	)
 	return "/pyrite.v1.services.v1.ServiceMetricsService/", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		switch r.URL.Path {
-		case ServiceMetricsServiceFindAllCPUUsageMetricsProcedure:
-			serviceMetricsServiceFindAllCPUUsageMetricsHandler.ServeHTTP(w, r)
-		case ServiceMetricsServiceFindAllMemoryUsageMetricsProcedure:
-			serviceMetricsServiceFindAllMemoryUsageMetricsHandler.ServeHTTP(w, r)
-		case ServiceMetricsServiceFindAllNetworkUsageMetricsProcedure:
-			serviceMetricsServiceFindAllNetworkUsageMetricsHandler.ServeHTTP(w, r)
-		case ServiceMetricsServiceFindAllReplicaCountMetricsProcedure:
-			serviceMetricsServiceFindAllReplicaCountMetricsHandler.ServeHTTP(w, r)
+		case ServiceMetricsServiceFindAllMetricsProcedure:
+			serviceMetricsServiceFindAllMetricsHandler.ServeHTTP(w, r)
 		default:
 			http.NotFound(w, r)
 		}
@@ -185,18 +107,6 @@ func NewServiceMetricsServiceHandler(svc ServiceMetricsServiceHandler, opts ...c
 // UnimplementedServiceMetricsServiceHandler returns CodeUnimplemented from all methods.
 type UnimplementedServiceMetricsServiceHandler struct{}
 
-func (UnimplementedServiceMetricsServiceHandler) FindAllCPUUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServiceMetricsService.FindAllCPUUsageMetrics is not implemented"))
-}
-
-func (UnimplementedServiceMetricsServiceHandler) FindAllMemoryUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServiceMetricsService.FindAllMemoryUsageMetrics is not implemented"))
-}
-
-func (UnimplementedServiceMetricsServiceHandler) FindAllNetworkUsageMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServiceMetricsService.FindAllNetworkUsageMetrics is not implemented"))
-}
-
-func (UnimplementedServiceMetricsServiceHandler) FindAllReplicaCountMetrics(context.Context, *connect.Request[v1.ServiceMetricsFilter]) (*connect.Response[v1.ServiceMetrics], error) {
-	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServiceMetricsService.FindAllReplicaCountMetrics is not implemented"))
+func (UnimplementedServiceMetricsServiceHandler) FindAllMetrics(context.Context, *connect.Request[v1.ServiceMetricsRequest]) (*connect.Response[v1.ServiceMetrics], error) {
+	return nil, connect.NewError(connect.CodeUnimplemented, errors.New("pyrite.v1.services.v1.ServiceMetricsService.FindAllMetrics is not implemented"))
 }
