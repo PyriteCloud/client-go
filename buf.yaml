@@ -2,6 +2,9 @@
 version: v2
 modules:
   - path: ./protos
+    excludes:
+      - ./protos/.github
+      - ./protos/.agents
 lint:
   use:
     - BASIC
