@@ -206,7 +206,8 @@ type ProjectsByTeamId struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	TeamId        *string                `protobuf:"bytes,1,opt,name=team_id,json=teamId,proto3,oneof" json:"team_id,omitempty"`
 	WithMeta      *bool                  `protobuf:"varint,2,opt,name=with_meta,json=withMeta,proto3,oneof" json:"with_meta,omitempty"`
-	Pagination    *v1.CursorPagination   `protobuf:"bytes,3,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
+	Search        *string                `protobuf:"bytes,3,opt,name=search,proto3,oneof" json:"search,omitempty"`
+	Pagination    *v1.CursorPagination   `protobuf:"bytes,4,opt,name=pagination,proto3,oneof" json:"pagination,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -253,6 +254,13 @@ func (x *ProjectsByTeamId) GetWithMeta() bool {
 		return *x.WithMeta
 	}
 	return false
+}
+
+func (x *ProjectsByTeamId) GetSearch() string {
+	if x != nil && x.Search != nil {
+		return *x.Search
+	}
+	return ""
 }
 
 func (x *ProjectsByTeamId) GetPagination() *v1.CursorPagination {
@@ -528,17 +536,19 @@ const file_pyrite_v1_projects_v1_projects_proto_rawDesc = "" +
 	"\fwith_secrets\x18\x03 \x01(\bH\x01R\vwithSecrets\x88\x01\x01B\f\n" +
 	"\n" +
 	"_with_metaB\x0f\n" +
-	"\r_with_secrets\"\xc7\x01\n" +
+	"\r_with_secrets\"\xef\x01\n" +
 	"\x10ProjectsByTeamId\x12\x1c\n" +
 	"\ateam_id\x18\x01 \x01(\tH\x00R\x06teamId\x88\x01\x01\x12 \n" +
-	"\twith_meta\x18\x02 \x01(\bH\x01R\bwithMeta\x88\x01\x01\x12J\n" +
+	"\twith_meta\x18\x02 \x01(\bH\x01R\bwithMeta\x88\x01\x01\x12\x1b\n" +
+	"\x06search\x18\x03 \x01(\tH\x02R\x06search\x88\x01\x01\x12J\n" +
 	"\n" +
-	"pagination\x18\x03 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x02R\n" +
+	"pagination\x18\x04 \x01(\v2%.pyrite.v1.common.v1.CursorPaginationH\x03R\n" +
 	"pagination\x88\x01\x01B\n" +
 	"\n" +
 	"\b_team_idB\f\n" +
 	"\n" +
-	"_with_metaB\r\n" +
+	"_with_metaB\t\n" +
+	"\a_searchB\r\n" +
 	"\v_pagination\"\xcd\x01\n" +
 	"\vProjectMeta\x12%\n" +
 	"\x0eservices_count\x18\x01 \x01(\x05R\rservicesCount\x12,\n" +

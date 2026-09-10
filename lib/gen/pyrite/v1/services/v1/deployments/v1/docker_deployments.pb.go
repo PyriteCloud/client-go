@@ -367,10 +367,9 @@ func (x *DeploymentHealthCheckList) GetHealthChecks() []*DeploymentHealthCheckDt
 
 type DeploymentFileDto struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	MountPath     string                 `protobuf:"bytes,2,opt,name=mount_path,json=mountPath,proto3" json:"mount_path,omitempty"`
-	Content       string                 `protobuf:"bytes,3,opt,name=content,proto3" json:"content,omitempty"`
-	Permissions   *string                `protobuf:"bytes,4,opt,name=permissions,proto3,oneof" json:"permissions,omitempty"`
+	MountPath     string                 `protobuf:"bytes,1,opt,name=mount_path,json=mountPath,proto3" json:"mount_path,omitempty"`
+	Content       string                 `protobuf:"bytes,2,opt,name=content,proto3" json:"content,omitempty"`
+	Permissions   *string                `protobuf:"bytes,3,opt,name=permissions,proto3,oneof" json:"permissions,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -405,13 +404,6 @@ func (*DeploymentFileDto) Descriptor() ([]byte, []int) {
 	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *DeploymentFileDto) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
-}
-
 func (x *DeploymentFileDto) GetMountPath() string {
 	if x != nil {
 		return x.MountPath
@@ -435,9 +427,8 @@ func (x *DeploymentFileDto) GetPermissions() string {
 
 type DeploymentVolumeDto struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	MountPath     string                 `protobuf:"bytes,2,opt,name=mount_path,json=mountPath,proto3" json:"mount_path,omitempty"`
-	TeamVolumeId  *string                `protobuf:"bytes,3,opt,name=team_volume_id,json=teamVolumeId,proto3,oneof" json:"team_volume_id,omitempty"`
+	MountPath     string                 `protobuf:"bytes,1,opt,name=mount_path,json=mountPath,proto3" json:"mount_path,omitempty"`
+	TeamVolumeId  *string                `protobuf:"bytes,2,opt,name=team_volume_id,json=teamVolumeId,proto3,oneof" json:"team_volume_id,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -470,13 +461,6 @@ func (x *DeploymentVolumeDto) ProtoReflect() protoreflect.Message {
 // Deprecated: Use DeploymentVolumeDto.ProtoReflect.Descriptor instead.
 func (*DeploymentVolumeDto) Descriptor() ([]byte, []int) {
 	return file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDescGZIP(), []int{7}
-}
-
-func (x *DeploymentVolumeDto) GetName() string {
-	if x != nil {
-		return x.Name
-	}
-	return ""
 }
 
 func (x *DeploymentVolumeDto) GetMountPath() string {
@@ -1004,19 +988,17 @@ const file_pyrite_v1_services_v1_deployments_v1_docker_deployments_proto_rawDesc
 	"\fmax_failures\x18\a \x01(\x05R\vmaxFailuresB\a\n" +
 	"\x05_path\"\x80\x01\n" +
 	"\x19DeploymentHealthCheckList\x12c\n" +
-	"\rhealth_checks\x18\x01 \x03(\v2>.pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckDtoR\fhealthChecks\"\x97\x01\n" +
-	"\x11DeploymentFileDto\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1d\n" +
+	"\rhealth_checks\x18\x01 \x03(\v2>.pyrite.v1.services.v1.deployments.v1.DeploymentHealthCheckDtoR\fhealthChecks\"\x83\x01\n" +
+	"\x11DeploymentFileDto\x12\x1d\n" +
 	"\n" +
-	"mount_path\x18\x02 \x01(\tR\tmountPath\x12\x18\n" +
-	"\acontent\x18\x03 \x01(\tR\acontent\x12%\n" +
-	"\vpermissions\x18\x04 \x01(\tH\x00R\vpermissions\x88\x01\x01B\x0e\n" +
-	"\f_permissions\"\x86\x01\n" +
-	"\x13DeploymentVolumeDto\x12\x12\n" +
-	"\x04name\x18\x01 \x01(\tR\x04name\x12\x1d\n" +
+	"mount_path\x18\x01 \x01(\tR\tmountPath\x12\x18\n" +
+	"\acontent\x18\x02 \x01(\tR\acontent\x12%\n" +
+	"\vpermissions\x18\x03 \x01(\tH\x00R\vpermissions\x88\x01\x01B\x0e\n" +
+	"\f_permissions\"r\n" +
+	"\x13DeploymentVolumeDto\x12\x1d\n" +
 	"\n" +
-	"mount_path\x18\x02 \x01(\tR\tmountPath\x12)\n" +
-	"\x0eteam_volume_id\x18\x03 \x01(\tH\x00R\fteamVolumeId\x88\x01\x01B\x11\n" +
+	"mount_path\x18\x01 \x01(\tR\tmountPath\x12)\n" +
+	"\x0eteam_volume_id\x18\x02 \x01(\tH\x00R\fteamVolumeId\x88\x01\x01B\x11\n" +
 	"\x0f_team_volume_id\"c\n" +
 	"\x12DeploymentFileList\x12M\n" +
 	"\x05files\x18\x01 \x03(\v27.pyrite.v1.services.v1.deployments.v1.DeploymentFileDtoR\x05files\"k\n" +
